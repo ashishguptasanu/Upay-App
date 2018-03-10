@@ -3,26 +3,52 @@ package volunteer.upay.com.upay.Activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.R;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity implements View.OnClickListener{
     OkHttpClient client = new OkHttpClient();
-
+    List<Centers> centerList = new ArrayList<>();
+    LinearLayout layoutSignIn, layoutSignUp;
+    TextView tvSignIn, tvSignUp;
+    Button btnSignIn, btnSignUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         getCenterDetails();
+        initViews();
+    }
+
+    private void initViews() {
+        layoutSignIn = findViewById(R.id.layout_sign_in);
+        layoutSignUp = findViewById(R.id.layout_sign_up);
+        tvSignIn = findViewById(R.id.tv_sign_in);
+        tvSignUp = findViewById(R.id.tv_sign_up);
+        btnSignIn = findViewById(R.id.btn_sign_in);
+        btnSignUp = findViewById(R.id.btn_sign_up);
+        tvSignIn.setOnClickListener(this);
+        tvSignUp.setOnClickListener(this);
+        btnSignIn.setOnClickListener(this);
+        btnSignUp.setOnClickListener(this);
     }
 
     private void getCenterDetails() {
@@ -44,45 +70,40 @@ public class SignInActivity extends AppCompatActivity {
 
                              if (response.isSuccessful()) {
                                  JSONObject obj = null;
-                                 /*try {
+                                 try {
                                      obj = new JSONObject(resp);
                                      JSONObject obj_response=obj.getJSONObject("Response");
                                      final JSONObject obj_status=obj_response.getJSONObject("status");
-                                     //
                                      final String msgFinal = obj_status.getString("type");
-                                     //final String msgDetail = obj_data.getString("message");
                                      if(Objects.equals(msgFinal, "Success")){
                                          final JSONObject obj_data=obj_response.getJSONObject("data");
-                                         if(obj_data.get("type") == "Success"){
-                                             progress.dismiss();
-                                             showToast("Successfully user added.");
-                                         }else{
-                                             progress.dismiss();
-                                             showToast(obj_data.getString("message"));
+                                         JSONArray center_array = obj_data.getJSONArray("centers");
+                                         for (int i=0; i<center_array.length(); i++) {
+                                            JSONObject centerObject = center_array.getJSONObject(i);
+                                            String center_name = centerObject.getString("center_name");
+                                             String center_id = centerObject.getString("center_id");
+                                             String center_address = centerObject.getString("center_address");
+                                             String zone_name = centerObject.getString("zone_name");
+                                             String zone_id = centerObject.getString("zone_id");
+                                             String center_head_phone = centerObject.getString("center_head_phone");
+                                             String center_head_name = centerObject.getString("center_head_name");
+                                             double latitude = centerObject.getDouble("latitude");
+                                             double longitude = centerObject.getDouble("longitude");
+                                             Centers centers = new Centers(center_name, center_id, zone_name, zone_id, latitude, longitude, center_head_name, center_head_phone, center_address);
+                                             centerList.add(centers);
                                          }
-
-                                     }else{
-                                         runOnUiThread(new Runnable() {
-                                             @Override
-                                             public void run() {
-                                                 progress.dismiss();
-
-                                                 try {
-                                                     showToast(obj_status.getString("message"));
-                                                 } catch (JSONException e) {
-                                                     e.printStackTrace();
-                                                 }
-                                             }
-                                         });
                                      }
                                  } catch (JSONException e) {
-                                     showToast("Something went wrong!");
-                                     progress.dismiss();
                                      e.printStackTrace();
-                                 }*/
+                                 }
                              }
                          }
                      }
         );
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
