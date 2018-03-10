@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Upay</string>
+    <string name="base_url">http://www.upay.org.in/api/v1.0</string>
+    <string name="token">d75542712c868c1690110db641ba01a</string>
+</resources>
