@@ -1,5 +1,6 @@
 package volunteer.upay.com.upay.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -104,6 +105,31 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.tv_sign_in:
+                if(layoutSignUp.getVisibility() == View.VISIBLE){
+                    layoutSignUp.setVisibility(View.GONE);
+                    layoutSignIn.setVisibility(View.VISIBLE);
+                }else if(layoutSignIn.getVisibility() == View.VISIBLE){
+                    layoutSignUp.setVisibility(View.VISIBLE);
+                    layoutSignIn.setVisibility(View.GONE);
+                }
+                break;
+            case R.id.tv_sign_up:
+                if(layoutSignUp.getVisibility() == View.VISIBLE){
+                    layoutSignUp.setVisibility(View.GONE);
+                    layoutSignIn.setVisibility(View.VISIBLE);
+                }else if(layoutSignIn.getVisibility() == View.VISIBLE){
+                    layoutSignUp.setVisibility(View.VISIBLE);
+                    layoutSignIn.setVisibility(View.GONE);
+                }
+                break;
+            case R.id.btn_sign_in:
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_sign_up:
+                break;
+        }
     }
 }
