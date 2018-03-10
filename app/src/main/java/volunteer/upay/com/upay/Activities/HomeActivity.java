@@ -3,6 +3,8 @@ package volunteer.upay.com.upay.Activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,11 +21,15 @@ import java.util.List;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.views.BannerSlider;
+import volunteer.upay.com.upay.Adapters.AdapterZones;
 import volunteer.upay.com.upay.R;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    RecyclerView recyclerView;
+    LinearLayoutManager linearLayoutManager;
+    AdapterZones adapterZones;
+    String[] zones = new String[]{"Nagpur", "Delhi","Gurgaon","Pune", "Mauda"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,14 +61,20 @@ public class HomeActivity extends AppCompatActivity
         BannerSlider bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
         List<Banner> banners=new ArrayList<>();
         //add banner using image url
-        banners.add(new RemoteBanner("http://upay.org.in/images/vinay/IMG_20170319_074547.jpg"));
+        banners.add(new RemoteBanner("http://upay.org.in/images/vinay/IMG_8480.JPG"));
         banners.add(new RemoteBanner("http://upay.org.in/images/vinay/IMG-20170813-WA0000.jpg"));
         banners.add(new RemoteBanner("http://upay.org.in/images/vinay/DSC_0194.JPG"));
-        banners.add(new RemoteBanner("http://upay.org.in/images/vinay/IMG_8480.JPG"));
+        banners.add(new RemoteBanner("http://upay.org.in/images/vinay/IMG_20170319_074547.jpg"));
         banners.add(new RemoteBanner("http://upay.org.in/images/vinay/IMG-20170926-WA0037.jpg"));
+
         //add banner using resource drawable
         //banners.add(new DrawableBanner(R.drawable.yourDrawable));
         bannerSlider.setBanners(banners);
+        recyclerView = (RecyclerView)findViewById(R.id.recycler_zones);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        adapterZones = new AdapterZones(getApplicationContext(), zones);
+        recyclerView.setAdapter(adapterZones);
     }
 
     @Override
