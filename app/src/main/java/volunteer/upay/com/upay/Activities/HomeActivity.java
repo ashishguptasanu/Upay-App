@@ -21,15 +21,22 @@ import java.util.List;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.views.BannerSlider;
+import volunteer.upay.com.upay.Adapters.AdapterCategories;
 import volunteer.upay.com.upay.Adapters.AdapterZones;
 import volunteer.upay.com.upay.R;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    RecyclerView recyclerView;
-    LinearLayoutManager linearLayoutManager;
+    RecyclerView recyclerView, recyclerViewCategories;
     AdapterZones adapterZones;
+    AdapterCategories adapterCategories;
     String[] zones = new String[]{"Nagpur", "Delhi","Gurgaon","Pune", "Mauda"};
+    String[] categories = new String[]{"Volunteers", "Students", "Centers", "Contacts"};
+    String[] categories_background = new String[]{
+            "http://192.168.0.101/volunteers.png",
+            "http://192.168.0.101/students.png",
+            "http://192.168.0.101/centers.png",
+            "http://192.168.0.101/contact.png"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +82,12 @@ public class HomeActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         adapterZones = new AdapterZones(getApplicationContext(), zones);
         recyclerView.setAdapter(adapterZones);
+        recyclerViewCategories = (RecyclerView)findViewById(R.id.recycler_categories);
+        recyclerViewCategories.setHasFixedSize(true);
+        recyclerViewCategories.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        adapterCategories = new AdapterCategories(getApplicationContext(), categories, categories_background);
+        recyclerViewCategories.setAdapter(adapterCategories);
+        recyclerViewCategories.smoothScrollBy(120,0);
     }
 
     @Override
