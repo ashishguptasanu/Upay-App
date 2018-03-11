@@ -22,11 +22,15 @@
         </activity>
         <activity
             android:name=".Activities.SignInActivity"
-            android:label="Login/Register"></activity>
+            android:label="Login/Register" />
         <activity
             android:name=".Activities.HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.CenterActivity" />
+        <activity android:name=".Activities.VolunteerActivity" />
+        <activity android:name=".Activities.StudentActivity" />
+        <activity android:name=".Activities.ImpContactsActivity"></activity>
     </application>
 
 </manifest>

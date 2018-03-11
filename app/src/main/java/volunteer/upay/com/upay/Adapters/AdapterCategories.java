@@ -1,6 +1,7 @@
 package volunteer.upay.com.upay.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -13,6 +14,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import volunteer.upay.com.upay.Activities.CenterActivity;
+import volunteer.upay.com.upay.Activities.ImpContactsActivity;
+import volunteer.upay.com.upay.Activities.StudentActivity;
+import volunteer.upay.com.upay.Activities.VolunteerActivity;
 import volunteer.upay.com.upay.R;
 
 /**
@@ -39,7 +44,6 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.My
 
     @Override
     public void onBindViewHolder(@NonNull AdapterCategories.MyViewHolder holder, int position) {
-        //holder.cardCategories.setCardBackgroundColor(background[position]);
         holder.tvCategories.setText(categories[position]);
         Picasso.with(context).load(background[position]).into(holder.imgCategories);
     }
@@ -49,15 +53,43 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.My
         return categories.length;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         CardView cardCategories;
         TextView tvCategories;
         ImageView imgCategories;
         public MyViewHolder(View itemView) {
             super(itemView);
             cardCategories = itemView.findViewById(R.id.card_categories);
+            cardCategories.setOnClickListener(this);
             tvCategories = itemView.findViewById(R.id.tv_categories);
             imgCategories = itemView.findViewById(R.id.image_categories);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (getAdapterPosition()){
+                case 0:
+                    Intent intentVolunteer = new Intent(context, VolunteerActivity.class);
+                    intentVolunteer.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intentVolunteer);
+                    break;
+
+                case 1:
+                    Intent intentStudents = new Intent(context, StudentActivity.class);
+                    intentStudents.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intentStudents);
+                    break;
+                case 2:
+                    Intent intentCenter = new Intent(context, CenterActivity.class);
+                    intentCenter.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intentCenter);
+                    break;
+                case 3:
+                    Intent intentContact = new Intent(context, ImpContactsActivity.class);
+                    intentContact.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intentContact);
+                    break;
+            }
         }
     }
 }
