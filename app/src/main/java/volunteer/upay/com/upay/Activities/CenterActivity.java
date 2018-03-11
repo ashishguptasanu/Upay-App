@@ -2,7 +2,10 @@ package volunteer.upay.com.upay.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.LinearLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,16 +20,30 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import volunteer.upay.com.upay.Adapters.AdapterCenters;
 import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.R;
 
 public class CenterActivity extends AppCompatActivity {
     OkHttpClient client = new OkHttpClient();
     List<Centers> centerList = new ArrayList<>();
+    AdapterCenters adapterCenters;
+    RecyclerView recyclerView;
+    LinearLayoutManager linearLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_center);
+        getCenterDetails();
+
+    }
+
+    private void initViews() {
+        recyclerView = findViewById(R.id.recycler_centers);
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        adapterCenters = new AdapterCenters(getApplicationContext(), centerList);
+        recyclerView.setAdapter(adapterCenters);
     }
 
     private void getCenterDetails() {
@@ -70,6 +87,12 @@ public class CenterActivity extends AppCompatActivity {
                                              Centers centers = new Centers(center_name, center_id, zone_name, zone_id, latitude, longitude, center_head_name, center_head_phone, center_address);
                                              centerList.add(centers);
                                          }
+                                         runOnUiThread(new Runnable() {
+                                             @Override
+                                             public void run() {
+                                                 initViews();
+                                             }
+                                         });
                                      }
                                  } catch (JSONException e) {
                                      e.printStackTrace();

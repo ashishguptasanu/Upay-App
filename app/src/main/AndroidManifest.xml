@@ -22,15 +22,25 @@
         </activity>
         <activity
             android:name=".Activities.SignInActivity"
-            android:label="Login/Register" />
+            android:label="Welcome to Upay" />
         <activity
             android:name=".Activities.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.CenterActivity" />
-        <activity android:name=".Activities.VolunteerActivity" />
-        <activity android:name=".Activities.StudentActivity" />
-        <activity android:name=".Activities.ImpContactsActivity"></activity>
+        <activity
+            android:name=".Activities.CenterActivity"
+            android:label="Centers"
+            android:parentActivityName=".Activities.HomeActivity" />
+        <activity
+            android:name=".Activities.VolunteerActivity"
+            android:label="Volunteers" />
+        <activity
+            android:name=".Activities.StudentActivity"
+            android:label="Students" />
+        <activity
+            android:name=".Activities.ImpContactsActivity"
+            android:label="Contact Details" />
+        <activity android:name=".Activities.MyCenterActivity"></activity>
     </application>
 
 </manifest>
