@@ -60,6 +60,10 @@ public class AdapterCenters extends RecyclerView.Adapter<AdapterCenters.MyViewHo
             imgMoveToCenter = itemView.findViewById(R.id.img_move_to_center);
             tvCenterName = itemView.findViewById(R.id.tv_center_name);
             tvZoneName = itemView.findViewById(R.id.tv_zone_name);
+            cardCenters.setOnClickListener(this);
+            imgMoveToCenter.setOnClickListener(this);
+            tvCenterName.setOnClickListener(this);
+            tvZoneName.setOnClickListener(this);
         }
 
         @Override
