@@ -40,7 +40,9 @@
         <activity
             android:name=".Activities.ImpContactsActivity"
             android:label="Contact Details" />
-        <activity android:name=".Activities.MyCenterActivity"></activity>
+        <activity android:name=".Activities.MyCenterActivity"
+            android:label="My Center"
+            android:parentActivityName=".Activities.CenterActivity"> </activity>
     </application>
 
 </manifest>
