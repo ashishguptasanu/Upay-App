@@ -1,11 +1,14 @@
 package volunteer.upay.com.upay.Activities;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -35,8 +38,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     LinearLayout layoutSignIn, layoutSignUp;
     TextView tvSignIn, tvSignUp;
     Button btnSignIn, btnSignUp;
-    AlertDialog alertDialog;
+    ProgressDialog alertDialog;
     EditText name, emailSignUp, phone, passwordSignUp, confirmPasswordSignUp, emailSignIn, passwordSignIn;
+    InputMethodManager imm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +66,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         confirmPasswordSignUp = findViewById(R.id.edt_password_confirm_sign_up);
         emailSignIn = findViewById(R.id.edt_email_sign_in);
         passwordSignIn = findViewById(R.id.edt_password_sign_in);
+        imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
+
     }
 
 
@@ -88,11 +95,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
             case R.id.btn_sign_in:
+                imm.hideSoftInputFromWindow(passwordSignIn.getWindowToken(), 0);
                 validateSignInData(emailSignIn.getText().toString(), passwordSignIn.getText().toString());
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(intent);
                 break;
             case R.id.btn_sign_up:
+                imm.hideSoftInputFromWindow(passwordSignUp.getWindowToken(), 0);
                 validateSignUpData(name.getText().toString(), emailSignUp.getText().toString(), phone.getText().toString(), passwordSignUp.getText().toString(), confirmPasswordSignUp.getText().toString());
                 break;
         }
@@ -104,13 +111,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 if(!phoneSignUp.isEmpty()){
                     if(!password.isEmpty() && !confirmPassword.isEmpty()) {
                         if(isEmailValid(email)) {
-                            if(phoneSignUp.length() < 9 ) {
+                            if(phoneSignUp.length() > 9 ) {
                                 if(Objects.equals(password, confirmPassword)) {
                                     showProgress("Signing up", "Please wait, you are signing up..");
                                     signUp(nameSignUp, email, phoneSignUp, password);
                                 }else{showToast("Password doesn't match.");}
                             }else{showToast("Please enter a valid mobile number.");}
-                        }else{showToast("Please enter a valid email.");}
+                        }else{emailSignUp.setError("Please enter a valid email.");}
                     }else{showToast("Password can't be blank.");}
                 }else{ phone.setError("Field can't be blank.");}
             } else {emailSignUp.setError("Field can't be blank.");}
@@ -124,7 +131,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     showProgress("Signing in", "Please wait, you are signing in..");
                     signIn(email, password);
                 }else{showToast("Password can't be blank.");}
-            }else{showToast("Please enter a valid email.");}
+            }else{emailSignIn.setError("Please enter a valid email.");}
         } else{emailSignIn.setError("Field can't be blank.");}
 
     }
@@ -132,7 +139,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private void signIn(String email, String password) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("email_id", email)
+                .addFormDataPart("email_volunteer", email)
                 .addFormDataPart("password", password)
                 .build();
         Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/sign_in_volunteer.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
@@ -187,7 +194,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), msg,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), msg,Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -195,7 +202,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("name", name)
-                .addFormDataPart("email_id", email)
+                .addFormDataPart("email_volunteer", email)
                 .addFormDataPart("phone", phone)
                 .addFormDataPart("password", password)
                 .build();
@@ -254,8 +261,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         return matcher.matches();
     }
     private void showProgress(String title, String msg){
-        alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog = new ProgressDialog(this);
         alertDialog.setTitle(title);
         alertDialog.setMessage(msg);
+        alertDialog.show();
     }
 }
