@@ -38,9 +38,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">
                     <EditText
+                        android:id="@+id/edt_name_sign_up"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
+                        android:maxLines="1"
                         android:backgroundTint="@color/black"
                         android:hint="Name"/>
                     </android.support.design.widget.TextInputLayout>
@@ -49,9 +51,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">
                         <EditText
+                            android:id="@+id/edt_email_sign_up"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
+                            android:maxLines="1"
                             android:backgroundTint="@color/black"
                             android:inputType="textEmailAddress"
                             android:hint="Email"/>
@@ -61,11 +65,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">
                         <EditText
+                            android:id="@+id/edt_phone_sign_up"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:backgroundTint="@color/black"
                             android:inputType="phone"
+                            android:maxLength="10"
+                            android:maxLines="1"
                             android:hint="Phone"/>
                     </android.support.design.widget.TextInputLayout>
                     <android.support.design.widget.TextInputLayout
@@ -76,11 +83,13 @@
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="@color/colorAccent">
                         <EditText
+                            android:id="@+id/edt_password_sign_up"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:backgroundTint="@color/black"
                             android:hint="Password"
+                            android:maxLines="1"
                             android:inputType="textPassword"
                             android:drawableEnd="@drawable/password_selector"/>
                     </android.support.design.widget.TextInputLayout>
@@ -93,11 +102,13 @@
 
                         android:layout_marginTop="10dp">
                         <EditText
+                            android:id="@+id/edt_password_confirm_sign_up"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:backgroundTint="@color/black"
                             android:hint="Confirm Password"
+                            android:maxLines="1"
                             android:inputType="textPassword"
                             android:drawableEnd="@drawable/password_selector"/>
                     </android.support.design.widget.TextInputLayout>
@@ -156,9 +167,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">
                         <EditText
+                            android:id="@+id/edt_email_sign_in"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
+                            android:maxLines="1"
                             android:backgroundTint="@color/black"
                             android:inputType="textEmailAddress"
                             android:hint="Email"/>
@@ -171,12 +184,14 @@
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="@color/colorAccent">
                         <EditText
+                            android:id="@+id/edt_password_sign_in"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:backgroundTint="@color/black"
                             android:hint="Password"
                             android:inputType="textPassword"
+                            android:maxLines="1"
                             android:drawableEnd="@drawable/password_selector"/>
                     </android.support.design.widget.TextInputLayout>
                     <LinearLayout
