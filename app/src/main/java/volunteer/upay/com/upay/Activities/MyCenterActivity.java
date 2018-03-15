@@ -26,6 +26,8 @@ public class MyCenterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_center);
         String center_id = getIntent().getStringExtra("center_id");
         getStudentsDetails(center_id);
+        getVolunteerDetails("");
+        getVolunteerDetails("45");
 
     }
     private void getStudentsDetails(String center_id) {
@@ -89,7 +91,7 @@ public class MyCenterActivity extends AppCompatActivity {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("center_id", center_id)
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/get_students_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/get_volunteers.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override

@@ -1,6 +1,7 @@
 package volunteer.upay.com.upay.Activities;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     LinearLayout layoutSignIn, layoutSignUp;
     TextView tvSignIn, tvSignUp;
     Button btnSignIn, btnSignUp;
+    AlertDialog alertDialog;
     EditText name, emailSignUp, phone, passwordSignUp, confirmPasswordSignUp, emailSignIn, passwordSignIn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +106,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         if(isEmailValid(email)) {
                             if(phoneSignUp.length() < 9 ) {
                                 if(Objects.equals(password, confirmPassword)) {
+                                    showProgress("Signing up", "Please wait, you are signing up..");
                                     signUp(nameSignUp, email, phoneSignUp, password);
                                 }else{showToast("Password doesn't match.");}
                             }else{showToast("Please enter a valid mobile number.");}
@@ -118,6 +121,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if (!email.isEmpty()) {
             if(isEmailValid(email)) {
                 if(!password.isEmpty()){
+                    showProgress("Signing in", "Please wait, you are signing in..");
                     signIn(email, password);
                 }else{showToast("Password can't be blank.");}
             }else{showToast("Please enter a valid email.");}
@@ -137,13 +141,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                          @Override
                          public void onFailure(okhttp3.Call call, IOException e) {
                              System.out.println("Registration Error" + e.getMessage());
+                             showToast("Sign in failed.");
+                             alertDialog.cancel();
                          }
                          @Override
                          public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
                              String resp = response.body().string();
                              Log.d("resp",resp);
 
-                            /* if (response.isSuccessful()) {
+                             if (response.isSuccessful()) {
                                  JSONObject obj = null;
                                  try {
                                      obj = new JSONObject(resp);
@@ -152,32 +158,27 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                      final String msgFinal = obj_status.getString("type");
                                      if(Objects.equals(msgFinal, "Success")){
                                          final JSONObject obj_data=obj_response.getJSONObject("data");
-                                         JSONArray center_array = obj_data.getJSONArray("centers");
-                                         for (int i=0; i<center_array.length(); i++) {
-                                             JSONObject centerObject = center_array.getJSONObject(i);
-                                             String center_name = centerObject.getString("center_name");
-                                             String center_id = centerObject.getString("center_id");
-                                             String center_address = centerObject.getString("center_address");
-                                             String zone_name = centerObject.getString("zone_name");
-                                             String zone_id = centerObject.getString("zone_id");
-                                             String center_head_phone = centerObject.getString("center_head_phone");
-                                             String center_head_name = centerObject.getString("center_head_name");
-                                             double latitude = centerObject.getDouble("latitude");
-                                             double longitude = centerObject.getDouble("longitude");
-                                             Centers centers = new Centers(center_name, center_id, zone_name, zone_id, latitude, longitude, center_head_name, center_head_phone, center_address);
-                                             centerList.add(centers);
+                                         String msgType = obj_data.getString("type");
+                                         String finalData = obj_data.getString("data");
+                                         if(Objects.equals(msgType, "Success")){
+                                             alertDialog.cancel();
+                                             showToast(finalData);
+                                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                             startActivity(intent);
+                                         }else{
+                                            showToast(finalData);
+                                             alertDialog.cancel();
                                          }
-                                         runOnUiThread(new Runnable() {
-                                             @Override
-                                             public void run() {
-                                                 initViews();
-                                             }
-                                         });
                                      }
                                  } catch (JSONException e) {
+                                     showToast("Sign in failed.");
+                                     alertDialog.cancel();
                                      e.printStackTrace();
                                  }
-                             }*/
+                             }else{
+                                 showToast("Sign in failed.");
+                                 alertDialog.cancel();
+                             }
                          }
                      }
         );
@@ -204,13 +205,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                          @Override
                          public void onFailure(okhttp3.Call call, IOException e) {
                              System.out.println("Registration Error" + e.getMessage());
+                             showToast("Sign up failed.");
+                             alertDialog.cancel();
                          }
                          @Override
                          public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
                              String resp = response.body().string();
                              Log.d("resp",resp);
 
-                            /* if (response.isSuccessful()) {
+                             if (response.isSuccessful()) {
                                  JSONObject obj = null;
                                  try {
                                      obj = new JSONObject(resp);
@@ -219,32 +222,27 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                      final String msgFinal = obj_status.getString("type");
                                      if(Objects.equals(msgFinal, "Success")){
                                          final JSONObject obj_data=obj_response.getJSONObject("data");
-                                         JSONArray center_array = obj_data.getJSONArray("centers");
-                                         for (int i=0; i<center_array.length(); i++) {
-                                             JSONObject centerObject = center_array.getJSONObject(i);
-                                             String center_name = centerObject.getString("center_name");
-                                             String center_id = centerObject.getString("center_id");
-                                             String center_address = centerObject.getString("center_address");
-                                             String zone_name = centerObject.getString("zone_name");
-                                             String zone_id = centerObject.getString("zone_id");
-                                             String center_head_phone = centerObject.getString("center_head_phone");
-                                             String center_head_name = centerObject.getString("center_head_name");
-                                             double latitude = centerObject.getDouble("latitude");
-                                             double longitude = centerObject.getDouble("longitude");
-                                             Centers centers = new Centers(center_name, center_id, zone_name, zone_id, latitude, longitude, center_head_name, center_head_phone, center_address);
-                                             centerList.add(centers);
+                                         String msgType = obj_data.getString("type");
+                                         String finalData = obj_data.getString("data");
+                                         if(Objects.equals(msgType, "Success")){
+                                             alertDialog.cancel();
+                                             showToast(finalData);
+                                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                             startActivity(intent);
+                                         }else{
+                                             showToast(finalData);
+                                             alertDialog.cancel();
                                          }
-                                         runOnUiThread(new Runnable() {
-                                             @Override
-                                             public void run() {
-                                                 initViews();
-                                             }
-                                         });
                                      }
                                  } catch (JSONException e) {
+                                     showToast("Sign up failed.");
+                                     alertDialog.cancel();
                                      e.printStackTrace();
                                  }
-                             }*/
+                             }else{
+                                 showToast("Sign up failed.");
+                                 alertDialog.cancel();
+                             }
                          }
                      }
         );
@@ -254,5 +252,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+    private void showProgress(String title, String msg){
+        alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(msg);
     }
 }
