@@ -1,7 +1,11 @@
 package volunteer.upay.com.upay.Activities;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -17,6 +21,8 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import volunteer.upay.com.upay.Adapters.AdapterCenters;
+import volunteer.upay.com.upay.Adapters.StudentsAdapter;
 import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.Models.Student;
 import volunteer.upay.com.upay.R;
@@ -24,11 +30,18 @@ import volunteer.upay.com.upay.R;
 public class StudentActivity extends AppCompatActivity {
     OkHttpClient client = new OkHttpClient();
     List<Student> studentList = new ArrayList<>();
+    RecyclerView recyclerView;
+    LinearLayoutManager linearLayoutManager;
+    StudentsAdapter studentsAdapter;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int centerId = sharedPreferences.getInt("center_id", 0);
+        getStudentsDetails(String.valueOf(centerId));
     }
     private void getStudentsDetails(String center_id) {
         RequestBody requestBody = new MultipartBody.Builder()
@@ -91,6 +104,11 @@ public class StudentActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-
+        recyclerView = findViewById(R.id.recycler_students
+        );
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        studentsAdapter = new StudentsAdapter(getApplicationContext(), studentList);
+        recyclerView.setAdapter(studentsAdapter);
     }
 }

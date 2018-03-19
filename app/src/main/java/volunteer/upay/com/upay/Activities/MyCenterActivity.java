@@ -1,8 +1,11 @@
 package volunteer.upay.com.upay.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,18 +21,29 @@ import okhttp3.RequestBody;
 import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.R;
 
-public class MyCenterActivity extends AppCompatActivity {
+public class MyCenterActivity extends AppCompatActivity implements View.OnClickListener{
     OkHttpClient client = new OkHttpClient();
+    LinearLayout layoutStudents, layoutVolunteers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_center);
+        initViews();
         String center_id = getIntent().getStringExtra("center_id");
         getStudentsDetails(center_id);
         getVolunteerDetails("");
         getVolunteerDetails("45");
 
     }
+
+    private void initViews() {
+        layoutStudents = findViewById(R.id.layout_students);
+        layoutVolunteers = findViewById(R.id.layout_volunteer);
+        layoutStudents.setOnClickListener(this);
+        layoutVolunteers.setOnClickListener(this);
+    }
+
     private void getStudentsDetails(String center_id) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -141,5 +155,17 @@ public class MyCenterActivity extends AppCompatActivity {
                          }
                      }
         );
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.layout_students:
+                Intent studentIntent = new Intent(getApplicationContext(), StudentActivity.class);
+                startActivity(studentIntent);
+                break;
+            case R.id.layout_volunteer:
+                break;
+        }
     }
 }

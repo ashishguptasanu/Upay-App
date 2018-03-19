@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/activty_background"
     tools:context="volunteer.upay.com.upay.Activities.StudentActivity">
-
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycler_students">
+    </android.support.v7.widget.RecyclerView>
 </android.support.constraint.ConstraintLayout>

@@ -20,12 +20,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal">
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:id="@+id/layout_students"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:padding="5dp"
                     android:layout_margin="10dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:background="@drawable/gradient_red"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
@@ -33,7 +39,7 @@
                         android:text="56"
                         android:textSize="40sp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textAlignment="center"/>
                     <TextView
                         android:layout_width="match_parent"
@@ -41,15 +47,18 @@
                         android:text="Students"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textAlignment="center"/>
 
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:id="@+id/layout_volunteer"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_margin="10dp"
+                    android:padding="5dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:background="@drawable/gradient_blue"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
@@ -57,7 +66,7 @@
                         android:text="15"
                         android:textSize="40sp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textAlignment="center"/>
                     <TextView
                         android:layout_width="match_parent"
@@ -65,7 +74,7 @@
                         android:text="Volunteers"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textAlignment="center"/>
                 </LinearLayout>
             </LinearLayout>

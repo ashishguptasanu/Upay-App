@@ -2,6 +2,8 @@ package volunteer.upay.com.upay.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +27,7 @@ import volunteer.upay.com.upay.R;
 public class AdapterCenters extends RecyclerView.Adapter<AdapterCenters.MyViewHolder> {
     Context context;
     List<Centers> centersList = new ArrayList<>();
+    SharedPreferences sharedPreferences;
 
     public AdapterCenters(Context context, List<Centers> centersList){
         this.context = context;
@@ -34,6 +37,7 @@ public class AdapterCenters extends RecyclerView.Adapter<AdapterCenters.MyViewHo
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_centers,parent,false);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
@@ -70,7 +74,9 @@ public class AdapterCenters extends RecyclerView.Adapter<AdapterCenters.MyViewHo
         public void onClick(View v) {
             Intent intent = new Intent(context, MyCenterActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("center_id", centersList.get(getAdapterPosition()).getCenter_id());
+            int centerId = Integer.parseInt(centersList.get(getAdapterPosition()).getCenter_id());
+            sharedPreferences.edit().putInt("center_id", centerId).apply();
+            intent.putExtra("center_id", String.valueOf(centerId));
             context.startActivity(intent);
         }
     }
