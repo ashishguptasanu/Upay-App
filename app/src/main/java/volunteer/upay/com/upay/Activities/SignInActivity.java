@@ -3,6 +3,8 @@ package volunteer.upay.com.upay.Activities;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,10 +43,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     ProgressDialog alertDialog;
     EditText name, emailSignUp, phone, passwordSignUp, confirmPasswordSignUp, emailSignIn, passwordSignIn;
     InputMethodManager imm;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         initViews();
     }
 
@@ -136,7 +140,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    private void signIn(String email, String password) {
+    private void signIn(final String email, String password) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("email_volunteer", email)
@@ -170,6 +174,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                          if(Objects.equals(msgType, "Success")){
                                              alertDialog.cancel();
                                              showToast(finalData);
+                                             saveLoginDetails(email);
                                              Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                              startActivity(intent);
                                          }else{
@@ -190,6 +195,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                      }
         );
     }
+
+    private void saveLoginDetails(String email) {
+        sharedPreferences.edit().putString("login_email", email).apply();
+        sharedPreferences.edit().putInt("login", 1).apply();
+    }
+
     private void showToast(final String msg){
         runOnUiThread(new Runnable() {
             @Override
@@ -198,7 +209,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
-    private void signUp(String name, String email, String phone, String password) {
+    private void signUp(String name, final String email, String phone, String password) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("name", name)
@@ -236,6 +247,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                              showToast(finalData);
                                              Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                              startActivity(intent);
+                                             saveLoginDetails(email);
                                          }else{
                                              showToast(finalData);
                                              alertDialog.cancel();

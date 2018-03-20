@@ -1,6 +1,9 @@
 package volunteer.upay.com.upay.Activities;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +33,7 @@ public class HomeActivity extends AppCompatActivity
     RecyclerView recyclerView, recyclerViewCategories;
     AdapterZones adapterZones;
     AdapterCategories adapterCategories;
+    SharedPreferences sharedPreferences;
     String[] zones = new String[]{"Nagpur", "Delhi","Gurgaon","Pune", "Mauda"};
     String[] categories = new String[]{"Volunteers", "Students", "Centers", "Contacts"};
     String[] categories_background = new String[]{
@@ -41,6 +45,7 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         initviews();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -40,9 +40,11 @@
         <activity
             android:name=".Activities.ImpContactsActivity"
             android:label="Contact Details" />
-        <activity android:name=".Activities.MyCenterActivity"
+        <activity
+            android:name=".Activities.MyCenterActivity"
             android:label="Sohna Road Center"
-            android:parentActivityName=".Activities.CenterActivity"> </activity>
+            android:parentActivityName=".Activities.CenterActivity"></activity>
+        <activity android:name=".Activities.AddStudent"></activity>
     </application>
 
 </manifest>
