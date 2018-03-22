@@ -77,6 +77,9 @@ public class AdapterCenters extends RecyclerView.Adapter<AdapterCenters.MyViewHo
             int centerId = Integer.parseInt(centersList.get(getAdapterPosition()).getCenter_id());
             sharedPreferences.edit().putInt("center_id", centerId).apply();
             intent.putExtra("center_id", String.valueOf(centerId));
+            sharedPreferences.edit().putString("zone_id", centersList.get(getAdapterPosition()).getZone_id()).apply();
+            sharedPreferences.edit().putString("center_name", centersList.get(getAdapterPosition()).getCenter_name()).apply();
+            sharedPreferences.edit().putString("zone_name", centersList.get(getAdapterPosition()).getZone_name()).apply();
             context.startActivity(intent);
         }
     }

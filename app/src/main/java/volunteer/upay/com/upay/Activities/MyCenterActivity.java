@@ -3,6 +3,7 @@ package volunteer.upay.com.upay.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -24,6 +25,7 @@ import volunteer.upay.com.upay.R;
 public class MyCenterActivity extends AppCompatActivity implements View.OnClickListener{
     OkHttpClient client = new OkHttpClient();
     LinearLayout layoutStudents, layoutVolunteers;
+    CardView cardAddStudent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
     private void initViews() {
         layoutStudents = findViewById(R.id.layout_students);
         layoutVolunteers = findViewById(R.id.layout_volunteer);
+        cardAddStudent = findViewById(R.id.card_add_student);
+        cardAddStudent.setOnClickListener(this);
         layoutStudents.setOnClickListener(this);
         layoutVolunteers.setOnClickListener(this);
     }
@@ -165,6 +169,10 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(studentIntent);
                 break;
             case R.id.layout_volunteer:
+                break;
+            case R.id.card_add_student:
+                Intent intent = new Intent(getApplicationContext(), AddStudent.class);
+                startActivity(intent);
                 break;
         }
     }
