@@ -14,7 +14,13 @@ public class Centers {
     private String center_head_phone;
     private String center_address;
 
-    public Centers(String center_name, String center_id, String zone_name, String zone_id, String latitude, String longitude, String center_head_name, String center_head_phone, String center_address) {
+    public String getCenterType() {
+        return centerType;
+    }
+
+    private String centerType;
+
+    public Centers(String center_name, String center_id, String zone_name, String zone_id, String latitude, String longitude, String center_head_name, String center_head_phone, String center_address, String centerType) {
         this.center_name = center_name;
         this.center_id = center_id;
         this.zone_name = zone_name;
@@ -24,6 +30,7 @@ public class Centers {
         this.center_head_name = center_head_name;
         this.center_head_phone = center_head_phone;
         this.center_address = center_address;
+        this.centerType = centerType;
     }
 
     String longitude;

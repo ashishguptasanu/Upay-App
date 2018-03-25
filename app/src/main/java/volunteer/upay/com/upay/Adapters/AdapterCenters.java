@@ -46,7 +46,7 @@ public class AdapterCenters extends RecyclerView.Adapter<AdapterCenters.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tvCenterName.setText(centersList.get(position).getCenter_name());
-        holder.tvZoneName.setText(centersList.get(position).getZone_name());
+        holder.tvZoneName.setText(centersList.get(position).getZone_name() + " | " + centersList.get(position).getCenterType());
     }
 
     @Override

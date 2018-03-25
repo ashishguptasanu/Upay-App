@@ -84,7 +84,8 @@ public class CenterActivity extends AppCompatActivity {
                                              String center_head_name = centerObject.getString("center_head_name");
                                              String latitude = centerObject.getString("latitude");
                                              String longitude = centerObject.getString("longitude");
-                                             Centers centers = new Centers(center_name, center_id, zone_name, zone_id, latitude, longitude, center_head_name, center_head_phone, center_address);
+                                             String centerType = centerObject.getString("center_type");
+                                             Centers centers = new Centers(center_name, center_id, zone_name, zone_id, latitude, longitude, center_head_name, center_head_phone, center_address, centerType);
                                              centerList.add(centers);
                                          }
                                          runOnUiThread(new Runnable() {

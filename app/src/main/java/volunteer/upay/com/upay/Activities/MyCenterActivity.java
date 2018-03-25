@@ -7,12 +7,15 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import okhttp3.MultipartBody;
@@ -20,12 +23,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import volunteer.upay.com.upay.Models.Centers;
+import volunteer.upay.com.upay.Models.Student;
 import volunteer.upay.com.upay.R;
 
 public class MyCenterActivity extends AppCompatActivity implements View.OnClickListener{
     OkHttpClient client = new OkHttpClient();
     LinearLayout layoutStudents, layoutVolunteers;
     CardView cardAddStudent, cardAddVolunteer;
+    List<Student> studentList = new ArrayList<>();
+    TextView tvNumStudents, tvNumVolunteers;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +41,12 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
         initViews();
         String center_id = getIntent().getStringExtra("center_id");
         getStudentsDetails(center_id);
-        getVolunteerDetails("");
-        getVolunteerDetails("45");
 
     }
 
     private void initViews() {
+
+        tvNumVolunteers = findViewById(R.id.tv_num_volunteers);
         layoutStudents = findViewById(R.id.layout_students);
         layoutVolunteers = findViewById(R.id.layout_volunteer);
         cardAddStudent = findViewById(R.id.card_add_student);
@@ -67,7 +74,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                              String resp = response.body().string();
                              Log.d("resp",resp);
 
-                            /* if (response.isSuccessful()) {
+                             if (response.isSuccessful()) {
                                  JSONObject obj = null;
                                  try {
                                      obj = new JSONObject(resp);
@@ -76,24 +83,34 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                                      final String msgFinal = obj_status.getString("type");
                                      if(Objects.equals(msgFinal, "Success")){
                                          final JSONObject obj_data=obj_response.getJSONObject("data");
-                                         JSONArray center_array = obj_data.getJSONArray("centers");
+                                         JSONArray center_array = obj_data.getJSONArray("students");
                                          for (int i=0; i<center_array.length(); i++) {
                                              JSONObject centerObject = center_array.getJSONObject(i);
-                                             String center_name = centerObject.getString("center_name");
-                                             String center_id = centerObject.getString("center_id");
-                                             String center_address = centerObject.getString("center_address");
-                                             String zone_name = centerObject.getString("zone_name");
+                                             String id = centerObject.getString("id");
+                                             String student_name = centerObject.getString("student_name");
+                                             String parent_name = centerObject.getString("parent_name");
+                                             String age = centerObject.getString("age");
+                                             String clss = centerObject.getString("class");
+                                             String school = centerObject.getString("school");
+                                             String center_id  = centerObject.getString("center_id");
                                              String zone_id = centerObject.getString("zone_id");
-                                             String center_head_phone = centerObject.getString("center_head_phone");
-                                             String center_head_name = centerObject.getString("center_head_name");
-                                             double latitude = centerObject.getDouble("latitude");
-                                             double longitude = centerObject.getDouble("longitude");
-                                             Centers centers = new Centers(center_name, center_id, zone_name, zone_id, latitude, longitude, center_head_name, center_head_phone, center_address);
-                                             centerList.add(centers);
+                                             String center_name = centerObject.getString("center_name");
+                                             String zone_name = centerObject.getString("zone_name");
+                                             String photo_url = centerObject.getString("photo_url");
+                                             String comments = centerObject.getString("comments");
+                                             Student student = new Student(id, student_name, parent_name, age, clss, school, center_name, center_id, zone_name, zone_id, photo_url, comments);
+                                             studentList.add(student);
                                          }
                                          runOnUiThread(new Runnable() {
                                              @Override
                                              public void run() {
+                                                 tvNumStudents = findViewById(R.id.tv_num_students);
+
+                                                 if(studentList.size()> 0){
+                                                     tvNumStudents.setText(String.valueOf(studentList.size()));
+                                                 }else{
+                                                     tvNumStudents.setText("0");
+                                                 }
                                                  initViews();
                                              }
                                          });
@@ -101,7 +118,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                                  } catch (JSONException e) {
                                      e.printStackTrace();
                                  }
-                             }*/
+                             }
                          }
                      }
         );
@@ -177,6 +194,10 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.card_add_student:
                 Intent intent = new Intent(getApplicationContext(), AddStudent.class);
                 startActivity(intent);
+                break;
+            case R.id.layout_volunteer:
+                Intent volunteer2Intent = new Intent(getApplicationContext(), VolunteerActivity.class);
+                startActivity(volunteer2Intent);
                 break;
         }
     }
