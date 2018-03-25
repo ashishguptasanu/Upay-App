@@ -25,7 +25,7 @@ import volunteer.upay.com.upay.R;
 public class MyCenterActivity extends AppCompatActivity implements View.OnClickListener{
     OkHttpClient client = new OkHttpClient();
     LinearLayout layoutStudents, layoutVolunteers;
-    CardView cardAddStudent;
+    CardView cardAddStudent, cardAddVolunteer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,8 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
         layoutStudents = findViewById(R.id.layout_students);
         layoutVolunteers = findViewById(R.id.layout_volunteer);
         cardAddStudent = findViewById(R.id.card_add_student);
+        cardAddVolunteer = findViewById(R.id.card_add_volunteer);
+        cardAddVolunteer.setOnClickListener(this);
         cardAddStudent.setOnClickListener(this);
         layoutStudents.setOnClickListener(this);
         layoutVolunteers.setOnClickListener(this);
@@ -168,7 +170,9 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                 Intent studentIntent = new Intent(getApplicationContext(), StudentActivity.class);
                 startActivity(studentIntent);
                 break;
-            case R.id.layout_volunteer:
+            case R.id.card_add_volunteer:
+                Intent volunteerIntent = new Intent(getApplicationContext(), AddVolunteer.class);
+                startActivity(volunteerIntent);
                 break;
             case R.id.card_add_student:
                 Intent intent = new Intent(getApplicationContext(), AddStudent.class);

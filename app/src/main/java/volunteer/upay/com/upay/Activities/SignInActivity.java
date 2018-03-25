@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,13 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,7 +28,6 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.R;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener{
@@ -171,10 +166,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                          final JSONObject obj_data=obj_response.getJSONObject("data");
                                          String msgType = obj_data.getString("type");
                                          String finalData = obj_data.getString("data");
+                                         String adminAccess = obj_data.getString("admin_access");
+                                         String name = obj_data.getString("volunteer_name");
                                          if(Objects.equals(msgType, "Success")){
                                              alertDialog.cancel();
                                              showToast(finalData);
-                                             saveLoginDetails(email);
+                                             saveLoginDetails(email, adminAccess, name);
                                              Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                              startActivity(intent);
                                          }else{
@@ -196,8 +193,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         );
     }
 
-    private void saveLoginDetails(String email) {
+    private void saveLoginDetails(String email, String adminAccess, String name) {
         sharedPreferences.edit().putString("login_email", email).apply();
+        sharedPreferences.edit().putString("admin_access", adminAccess).apply();
+        sharedPreferences.edit().putString("volunteer_name", name).apply();
         sharedPreferences.edit().putInt("login", 1).apply();
     }
 
@@ -247,7 +246,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                              showToast(finalData);
                                              Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                              startActivity(intent);
-                                             saveLoginDetails(email);
+                                             saveLoginDetails(email,"", "");
                                          }else{
                                              showToast(finalData);
                                              alertDialog.cancel();

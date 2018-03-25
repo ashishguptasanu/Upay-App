@@ -9,12 +9,12 @@ public class Centers {
     private String center_id;
     private String zone_name;
     private String zone_id;
-    private double latitude;
+    private String latitude;
     private String center_head_name;
     private String center_head_phone;
     private String center_address;
 
-    public Centers(String center_name, String center_id, String zone_name, String zone_id, double latitude, double longitude, String center_head_name, String center_head_phone, String center_address) {
+    public Centers(String center_name, String center_id, String zone_name, String zone_id, String latitude, String longitude, String center_head_name, String center_head_phone, String center_address) {
         this.center_name = center_name;
         this.center_id = center_id;
         this.zone_name = zone_name;
@@ -26,13 +26,13 @@ public class Centers {
         this.center_address = center_address;
     }
 
-    double longitude;
+    String longitude;
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
