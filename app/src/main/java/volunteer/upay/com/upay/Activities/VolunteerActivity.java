@@ -41,19 +41,20 @@ public class VolunteerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_valunteer);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int centerId = sharedPreferences.getInt("center_id", 0);
-        //getStudentsDetails(String.valueOf(centerId));
-        Volunteer volunteer = new Volunteer("0","test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "");
-        volunteerList.add(volunteer);
-        volunteerList.add(volunteer);
-        volunteerList.add(volunteer);
-        initViews();
+        if(Objects.equals(centerId, 0)){
+            getVolunteersDetails("");
+        }else{
+            getVolunteersDetails(String.valueOf(centerId));
+        }
+
+
     }
-    private void getStudentsDetails(String center_id) {
+    private void getVolunteersDetails(String center_id) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("center_id", center_id)
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/get_students_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/get_volunteer_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override
@@ -74,7 +75,7 @@ public class VolunteerActivity extends AppCompatActivity {
                                      final String msgFinal = obj_status.getString("type");
                                      if(Objects.equals(msgFinal, "Success")){
                                          final JSONObject obj_data=obj_response.getJSONObject("data");
-                                         JSONArray center_array = obj_data.getJSONArray("students");
+                                         JSONArray center_array = obj_data.getJSONArray("volunteers");
                                          for (int i=0; i<center_array.length(); i++) {
                                              JSONObject centerObject = center_array.getJSONObject(i);
                                              String id = centerObject.getString("id");

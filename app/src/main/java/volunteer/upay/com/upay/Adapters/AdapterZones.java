@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import volunteer.upay.com.upay.R;
 
@@ -44,6 +45,12 @@ public class AdapterZones extends RecyclerView.Adapter<AdapterZones.MyViewHolder
         public MyViewHolder(View itemView) {
             super(itemView);
             btnRecycler = itemView.findViewById(R.id.btn_recycler);
+            btnRecycler.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Coming Soon..",Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 }

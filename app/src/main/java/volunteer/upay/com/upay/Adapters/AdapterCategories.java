@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -69,25 +70,26 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.My
         public void onClick(View v) {
             switch (getAdapterPosition()){
                 case 0:
+                    Toast.makeText(context, "Coming Soon..",Toast.LENGTH_LONG).show();
+                    break;
+                case 1:
                     Intent intentVolunteer = new Intent(context, VolunteerActivity.class);
                     intentVolunteer.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intentVolunteer);
                     break;
 
-                case 1:
+                case 2:
                     Intent intentStudents = new Intent(context, StudentActivity.class);
                     intentStudents.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intentStudents);
                     break;
-                case 2:
+                case 3:
                     Intent intentCenter = new Intent(context, CenterActivity.class);
                     intentCenter.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intentCenter);
                     break;
-                case 3:
-                    Intent intentContact = new Intent(context, ImpContactsActivity.class);
-                    intentContact.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intentContact);
+                case 4:
+                    Toast.makeText(context, "Coming Soon..",Toast.LENGTH_LONG).show();
                     break;
             }
         }

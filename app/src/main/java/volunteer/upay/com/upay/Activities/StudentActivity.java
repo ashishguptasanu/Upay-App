@@ -41,7 +41,11 @@ public class StudentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int centerId = sharedPreferences.getInt("center_id", 0);
-        getStudentsDetails(String.valueOf(centerId));
+        if(Objects.equals(centerId, 0)){
+            getStudentsDetails("");
+        }else{
+            getStudentsDetails(String.valueOf(centerId));
+        }
     }
     private void getStudentsDetails(String center_id) {
         RequestBody requestBody = new MultipartBody.Builder()

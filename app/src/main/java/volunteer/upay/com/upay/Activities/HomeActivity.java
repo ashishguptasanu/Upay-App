@@ -35,8 +35,9 @@ public class HomeActivity extends AppCompatActivity
     AdapterCategories adapterCategories;
     SharedPreferences sharedPreferences;
     String[] zones = new String[]{"Nagpur", "Delhi","Gurgaon","Pune", "Mauda"};
-    String[] categories = new String[]{"Volunteers", "Students", "Centers", "Contacts"};
+    String[] categories = new String[]{"Events", "Volunteers", "Students", "Centers", "Contacts"};
     String[] categories_background = new String[]{
+            "http://192.168.0.101/volunteers.png",
             "http://192.168.0.101/volunteers.png",
             "http://192.168.0.101/students.png",
             "http://192.168.0.101/centers.png",
@@ -45,6 +46,8 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        sharedPreferences.edit().putInt("center_id",0).apply();
 
         initviews();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
