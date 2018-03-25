@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
@@ -71,6 +72,12 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
             tvStudentDetails = itemView.findViewById(R.id.tv_student_details);
             btnStudentDetails = itemView.findViewById(R.id.btn_student_details);
             profileImage =  itemView.findViewById(R.id.profile_image);
+            btnStudentDetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Coming Soon..",Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 }

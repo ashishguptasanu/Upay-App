@@ -35,6 +35,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
@@ -95,6 +96,12 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.MyVi
             tvVolunteerDetails = itemView.findViewById(R.id.tv_volunteer_details);
             btnVolunteerDetails = itemView.findViewById(R.id.btn_volunteer_details);
             profileImage =  itemView.findViewById(R.id.volunteer_profile_image);
+            btnVolunteerDetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Coming Soon..",Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 }

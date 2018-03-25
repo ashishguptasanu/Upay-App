@@ -37,11 +37,11 @@ public class HomeActivity extends AppCompatActivity
     String[] zones = new String[]{"Nagpur", "Delhi","Gurgaon","Pune", "Mauda"};
     String[] categories = new String[]{"Events", "Volunteers", "Students", "Centers", "Contacts"};
     String[] categories_background = new String[]{
-            "http://192.168.0.101/volunteers.png",
-            "http://192.168.0.101/volunteers.png",
-            "http://192.168.0.101/students.png",
-            "http://192.168.0.101/centers.png",
-            "http://192.168.0.101/contact.png"};
+            "http://upay.org.in/api/app_images/star.png",
+            "http://upay.org.in/api/app_images/volunteers.png",
+            "http://upay.org.in/api/app_images/students.png",
+            "http://upay.org.in/api/app_images/centers.png",
+            "http://upay.org.in/api/app_images/contact.png"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
