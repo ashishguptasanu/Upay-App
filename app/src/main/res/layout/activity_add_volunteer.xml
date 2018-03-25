@@ -29,6 +29,21 @@
                 android:inputType="textEmailAddress"
                 android:hint="Volunteer's Email"/>
         </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp">
+            <EditText
+                android:id="@+id/edt_add_volunteer_upay_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:maxLines="1"
+                android:backgroundTint="@color/black"
+                android:inputType="textEmailAddress"
+                android:hint="Upay Id"/>
+        </android.support.design.widget.TextInputLayout>
         <Button
             android:id="@+id/btn_add_volunteer"
             android:layout_width="120dp"

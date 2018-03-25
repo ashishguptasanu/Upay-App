@@ -49,13 +49,16 @@
         <activity
             android:name=".Activities.MyCenterActivity"
             android:label="Sohna Road Center"
-            android:parentActivityName=".Activities.CenterActivity"></activity>
+            android:parentActivityName=".Activities.CenterActivity">
+        </activity>
         <activity
             android:name=".Activities.AddStudent"
             android:label="Add New Student"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize">
+        </activity>
         <activity android:name=".Activities.AddVolunteer"
-            android:label="Add New Volunteer"></activity>
+            android:label="Add New Volunteer">
+        </activity>
     </application>
 
 </manifest>
