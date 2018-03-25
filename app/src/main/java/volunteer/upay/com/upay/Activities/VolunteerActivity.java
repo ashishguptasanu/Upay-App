@@ -44,6 +44,8 @@ public class VolunteerActivity extends AppCompatActivity {
         //getStudentsDetails(String.valueOf(centerId));
         Volunteer volunteer = new Volunteer("0","test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "");
         volunteerList.add(volunteer);
+        volunteerList.add(volunteer);
+        volunteerList.add(volunteer);
         initViews();
     }
     private void getStudentsDetails(String center_id) {

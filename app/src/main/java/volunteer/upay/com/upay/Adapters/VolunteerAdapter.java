@@ -76,7 +76,7 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.MyVi
             Picasso.with(context).load(imgUrl).into(holder.profileImage);
             //Log.d("True", "Yes");
         }else{
-            Picasso.with(context).load("http://upay.org.in/api/images_api/student_icon.png").into(holder.profileImage);
+            Picasso.with(context).load("http://upay.org.in/api/app_images/volunteer.png").into(holder.profileImage);
         }
     }
 
