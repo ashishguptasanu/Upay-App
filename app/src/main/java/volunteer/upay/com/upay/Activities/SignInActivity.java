@@ -246,12 +246,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                          final JSONObject obj_data=obj_response.getJSONObject("data");
                                          String msgType = obj_data.getString("type");
                                          String finalData = obj_data.getString("data");
+                                         String adminAccess = obj_data.getString("admin_access");
                                          if(Objects.equals(msgType, "Success")){
                                              alertDialog.cancel();
                                              showToast(finalData);
                                              Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                              startActivity(intent);
-                                             saveLoginDetails(email,"", name);
+                                             saveLoginDetails(email,adminAccess, name);
                                          }else{
                                              showToast(finalData);
                                              alertDialog.cancel();

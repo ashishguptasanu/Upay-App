@@ -82,7 +82,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_navigate) {
             if(!Objects.equals(latitude, 0.00)){
-                String label = "ABC Label";
+                String label = "Upay Center";
                 String uriBegin = "geo:" + latitude + "," + longitude;
                 String query = latitude + "," + longitude + "(" + label + ")";
                 String encodedQuery = Uri.encode(query);
