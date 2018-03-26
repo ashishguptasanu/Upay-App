@@ -99,7 +99,7 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.MyVi
             btnVolunteerDetails.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, "Coming Soon..",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Coming Soon..",Toast.LENGTH_SHORT).show();
                 }
             });
         }

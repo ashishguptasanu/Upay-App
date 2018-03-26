@@ -170,6 +170,8 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
                                              showToast(finalData);
                                              Intent intent = new Intent(getApplicationContext(), MyCenterActivity.class);
                                              intent.putExtra("center_id", String.valueOf(sharedPreferences.getInt("center_id",0)));
+                                             intent.putExtra("latitude", String.valueOf(sharedPreferences.getString("latitude","")));
+                                             intent.putExtra("longitude", String.valueOf(sharedPreferences.getString("longitude","")));
                                              startActivity(intent);
                                              //saveLoginDetails(email);
                                          }else{

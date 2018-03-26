@@ -1,10 +1,13 @@
 package volunteer.upay.com.upay.Activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,17 +38,65 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
     List<Student> studentList = new ArrayList<>();
     List<Volunteer> volunteerList = new ArrayList<>();
     TextView tvNumStudents, tvNumVolunteers;
+    double latitude, longitude;
+    String lat, lang, center_id;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_center);
-        initViews();
-        String center_id = getIntent().getStringExtra("center_id");
-        getStudentsDetails(center_id);
-        getVolunteerDetails(center_id);
+        String centerName = getIntent().getStringExtra("center_name");
 
+        lat = getIntent().getStringExtra("latitude");
+        lang = getIntent().getStringExtra("longitude");
+        try {
+            latitude = Double.parseDouble(lat);
+            longitude = Double.parseDouble(lang);
+        }catch (NumberFormatException e){
+            latitude = 0.00;
+            latitude = 0.00;
+        }
+        getSupportActionBar().setTitle(centerName);
+        initViews();
+        center_id = getIntent().getStringExtra("center_id");
+        getStudentsDetails(center_id);
+
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.center, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_navigate) {
+            if(!Objects.equals(latitude, 0.00)){
+                String label = "ABC Label";
+                String uriBegin = "geo:" + latitude + "," + longitude;
+                String query = latitude + "," + longitude + "(" + label + ")";
+                String encodedQuery = Uri.encode(query);
+                String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
+                Uri uri = Uri.parse(uriString);
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }else{
+                showToast("Provided location is not valid.");
+            }
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void initViews() {
@@ -67,7 +118,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
         layoutVolunteers.setOnClickListener(this);
     }
 
-    private void getStudentsDetails(String center_id) {
+    private void getStudentsDetails(final String center_id) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("center_id", center_id)
@@ -114,6 +165,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                                          runOnUiThread(new Runnable() {
                                              @Override
                                              public void run() {
+                                                 getVolunteerDetails(center_id);
                                                  tvNumStudents = findViewById(R.id.tv_num_students);
 
                                                  if(studentList.size()> 0){
@@ -133,7 +185,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                      }
         );
     }
-    private void getVolunteerDetails(String center_id) {
+    private void getVolunteerDetails(final String center_id) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("center_id", center_id)
@@ -182,13 +234,14 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                                          runOnUiThread(new Runnable() {
                                              @Override
                                              public void run() {
+
                                                  tvNumVolunteers = findViewById(R.id.tv_num_volunteers);
                                                  if(studentList.size()> 0){
                                                      tvNumVolunteers.setText(String.valueOf(volunteerList.size()));
                                                  }else{
                                                      tvNumVolunteers.setText("0");
                                                  }
-                                                 initViews();
+
                                              }
                                          });
                                      }

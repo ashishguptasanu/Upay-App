@@ -1,13 +1,20 @@
 package volunteer.upay.com.upay.Activities;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +24,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +46,9 @@ public class HomeActivity extends AppCompatActivity
     AdapterZones adapterZones;
     AdapterCategories adapterCategories;
     SharedPreferences sharedPreferences;
+    ImageView imgBanner;
+    TextView tvName, tvEmail;
+    private Boolean exit = false;
     String[] zones = new String[]{"Nagpur", "Delhi","Gurgaon","Pune", "Mauda"};
     String[] categories = new String[]{"Events", "Volunteers", "Students", "Centers", "Contacts"};
     String[] categories_background = new String[]{
@@ -46,6 +61,9 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        if(!isNetworkConnected()){
+            showToast("Please Check Your Internet Connection.");
+        }
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         sharedPreferences.edit().putInt("center_id",0).apply();
 
@@ -70,10 +88,26 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        /*navigationView.removeHeaderView(null);
+        View header = LayoutInflater.from(this).inflate(R.layout.nav_header_home, null);
+        tvName = (TextView)navigationView.findViewById(R.id.tv_name_header);
+        tvEmail = (TextView)navigationView.findViewById(R.id.tv_email_header);
+        tvName.setText(sharedPreferences.getString("volunteer_name",""));
+        tvEmail.setText(sharedPreferences.getString("login_email",""));*/
+
+    }
+
+    private void showToast(final String s) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initviews() {
-        BannerSlider bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
+        /*BannerSlider bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
         List<Banner> banners=new ArrayList<>();
         //add banner using image url
         banners.add(new RemoteBanner("http://upay.org.in/images/vinay/IMG_8480.JPG"));
@@ -84,7 +118,9 @@ public class HomeActivity extends AppCompatActivity
 
         //add banner using resource drawable
         //banners.add(new DrawableBanner(R.drawable.yourDrawable));
-        bannerSlider.setBanners(banners);
+        bannerSlider.setBanners(banners);*/
+        imgBanner = findViewById(R.id.img_banner);
+        Picasso.with(getApplicationContext()).load("http://upay.org.in/images/vinay/IMG_8480.JPG").into(imgBanner);
         recyclerView = (RecyclerView)findViewById(R.id.recycler_zones);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -95,7 +131,7 @@ public class HomeActivity extends AppCompatActivity
         recyclerViewCategories.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         adapterCategories = new AdapterCategories(getApplicationContext(), categories, categories_background);
         recyclerViewCategories.setAdapter(adapterCategories);
-        recyclerViewCategories.smoothScrollBy(120,0);
+        recyclerViewCategories.smoothScrollBy(240,0);
     }
 
     @Override
@@ -104,7 +140,14 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (exit) {
+                finishAffinity(); // finish activity
+            } else {
+                Toast.makeText(this, "Press Back again to Exit.",
+                        Toast.LENGTH_SHORT).show();
+                exit = true;
+
+            }
         }
     }
 
@@ -136,22 +179,49 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_profile) {
+            showToast("Coming Soon..");
+        } else if (id == R.id.nav_attendance) {
+            showToast("Coming Soon..");
+        } else if (id == R.id.nav_center) {
+            showToast("Coming Soon..");
+        } else if (id == R.id.nav_fee) {
+            showToast("Coming Soon..");
+        } else if (id == R.id.nav_policy) {
+            showToast("Coming Soon..");
+        } else if (id == R.id.nav_website) {
+            showToast("Coming Soon..");
+        }else if (id == R.id.nav_logout) {
+            AlertDialog alertDialog = new AlertDialog.Builder(HomeActivity.this).create();
+            alertDialog.setTitle("Logout");
+            alertDialog.setMessage("are you sure you want to logout??");
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Logout",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            sharedPreferences.edit().putString("login_email","").apply();
+                            sharedPreferences.edit().putString("volunteer_name","").apply();
+                            sharedPreferences.edit().putInt("login", 0).apply();
+                            dialog.dismiss();
+                            Intent intent = new Intent(getApplicationContext(),WelcomeActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+            alertDialog.show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
     }
 }

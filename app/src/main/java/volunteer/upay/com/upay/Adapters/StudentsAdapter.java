@@ -75,7 +75,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
             btnStudentDetails.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, "Coming Soon..",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Coming Soon..",Toast.LENGTH_SHORT).show();
                 }
             });
         }

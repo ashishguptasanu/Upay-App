@@ -17,9 +17,10 @@
         android:textSize="45dp"
         android:elevation="15dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
-    <ss.com.bannerslider.views.BannerSlider
-        android:id="@+id/banner_slider1"
+    <ImageView
+        android:id="@+id/img_banner"
         android:layout_width="match_parent"
+        android:scaleType="fitXY"
         android:layout_height="200dp"/>
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

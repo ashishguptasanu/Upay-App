@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,6 +49,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void initViews() {
+        if(!isNetworkConnected()){
+           showToast("Please Check Your Internet Connection.");
+        }
         layoutSignIn = findViewById(R.id.layout_sign_in);
         layoutSignUp = findViewById(R.id.layout_sign_up);
         tvSignIn = findViewById(R.id.tv_sign_in);
@@ -198,6 +202,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         sharedPreferences.edit().putString("admin_access", adminAccess).apply();
         sharedPreferences.edit().putString("volunteer_name", name).apply();
         sharedPreferences.edit().putInt("login", 1).apply();
+        showToast("signed in as " + email);
     }
 
     private void showToast(final String msg){
@@ -208,7 +213,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
-    private void signUp(String name, final String email, String phone, String password) {
+    private void signUp(final String name, final String email, String phone, String password) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("name", name)
@@ -246,7 +251,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                              showToast(finalData);
                                              Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                              startActivity(intent);
-                                             saveLoginDetails(email,"", "");
+                                             saveLoginDetails(email,"", name);
                                          }else{
                                              showToast(finalData);
                                              alertDialog.cancel();
@@ -276,5 +281,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         alertDialog.setTitle(title);
         alertDialog.setMessage(msg);
         alertDialog.show();
+    }
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
     }
 }
