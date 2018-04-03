@@ -33,7 +33,7 @@ import volunteer.upay.com.upay.R;
 public class AddVolunteer extends AppCompatActivity implements View.OnClickListener{
     EditText edtEmail, edtUpayId;
     Button btnSubmit;
-
+    String centerId, zoneId;
     LinearLayout layoutVolu, layoutBackground;
     SharedPreferences sharedPreferences;
     AlertDialog alertDialog;
@@ -46,9 +46,32 @@ public class AddVolunteer extends AppCompatActivity implements View.OnClickListe
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         layoutBackground = findViewById(R.id.layout_background);
         layoutVolu = findViewById(R.id.layout_add_volunteer);
+
+
+        centerId = sharedPreferences.getString("center_id_volu","");
+        zoneId = sharedPreferences.getString("zone_id_volu", "");
+
         if(Objects.equals(sharedPreferences.getString("admin_access",""), "1")){
+            if(Objects.equals(centerId, sharedPreferences.getString("center_id", ""))){
+                initAddVolunteerView();
+            }else{
+                layoutVolu.setVisibility(View.GONE);
+                layoutBackground.setVisibility(View.VISIBLE);
+            }
+        }
+        else if(Objects.equals(sharedPreferences.getString("admin_access",""), "2")){
+            if(Objects.equals(zoneId, sharedPreferences.getString("zone_id",""))){
+                initAddVolunteerView();
+            }else{
+                layoutVolu.setVisibility(View.GONE);
+                layoutBackground.setVisibility(View.VISIBLE);
+            }
+
+        }
+        else if(Objects.equals(sharedPreferences.getString("admin_access",""), "3")){
             initAddVolunteerView();
-        }else{
+        }
+        else{
             layoutVolu.setVisibility(View.GONE);
             layoutBackground.setVisibility(View.VISIBLE);
         }

@@ -16,9 +16,9 @@
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/upay_app_logo"
-        android:logo="@mipmap/upay_app_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:logo="@mipmap/upay_app_logo"
         android:roundIcon="@mipmap/upay_app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -52,16 +52,15 @@
         <activity
             android:name=".Activities.MyCenterActivity"
             android:label="Sohna Road Center"
-            android:parentActivityName=".Activities.CenterActivity">
-        </activity>
+            android:parentActivityName=".Activities.CenterActivity"></activity>
         <activity
             android:name=".Activities.AddStudent"
             android:label="Add New Student"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
-        <activity android:name=".Activities.AddVolunteer"
-            android:label="Add New Volunteer">
-        </activity>
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name=".Activities.AddVolunteer"
+            android:label="Add New Volunteer"></activity>
+        <activity android:name=".Activities.VolunteerDetails"></activity>
     </application>
 
 </manifest>

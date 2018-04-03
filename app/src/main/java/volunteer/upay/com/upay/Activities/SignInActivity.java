@@ -175,7 +175,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                          if(Objects.equals(msgType, "Success")){
                                              alertDialog.cancel();
                                              showToast(finalData);
-                                             saveLoginDetails(email, adminAccess, name);
+                                             saveLoginDetails(email, adminAccess, name, "", "");//TODO
                                              Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                              startActivity(intent);
                                          }else{
@@ -197,10 +197,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         );
     }
 
-    private void saveLoginDetails(String email, String adminAccess, String name) {
+    private void saveLoginDetails(String email, String adminAccess, String name, String centerId, String zone_id) {
         sharedPreferences.edit().putString("login_email", email).apply();
         sharedPreferences.edit().putString("admin_access", adminAccess).apply();
         sharedPreferences.edit().putString("volunteer_name", name).apply();
+        sharedPreferences.edit().putString("center_id_volu", centerId).apply();
+        sharedPreferences.edit().putString("zone_id_volu", zone_id).apply();
         sharedPreferences.edit().putInt("login", 1).apply();
         showToast("signed in as " + email);
     }
@@ -247,12 +249,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                          String msgType = obj_data.getString("type");
                                          String finalData = obj_data.getString("data");
                                          String adminAccess = obj_data.getString("admin_access");
+                                         String centerId = obj_data.getString("center_id");
+                                         String zone_id = obj_data.getString("zone_id");
                                          if(Objects.equals(msgType, "Success")){
                                              alertDialog.cancel();
                                              showToast(finalData);
                                              Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                              startActivity(intent);
-                                             saveLoginDetails(email,adminAccess, name);
+                                             saveLoginDetails(email,adminAccess, name, centerId, zone_id);
                                          }else{
                                              showToast(finalData);
                                              alertDialog.cancel();
