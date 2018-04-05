@@ -47,19 +47,20 @@ public class AddVolunteer extends AppCompatActivity implements View.OnClickListe
         layoutBackground = findViewById(R.id.layout_background);
         layoutVolu = findViewById(R.id.layout_add_volunteer);
 
-
         centerId = sharedPreferences.getString("center_id_volu","");
+        Log.d("Center Id:", centerId);
         zoneId = sharedPreferences.getString("zone_id_volu", "");
+        Log.d("Admin Access:", sharedPreferences.getString("admin_access",""));
+        if(Objects.equals(Integer.parseInt(sharedPreferences.getString("admin_access","")), 1)){
 
-        if(Objects.equals(sharedPreferences.getString("admin_access",""), "1")){
-            if(Objects.equals(centerId, sharedPreferences.getString("center_id", ""))){
+            if(Objects.equals(centerId, String.valueOf(sharedPreferences.getInt("center_id", 0)))){
                 initAddVolunteerView();
             }else{
                 layoutVolu.setVisibility(View.GONE);
                 layoutBackground.setVisibility(View.VISIBLE);
             }
         }
-        else if(Objects.equals(sharedPreferences.getString("admin_access",""), "2")){
+        else if(Objects.equals(sharedPreferences.getString("admin_access",""), 2)){
             if(Objects.equals(zoneId, sharedPreferences.getString("zone_id",""))){
                 initAddVolunteerView();
             }else{
@@ -68,7 +69,7 @@ public class AddVolunteer extends AppCompatActivity implements View.OnClickListe
             }
 
         }
-        else if(Objects.equals(sharedPreferences.getString("admin_access",""), "3")){
+        else if(Objects.equals(sharedPreferences.getString("admin_access",""), 3)){
             initAddVolunteerView();
         }
         else{
