@@ -79,6 +79,15 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
                 public void onClick(View v) {
                     Intent intent = new Intent(context, StudentDetails.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("center_name", studentList.get(getAdapterPosition()).getCenterName());
+                    intent.putExtra("zone_name", studentList.get(getAdapterPosition()).getZoneName());
+                    intent.putExtra("name", studentList.get(getAdapterPosition()).getStudentName());
+                    intent.putExtra("parent_name", studentList.get(getAdapterPosition()).getParentName());
+                    intent.putExtra("age", studentList.get(getAdapterPosition()).getAge());
+                    intent.putExtra("class", studentList.get(getAdapterPosition()).getClss());
+                    intent.putExtra("school", studentList.get(getAdapterPosition()).getSchool());
+                    intent.putExtra("photo_url", studentList.get(getAdapterPosition()).getPhotoUrl());
+                    intent.putExtra("comments", studentList.get(getAdapterPosition()).getComments());
                     context.startActivity(intent);
                 }
             });

@@ -36,6 +36,7 @@
                     android:orientation="horizontal"
                     android:gravity="center_horizontal">
                     <TextView
+                        android:id="@+id/tv_student_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sandeep, "
@@ -44,6 +45,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/white"/>
                     <TextView
+                        android:id="@+id/tv_student_age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="6"
@@ -53,6 +55,7 @@
                         android:textColor="@color/white"/>
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/tv_student_center_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sohna Road Center"
@@ -81,6 +84,7 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
                 <TextView
+                    android:id="@+id/tv_student_class"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="LKG"
@@ -105,6 +109,7 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
                 <TextView
+                    android:id="@+id/tv_student_school"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="SHM public School"
@@ -129,6 +134,7 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
                 <TextView
+                    android:id="@+id/tv_student_zone_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Gurgaon"
@@ -153,6 +159,7 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
                 <TextView
+                    android:id="@+id/tv_student_parent_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Sushil Kumar"
@@ -177,6 +184,7 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
                 <TextView
+                    android:id="@+id/tv_student_comments"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Well performance in all activities &amp; tests. Good in maths &amp; english."
