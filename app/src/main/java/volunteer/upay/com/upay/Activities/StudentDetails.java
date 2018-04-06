@@ -2,6 +2,7 @@ package volunteer.upay.com.upay.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -48,7 +49,21 @@ public class StudentDetails extends AppCompatActivity {
 
     }
 
-    private void setDataToViews() {
+    private void setDataToViews(){
+        tvStudentName.setText(name + ", ");
+        tvCenterName.setText(centerName);
+        tvStudentAge.setText(age);
+        tvStudentParentName.setText(parentName);
+        tvStudentClass.setText(clss);
+        tvStudentSchool.setText(school);
+        tvZoneName.setText(zoneName);
+        tvComments.setText(comments);
+        if(!TextUtils.isEmpty(photoUrl)){
+            Picasso.with(getApplicationContext()).load(photoUrl).into(ccpStudentImage);
+            //Log.d("True", "Yes");
+        }else{
+            Picasso.with(getApplicationContext()).load("http://upay.org.in/api/images_api/student_icon.png").into(ccpStudentImage);
+        }
 
     }
 }

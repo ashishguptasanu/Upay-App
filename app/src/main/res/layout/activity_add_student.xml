@@ -141,7 +141,7 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/black"
                                 android:maxLines="1"
-                                android:maxLength="2"
+                                android:maxLength="4"
                                 android:backgroundTint="@color/black"
                                 android:hint="Class"/>
                         </android.support.design.widget.TextInputLayout>

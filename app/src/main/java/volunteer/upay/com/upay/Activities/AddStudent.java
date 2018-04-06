@@ -172,7 +172,7 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
                 .addFormDataPart("center_name", sharedPreferences.getString("center_name",""))
                 .addFormDataPart("center_id", String.valueOf(sharedPreferences.getInt("center_id",0)))
                 .addFormDataPart("zone_name", sharedPreferences.getString("zone_name",""))
-                .addFormDataPart("zone_id", sharedPreferences.getString("zone_id",""))
+                .addFormDataPart("zone_id", String.valueOf(sharedPreferences.getInt("zone_id",0)))
                 .addFormDataPart("photo_url", finalData)
                 .addFormDataPart("comments", comments)
                 .addFormDataPart("added_by", sharedPreferences.getString("login_email",""))

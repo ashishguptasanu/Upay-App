@@ -117,7 +117,7 @@ public class AddVolunteer extends AppCompatActivity implements View.OnClickListe
                 .addFormDataPart("center_name", sharedPreferences.getString("center_name",""))
                 .addFormDataPart("center_id", String.valueOf(sharedPreferences.getInt("center_id",0)))
                 .addFormDataPart("zone_name", sharedPreferences.getString("zone_name",""))
-                .addFormDataPart("zone_id", sharedPreferences.getString("zone_id",""))
+                .addFormDataPart("zone_id", String.valueOf(sharedPreferences.getInt("zone_id",0)))
                 .build();
         Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/add_volunteer_admin.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
