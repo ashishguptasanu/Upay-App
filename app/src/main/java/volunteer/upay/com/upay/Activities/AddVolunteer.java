@@ -60,25 +60,21 @@ public class AddVolunteer extends AppCompatActivity implements View.OnClickListe
                 layoutBackground.setVisibility(View.VISIBLE);
             }
         }
-        else if(Objects.equals(sharedPreferences.getString("admin_access",""), 2)){
-            if(Objects.equals(zoneId, sharedPreferences.getString("zone_id",""))){
+        else if(Objects.equals(Integer.parseInt(sharedPreferences.getString("admin_access","")), 2)){
+            if(Objects.equals(zoneId, String.valueOf(sharedPreferences.getInt("zone_id",0)))){
                 initAddVolunteerView();
             }else{
                 layoutVolu.setVisibility(View.GONE);
                 layoutBackground.setVisibility(View.VISIBLE);
             }
-
         }
-        else if(Objects.equals(sharedPreferences.getString("admin_access",""), 3)){
+        else if(Objects.equals(Integer.parseInt(sharedPreferences.getString("admin_access","")), 3)){
             initAddVolunteerView();
         }
         else{
             layoutVolu.setVisibility(View.GONE);
             layoutBackground.setVisibility(View.VISIBLE);
         }
-
-
-
     }
 
     private void initAddVolunteerView() {
@@ -111,7 +107,6 @@ public class AddVolunteer extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
     private void addVolunteerDetails(String emailId, String upayId) {
         showProgress("", "Please wait..");
         RequestBody requestBody = new MultipartBody.Builder()

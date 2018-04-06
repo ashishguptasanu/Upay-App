@@ -172,10 +172,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                          String finalData = obj_data.getString("data");
                                          String adminAccess = obj_data.getString("admin_access");
                                          String name = obj_data.getString("volunteer_name");
+                                         String centerId = obj_data.getString("center_id");
+                                         String zoneId = obj_data.getString("zone_id");
                                          if(Objects.equals(msgType, "Success")){
                                              alertDialog.cancel();
                                              showToast(finalData);
-                                             saveLoginDetails(email, adminAccess, name, "", "");//TODO
+                                             saveLoginDetails(email, adminAccess, name, centerId, zoneId);
                                              Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                              startActivity(intent);
                                          }else{

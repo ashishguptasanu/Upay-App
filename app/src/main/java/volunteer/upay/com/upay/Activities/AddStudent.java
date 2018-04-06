@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
@@ -52,16 +53,52 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
     String filePath = "";
     Uri tempUri;
     SharedPreferences sharedPreferences;
+    LinearLayout layoutAccessDenied, layoutAddStudent;
+    String centerId, zoneId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_student);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        centerId = sharedPreferences.getString("center_id_volu","");
+        zoneId = sharedPreferences.getString("zone_id_volu", "");
         init();
     }
 
     private void init() {
+        layoutAccessDenied = findViewById(R.id.layout_background_student);
+        layoutAddStudent = findViewById(R.id.layout_add_student);
+        if(Objects.equals(Integer.parseInt(sharedPreferences.getString("admin_access","")), 1)){
+
+            if(Objects.equals(centerId, String.valueOf(sharedPreferences.getInt("center_id", 0)))){
+                initViews();
+            }else{
+                layoutAddStudent.setVisibility(View.GONE);
+                layoutAccessDenied.setVisibility(View.VISIBLE);
+            }
+        }
+        else if(Objects.equals(Integer.parseInt(sharedPreferences.getString("admin_access","")), 2)){
+            if(Objects.equals(zoneId, String.valueOf(sharedPreferences.getInt("zone_id",0)))){
+                initViews();
+            }else{
+                layoutAddStudent.setVisibility(View.GONE);
+                layoutAccessDenied.setVisibility(View.VISIBLE);
+            }
+        }
+        else if(Objects.equals(Integer.parseInt(sharedPreferences.getString("admin_access","")), 3)){
+            initViews();
+        }
+        else{
+            layoutAddStudent.setVisibility(View.GONE);
+            layoutAccessDenied.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    private void initViews() {
+        layoutAddStudent.setVisibility(View.VISIBLE);
+        layoutAccessDenied.setVisibility(View.GONE);
         edtName = findViewById(R.id.edt_student_name);
         edtParentName = findViewById(R.id.edt_student_parent_name);
         edtAge = findViewById(R.id.edt_student_age);

@@ -80,7 +80,7 @@ public class AdapterCenters extends RecyclerView.Adapter<AdapterCenters.MyViewHo
             intent.putExtra("center_name",centersList.get(getAdapterPosition()).getCenter_name());
             intent.putExtra("latitude",centersList.get(getAdapterPosition()).getLatitude());
             intent.putExtra("longitude",centersList.get(getAdapterPosition()).getLongitude());
-            sharedPreferences.edit().putString("zone_id", centersList.get(getAdapterPosition()).getZone_id()).apply();
+            sharedPreferences.edit().putInt("zone_id", Integer.parseInt(centersList.get(getAdapterPosition()).getZone_id())).apply();
             sharedPreferences.edit().putString("center_name", centersList.get(getAdapterPosition()).getCenter_name()).apply();
             sharedPreferences.edit().putString("zone_name", centersList.get(getAdapterPosition()).getZone_name()).apply();
             sharedPreferences.edit().putString("latitude", centersList.get(getAdapterPosition()).getLongitude()).apply();
