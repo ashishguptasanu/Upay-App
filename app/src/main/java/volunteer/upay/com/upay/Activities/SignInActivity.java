@@ -17,6 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +34,7 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import volunteer.upay.com.upay.Models.ChatUser;
 import volunteer.upay.com.upay.R;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener{
@@ -40,11 +46,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     EditText name, emailSignUp, phone, passwordSignUp, confirmPasswordSignUp, emailSignIn, passwordSignIn;
     InputMethodManager imm;
     SharedPreferences sharedPreferences;
+    DatabaseReference database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        database = FirebaseDatabase.getInstance().getReference();
         initViews();
     }
 
@@ -178,6 +186,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                              alertDialog.cancel();
                                              showToast(finalData);
                                              saveLoginDetails(email, adminAccess, name, centerId, zoneId);
+                                             writeUserToDatabase(email, name);
                                              Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                              startActivity(intent);
                                          }else{
@@ -197,6 +206,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                          }
                      }
         );
+    }
+
+    private void writeUserToDatabase(String email, String name) {
+        ChatUser chatUser = new ChatUser(email, name, FirebaseInstanceId.getInstance().getToken());
+        /*database.child("users").child(email.replace("@")).setValue(chatUser);*/
     }
 
     private void saveLoginDetails(String email, String adminAccess, String name, String centerId, String zone_id) {
