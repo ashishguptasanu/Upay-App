@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1065477961888",
+    "firebase_url": "https://upayvolunteerapp.firebaseio.com",
+    "project_id": "upayvolunteerapp",
+    "storage_bucket": "upayvolunteerapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065477961888:android:f203ba1ed3386ff4",
+        "android_client_info": {
+          "package_name": "volunteer.upay.com.upay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065477961888-5dlmk3ivk6u9doq93ie2ck7litnq628l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "volunteer.upay.com.upay",
+            "certificate_hash": "b6792e87876b4c4458fa913b9dbd9ae576bc59d8"
+          }
+        },
+        {
+          "client_id": "1065477961888-7n166k3ite1cb0oqq5k3oj72sn1sfeoc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4_X8xCXpSbkWPaHbJSsIpVQgg2KGjYwE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065477961888-7n166k3ite1cb0oqq5k3oj72sn1sfeoc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
