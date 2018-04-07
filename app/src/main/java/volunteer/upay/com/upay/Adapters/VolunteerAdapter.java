@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import volunteer.upay.com.upay.Activities.StudentDetails;
+import volunteer.upay.com.upay.Activities.VolunteerDetails;
 import volunteer.upay.com.upay.Models.Student;
 import volunteer.upay.com.upay.Models.Volunteer;
 import volunteer.upay.com.upay.R;
@@ -101,8 +102,16 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.MyVi
             btnVolunteerDetails.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, StudentDetails.class);
+                    Intent intent = new Intent(context, VolunteerDetails.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("name", volunteerList.get(getAdapterPosition()).getName());
+                    intent.putExtra("uid", volunteerList.get(getAdapterPosition()).getUpay_id());
+                    intent.putExtra("zone", volunteerList.get(getAdapterPosition()).getZone_name());
+                    intent.putExtra("center", volunteerList.get(getAdapterPosition()).getCenter_name());
+                    intent.putExtra("mobile", volunteerList.get(getAdapterPosition()).getPhone());
+                    intent.putExtra("mail", volunteerList.get(getAdapterPosition()).getEmail_id());
+                    intent.putExtra("access", volunteerList.get(getAdapterPosition()).getAdmin_access());
+                    intent.putExtra("photo_url", volunteerList.get(getAdapterPosition()).getPhotoUrl());
                     context.startActivity(intent);//TODO
                 }
             });
