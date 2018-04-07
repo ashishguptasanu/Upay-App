@@ -236,7 +236,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                                              public void run() {
 
                                                  tvNumVolunteers = findViewById(R.id.tv_num_volunteers);
-                                                 if(studentList.size()> 0){
+                                                 if(volunteerList.size() > 0){
                                                      tvNumVolunteers.setText(String.valueOf(volunteerList.size()));
                                                  }else{
                                                      tvNumVolunteers.setText("0");
