@@ -60,7 +60,8 @@
         <activity
             android:name=".Activities.AddVolunteer"
             android:label="Add New Volunteer" />
-        <activity android:name=".Activities.VolunteerDetails" />
+        <activity android:name=".Activities.VolunteerDetails"
+            android:label="Volunteer Details"/>
         <activity android:name=".Activities.StudentDetails"
             android:label="Student Details">
         </activity>
