@@ -52,7 +52,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        database = FirebaseDatabase.getInstance().getReference();
+        //database = FirebaseDatabase.getInstance().getReference();
         initViews();
     }
 
@@ -186,7 +186,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                              alertDialog.cancel();
                                              showToast(finalData);
                                              saveLoginDetails(email, adminAccess, name, centerId, zoneId);
-                                             writeUserToDatabase(email, name);
+                                             //writeUserToDatabase(email, name);
                                              Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                              startActivity(intent);
                                          }else{
@@ -209,8 +209,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void writeUserToDatabase(String email, String name) {
-        ChatUser chatUser = new ChatUser(email, name, FirebaseInstanceId.getInstance().getToken());
-        /*database.child("users").child(email.replace("@")).setValue(chatUser);*/
+        /*ChatUser chatUser = new ChatUser(email, name, FirebaseInstanceId.getInstance().getToken());
+        *//*database.child("users").child(email.replace("@")).setValue(chatUser);*/
     }
 
     private void saveLoginDetails(String email, String adminAccess, String name, String centerId, String zone_id) {
