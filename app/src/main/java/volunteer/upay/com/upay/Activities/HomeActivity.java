@@ -14,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -30,14 +31,26 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.views.BannerSlider;
 import volunteer.upay.com.upay.Adapters.AdapterCategories;
 import volunteer.upay.com.upay.Adapters.AdapterZones;
+import volunteer.upay.com.upay.Models.Volunteer;
+import volunteer.upay.com.upay.Models.Zones;
 import volunteer.upay.com.upay.R;
 
 public class HomeActivity extends AppCompatActivity
@@ -49,6 +62,7 @@ public class HomeActivity extends AppCompatActivity
     ImageView imgBanner;
     TextView tvName, tvEmail;
     private Boolean exit = false;
+    OkHttpClient client = new OkHttpClient();
     String[] zones = new String[]{"Nagpur", "Delhi","Gurgaon","Pune", "Mauda"};
     String[] categories = new String[]{"Events", "Volunteers", "Students", "Centers", "Contacts"};
     String[] categories_background = new String[]{
@@ -57,12 +71,16 @@ public class HomeActivity extends AppCompatActivity
             "http://upay.org.in/api/app_images/students.png",
             "http://upay.org.in/api/app_images/centers.png",
             "http://upay.org.in/api/app_images/contact.png"};
+    List<Zones> zonesList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         if(!isNetworkConnected()){
             showToast("Please Check Your Internet Connection.");
+        }else{
+            getZonalDetails("");
         }
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         sharedPreferences.edit().putInt("center_id",0).apply();
@@ -223,5 +241,72 @@ public class HomeActivity extends AppCompatActivity
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.getActiveNetworkInfo() != null;
+    }
+    private void getZonalDetails(final String zone_id) {
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("zone_id", "")
+                .build();
+        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/get_volunteer_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        okhttp3.Call call = client.newCall(request);
+        call.enqueue(new okhttp3.Callback() {
+                         @Override
+                         public void onFailure(okhttp3.Call call, IOException e) {
+                             System.out.println("Registration Error" + e.getMessage());
+                         }
+                         @Override
+                         public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                             String resp = response.body().string();
+                             Log.d("resp",resp);
+
+                             if (response.isSuccessful()) {
+                                 JSONObject obj = null;
+                                 try {
+                                     obj = new JSONObject(resp);
+                                     JSONObject obj_response=obj.getJSONObject("Response");
+                                     final JSONObject obj_status=obj_response.getJSONObject("status");
+                                     final String msgFinal = obj_status.getString("type");
+                                     if(Objects.equals(msgFinal, "Success")){
+                                         final JSONObject obj_data=obj_response.getJSONObject("data");
+                                         JSONArray center_array = obj_data.getJSONArray("zones");
+                                         for (int i=0; i<center_array.length(); i++) {
+                                             JSONObject centerObject = center_array.getJSONObject(i);
+                                             String id = centerObject.getString("id");
+                                             String zoneId = centerObject.getString("zone_id");
+                                             String zoneName = centerObject.getString("zone_name");
+                                             String contactEmail = centerObject.getString("contact_email");
+                                             String headName = centerObject.getString("head_name");
+                                             String headPhone = centerObject.getString("head_phone");
+                                             String headCoordinatorName = centerObject.getString("head_coordinator_name");
+                                             String headCoordinatorPhone  = centerObject.getString("head_coordinator_phone");
+                                             String numCenters = centerObject.getString("num_centers");
+                                             String zonalOfficeAddress= centerObject.getString("zonal_office_address");
+                                             String numVolunteers = centerObject.getString("num_volunteers");
+                                             String numStudents = centerObject.getString("num_students");
+                                             Zones zone = new Zones(id, zoneId, zoneName, contactEmail, headName, headPhone, headCoordinatorName, headCoordinatorPhone, numCenters, zonalOfficeAddress, numVolunteers, numStudents);
+                                             zonesList.add(zone);
+                                         }
+                                         Log.d("Zone", String.valueOf(zonesList.size()));
+                                         /*runOnUiThread(new Runnable() {
+                                             @Override
+                                             public void run() {
+
+                                                 tvNumVolunteers = findViewById(R.id.tv_num_volunteers);
+                                                 if(volunteerList.size() > 0){
+                                                     tvNumVolunteers.setText(String.valueOf(volunteerList.size()));
+                                                 }else{
+                                                     tvNumVolunteers.setText("0");
+                                                 }
+
+                                             }
+                                         });*/
+                                     }
+                                 } catch (JSONException e) {
+                                     e.printStackTrace();
+                                 }
+                             }
+                         }
+                     }
+        );
     }
 }
