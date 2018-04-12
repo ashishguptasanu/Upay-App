@@ -100,4 +100,8 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="office_address">Office Address</string>
+    <string name="details">Details</string>
+    <string name="number_of_centers">Number of Centers</string>
+    <string name="number_of_volunteers">Number of Volunteers</string>
+    <string name="number_of_students">Number of Students</string>
 </resources>

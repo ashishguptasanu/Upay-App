@@ -55,6 +55,16 @@ public class AdapterZones extends RecyclerView.Adapter<AdapterZones.MyViewHolder
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ZonalDetails.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("office_address", zones.get(getAdapterPosition()).getZonalOfficeAddress());
+                    intent.putExtra("head_name", zones.get(getAdapterPosition()).getCenterHeadName());
+                    intent.putExtra("head_phone", zones.get(getAdapterPosition()).getCenterHeadContact());
+                    intent.putExtra("coordinator_name", zones.get(getAdapterPosition()).getCoordinatorName());
+                    intent.putExtra("coordinator_phone", zones.get(getAdapterPosition()).getCoordinatorContact());
+                    intent.putExtra("num_center", zones.get(getAdapterPosition()).getNumCenters());
+                    intent.putExtra("num_volunteer", zones.get(getAdapterPosition()).getNumVolunteers());
+                    intent.putExtra("num_student", zones.get(getAdapterPosition()).getNumStudents());
+                    intent.putExtra("zone_name", zones.get(getAdapterPosition()).getZoneName());
+                    intent.putExtra("zonal_mail", zones.get(getAdapterPosition()).getContactEmail());
                     context.startActivity(intent);
                 }
             });

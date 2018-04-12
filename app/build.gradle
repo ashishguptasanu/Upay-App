@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.mikhaellopez:circularimageview:3.0.2'
     implementation 'gun0912.ted:tedpermission:2.1.0'
     implementation 'com.google.firebase:firebase-core:12.0.1'
+    implementation 'com.github.Kennyc1012:BottomSheet:2.3.4'
 
 }
 

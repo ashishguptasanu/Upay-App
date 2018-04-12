@@ -17,25 +17,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="6dp"
-            app:cardCornerRadius="6dp">
+            app:cardCornerRadius="6dp"
+            android:layout_marginTop="5dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/office_address"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
                 <TextView
+                    android:id="@+id/tv_zone_address_office"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="Bal Bhawan , Utkarsh nagar ,\nNTPC Mouda , Ramtek Road, Mouda\nNagpur, Maharashtra , 441104"
-                    android:textSize="16sp" />
+                    android:text=""
+                    android:textSize="14sp" />
                 <Button
+                    android:id="@+id/btn_zone_mail"
                     android:layout_width="120dp"
                     android:layout_height="35dp"
                     android:text="Reach Us"
@@ -51,10 +55,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="6dp"
-            app:cardCornerRadius="6dp">
+            app:cardCornerRadius="6dp"
+            android:layout_marginTop="5dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
@@ -68,20 +74,20 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
+                        android:id="@+id/tv_zone_head_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
-                        android:text="Ankit Bagla"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
                     <TextView
+                        android:id="@+id/tv_head_phone"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
-                        android:text="8275045095"
                         android:gravity="right"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
                 <TextView
                     android:layout_width="match_parent"
@@ -95,23 +101,101 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
+                        android:id="@+id/tv_zone_coordinator_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
-                        android:text="Nitin Ikhar"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tv_zone_coordinator_phone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="6dp"
+            app:cardCornerRadius="6dp"
+            android:layout_marginTop="5dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/details"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
-                        android:text="9049090633"
+                        android:text="@string/number_of_centers"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tv_zone_num_center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
                         android:gravity="right"
                         android:textSize="16sp" />
                 </LinearLayout>
-
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="@string/number_of_volunteers"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tv_zone_num_volunteer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="@string/number_of_students"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tv_zone_num_students"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
