@@ -1,6 +1,7 @@
 package volunteer.upay.com.upay.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.List;
+
+import volunteer.upay.com.upay.Activities.ZonalDetails;
+import volunteer.upay.com.upay.Models.Zones;
 import volunteer.upay.com.upay.R;
 
 /**
@@ -17,8 +22,8 @@ import volunteer.upay.com.upay.R;
 
 public class AdapterZones extends RecyclerView.Adapter<AdapterZones.MyViewHolder> {
     Context context;
-    String[] zones;
-    public AdapterZones(Context context, String[] zones){
+    List<Zones> zones;
+    public AdapterZones(Context context, List<Zones> zones){
         this.context = context;
         this.zones = zones;
     }
@@ -32,12 +37,12 @@ public class AdapterZones extends RecyclerView.Adapter<AdapterZones.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull AdapterZones.MyViewHolder holder, int position) {
-        holder.btnRecycler.setText(zones[position]);
+        holder.btnRecycler.setText(zones.get(position).getZoneName());
     }
 
     @Override
     public int getItemCount() {
-        return zones.length;
+        return zones.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -48,7 +53,9 @@ public class AdapterZones extends RecyclerView.Adapter<AdapterZones.MyViewHolder
             btnRecycler.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, "Coming Soon..",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(context, ZonalDetails.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
                 }
             });
         }

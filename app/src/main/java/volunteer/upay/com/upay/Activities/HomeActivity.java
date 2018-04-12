@@ -63,7 +63,6 @@ public class HomeActivity extends AppCompatActivity
     TextView tvName, tvEmail;
     private Boolean exit = false;
     OkHttpClient client = new OkHttpClient();
-    String[] zones = new String[]{"Nagpur", "Delhi","Gurgaon","Pune", "Mauda"};
     String[] categories = new String[]{"Events", "Volunteers", "Students", "Centers", "Contacts"};
     String[] categories_background = new String[]{
             "http://upay.org.in/api/app_images/star.png",
@@ -72,6 +71,8 @@ public class HomeActivity extends AppCompatActivity
             "http://upay.org.in/api/app_images/centers.png",
             "http://upay.org.in/api/app_images/contact.png"};
     List<Zones> zonesList = new ArrayList<>();
+    List<String> zonesData = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +143,8 @@ public class HomeActivity extends AppCompatActivity
         recyclerView = (RecyclerView)findViewById(R.id.recycler_zones);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        adapterZones = new AdapterZones(getApplicationContext(), zones);
-        recyclerView.setAdapter(adapterZones);
+        adapterZones = new AdapterZones(getApplicationContext(), zonesList);
+
         recyclerViewCategories = (RecyclerView)findViewById(R.id.recycler_categories);
         recyclerViewCategories.setHasFixedSize(true);
         recyclerViewCategories.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -247,7 +248,7 @@ public class HomeActivity extends AppCompatActivity
     private void getZonalDetails(final String zone_id) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("zone_id", "")
+                .addFormDataPart("zone_id", zone_id)
                 .build();
         Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/get_zone_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
@@ -288,20 +289,16 @@ public class HomeActivity extends AppCompatActivity
                                              Zones zone = new Zones(id, zoneId, zoneName, contactEmail, headName, headPhone, headCoordinatorName, headCoordinatorPhone, numCenters, zonalOfficeAddress, numVolunteers, numStudents);
                                              zonesList.add(zone);
                                          }
-                                         Log.d("Zone", String.valueOf(zonesList.size()));
-                                         /*runOnUiThread(new Runnable() {
+
+
+                                         runOnUiThread(new Runnable() {
                                              @Override
                                              public void run() {
 
-                                                 tvNumVolunteers = findViewById(R.id.tv_num_volunteers);
-                                                 if(volunteerList.size() > 0){
-                                                     tvNumVolunteers.setText(String.valueOf(volunteerList.size()));
-                                                 }else{
-                                                     tvNumVolunteers.setText("0");
-                                                 }
+                                                 recyclerView.setAdapter(adapterZones);
 
                                              }
-                                         });*/
+                                         });
                                      }
                                  } catch (JSONException e) {
                                      e.printStackTrace();

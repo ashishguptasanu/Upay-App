@@ -60,11 +60,16 @@
         <activity
             android:name=".Activities.AddVolunteer"
             android:label="Add New Volunteer" />
-        <activity android:name=".Activities.VolunteerDetails"
-            android:label="Volunteer Details"/>
-        <activity android:name=".Activities.StudentDetails"
-            android:label="Student Details">
-        </activity>
+        <activity
+            android:name=".Activities.VolunteerDetails"
+            android:label="Volunteer Details" />
+        <activity
+            android:name=".Activities.StudentDetails"
+            android:label="Student Details"></activity>
+        <activity
+            android:name=".Activities.ZonalDetails"
+            android:label="@string/title_activity_zonal_details"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
