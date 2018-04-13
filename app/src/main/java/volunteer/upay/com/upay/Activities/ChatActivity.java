@@ -89,11 +89,11 @@ public class ChatActivity extends AppCompatActivity {
         mETxtMessage = findViewById(R.id.edit_text_message);
         btnSend = findViewById(R.id.btn_send);
 
-
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendMessage();
+
             }
         });
     }

@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="5dp"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="wrap_content"
@@ -23,7 +25,6 @@
             android:gravity="center"
             android:paddingLeft="5dp"
             android:textStyle="bold"
-            android:text="Ashish"
             android:textColor="@color/white" />
 
         <TextView
@@ -36,7 +37,7 @@
             android:paddingBottom="5dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/white"
-            tools:text="Hi" />
+            />
     </LinearLayout>
 
 </LinearLayout>

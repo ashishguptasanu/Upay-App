@@ -66,7 +66,7 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private void configureMyChatViewHolder(MyChatViewHolder myChatViewHolder, int position) {
         ChatUser chat = mChats.get(position);
         myChatViewHolder.txtChatMessage.setText(chat.getMsg());
-        myChatViewHolder.txtUserAlphabet.setText("you");
+        //myChatViewHolder.txtUserAlphabet.setText("you");
     }
 
     private void configureOtherChatViewHolder(OtherChatViewHolder otherChatViewHolder, int position) {

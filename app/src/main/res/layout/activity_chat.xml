@@ -16,10 +16,13 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
         <EditText
+            android:layout_margin="5dp"
+            android:background="@drawable/edt_chat_shape"
             android:id="@+id/edit_text_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="10dp"
             android:layout_alignParentBottom="true"
             android:hint="Type a message"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
