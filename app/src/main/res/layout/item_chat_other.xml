@@ -10,29 +10,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="5dp"
+        android:paddingTop="2dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="20dp"
         android:background="@drawable/chat_rounded_other">
         <TextView
             android:id="@+id/text_view_user_name_other"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingLeft="15dp"
-
+            android:paddingLeft="5dp"
+            android:textStyle="bold"
             android:text="Ashish"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/text_view_chat_message_other"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/chat_rounded_other"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/white"
-            tools:text="Hello mate ! \ntest" />
+            tools:text="Hi" />
     </LinearLayout>
 
 </LinearLayout>

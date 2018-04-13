@@ -26,7 +26,7 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public ChatRecyclerAdapter(Context context, List<ChatUser> chats) {
         mChats = chats;
-        context = context;
+        this.context = context;
 
     }
 
@@ -39,7 +39,7 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         RecyclerView.ViewHolder viewHolder = null;
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
         switch (viewType) {
             case VIEW_TYPE_ME:
                 View viewChatMine = layoutInflater.inflate(R.layout.item_chat_mine, parent, false);
@@ -55,6 +55,7 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (TextUtils.equals(mChats.get(position).getEmail(), sharedPreferences.getString("login_email",""))) {
             configureMyChatViewHolder((MyChatViewHolder) holder, position);
         } else {
@@ -84,6 +85,7 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (TextUtils.equals(mChats.get(position).getEmail(), sharedPreferences.getString("login_email",""))) {
             return VIEW_TYPE_ME;
         } else {

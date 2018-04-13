@@ -25,6 +25,7 @@ public class ChatUser {
     public String getUpayId() {
         return upayId;
     }
+    public ChatUser(){}
 
 
 

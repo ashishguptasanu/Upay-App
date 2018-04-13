@@ -280,7 +280,8 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                 showToast("Coming Soon..");
                 break;
             case R.id.card_chat:
-                showToast("Coming Soon..");
+                Intent chatIntent = new Intent(getApplicationContext(), ChatActivity.class);
+                startActivity(chatIntent);
                 break;
         }
     }

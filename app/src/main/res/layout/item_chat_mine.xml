@@ -12,29 +12,35 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/chat_rounded_other">
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="5dp"
+        android:paddingTop="2dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="15dp"
+        android:background="@drawable/button_gradient">
         <TextView
             android:id="@+id/text_view_user_name_mine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:gravity="center"
-            android:paddingLeft="15dp"
+            android:layout_gravity="right"
+            android:paddingLeft="5dp"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            tools:text="a" />
+            android:textStyle="bold"
+            tools:text="Ashish" />
         <TextView
             android:id="@+id/text_view_chat_message_mine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/text_view_user_alphabet"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_gravity="right"
             android:paddingBottom="10dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/white"
-            tools:text="Noice man !" />
+            tools:text="No" />
 
     </LinearLayout>
 

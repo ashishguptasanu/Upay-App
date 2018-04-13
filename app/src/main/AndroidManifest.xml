@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name=".MyFirebaseInstanceIDService">
+            android:name=".Network.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
@@ -76,7 +76,9 @@
             android:name=".Activities.ZonalDetails"
             android:label="@string/title_activity_zonal_details"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.ChatActivity"></activity>
+        <activity android:name=".Activities.ChatActivity"
+            android:label="Center Chat">
+        </activity>
     </application>
 
 </manifest>
