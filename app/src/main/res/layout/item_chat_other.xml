@@ -16,7 +16,7 @@
         android:layout_marginTop="5dp"
         android:paddingTop="2dp"
         android:paddingLeft="10dp"
-        android:paddingRight="20dp"
+        android:paddingRight="10dp"
         android:background="@drawable/chat_rounded_other">
         <TextView
             android:id="@+id/text_view_user_name_other"

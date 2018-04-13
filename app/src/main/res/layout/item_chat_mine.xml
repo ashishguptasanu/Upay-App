@@ -17,7 +17,7 @@
         android:layout_marginLeft="80dp"
         android:layout_marginTop="5dp"
         android:paddingTop="5dp"
-        android:paddingLeft="20dp"
+        android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:background="@drawable/button_gradient">
         <TextView
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/text_view_user_alphabet"
-            android:paddingLeft="5dp"
+
             android:layout_gravity="right"
             android:paddingBottom="10dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
