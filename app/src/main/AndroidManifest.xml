@@ -52,6 +52,8 @@
         <activity
             android:name=".Activities.StudentActivity"
             android:label="Students" />
+
+
         <activity
             android:name=".Activities.ImpContactsActivity"
             android:label="Contact Details" />
