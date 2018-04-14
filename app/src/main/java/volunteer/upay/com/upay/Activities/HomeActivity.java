@@ -29,6 +29,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -83,6 +85,7 @@ public class HomeActivity extends AppCompatActivity
         }else{
             getZonalDetails("");
         }
+        Log.d("Token:", FirebaseInstanceId.getInstance().getToken());
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         sharedPreferences.edit().putInt("center_id",0).apply();
 
