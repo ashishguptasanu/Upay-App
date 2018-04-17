@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +35,14 @@ public class ChatActivity extends AppCompatActivity {
     private List<ChatUser> chatList = new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
     SharedPreferences sharedPreferences;
+    int centerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        centerId = sharedPreferences.getInt("center_id",0);
         initDatabase();
     }
 
@@ -52,7 +55,7 @@ public class ChatActivity extends AppCompatActivity {
         final ChatRecyclerAdapter chatAdapter = new ChatRecyclerAdapter(getApplicationContext(), chatList);
         initViews();
 
-        mDatabase.child("0").addChildEventListener(new ChildEventListener() {
+        mDatabase.child(String.valueOf(centerId)).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 ChatUser chatUser = dataSnapshot.getValue(ChatUser.class);
@@ -101,8 +104,9 @@ public class ChatActivity extends AppCompatActivity {
     private void sendMessage() {
         Log.d("Clicked","True");
         ChatUser chatUser = new ChatUser(sharedPreferences.getString("login_email",""), sharedPreferences.getString("volunteer_name",""), FirebaseInstanceId.getInstance().getToken(), " ", mETxtMessage.getText().toString());
-        DatabaseReference newRef =  mDatabase.child("0").push();
+        DatabaseReference newRef =  mDatabase.child(String.valueOf(centerId)).push();
         newRef.setValue(chatUser);
+        mETxtMessage.setText("");
         /*mDatabase.child("0").setValue(chatUser);*/
     }
 }
