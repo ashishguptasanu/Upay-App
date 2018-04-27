@@ -11,6 +11,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import volunteer.upay.com.upay.R;
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener{
@@ -33,7 +35,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
         setContentView(R.layout.activity_welcome);
-
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         View mContentView = findViewById(R.id.content_fullscreen);
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN

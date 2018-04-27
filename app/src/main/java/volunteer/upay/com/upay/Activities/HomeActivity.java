@@ -209,7 +209,10 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_center) {
             showToast("Coming Soon..");
         } else if (id == R.id.nav_fee) {
-            showToast("Coming Soon..");
+            Intent intentFee = new Intent(getApplicationContext(), WebviewActivity.class);
+            intentFee.putExtra("url_web_view", "https://www.payumoney.com/paybypayumoney/#/73831");
+            intentFee.putExtra("label", "Pay Membership Fee");
+            startActivity(intentFee);
         } else if (id == R.id.nav_policy) {
             showToast("Coming Soon..");
         } else if (id == R.id.nav_website) {

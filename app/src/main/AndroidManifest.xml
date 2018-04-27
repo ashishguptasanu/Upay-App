@@ -29,18 +29,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service
-            android:name=".Network.MyFirebaseInstanceIDService">
+
+        <service android:name=".Network.MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".Network.MyFirebaseMessagingService">
+        <service android:name=".Network.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".Activities.SignInActivity"
             android:label="Welcome to Upay" />
@@ -58,8 +58,6 @@
         <activity
             android:name=".Activities.StudentActivity"
             android:label="Students" />
-
-
         <activity
             android:name=".Activities.ImpContactsActivity"
             android:label="Contact Details" />
@@ -84,9 +82,10 @@
             android:name=".Activities.ZonalDetails"
             android:label="@string/title_activity_zonal_details"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.ChatActivity"
-            android:label="Center Chat">
-        </activity>
+        <activity
+            android:name=".Activities.ChatActivity"
+            android:label="Center Chat"></activity>
+        <activity android:name=".Activities.WebviewActivity"></activity>
     </application>
 
 </manifest>

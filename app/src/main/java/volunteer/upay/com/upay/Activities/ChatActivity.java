@@ -41,6 +41,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         centerId = sharedPreferences.getInt("center_id",0);
         initDatabase();
@@ -48,6 +49,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void initDatabase() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
         mRecyclerViewChat = findViewById(R.id.recycler_view_chat);
         linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
