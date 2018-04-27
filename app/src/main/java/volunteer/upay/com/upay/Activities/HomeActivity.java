@@ -14,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ import android.widget.Toast;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -111,12 +113,13 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        /*navigationView.removeHeaderView(null);
-        View header = LayoutInflater.from(this).inflate(R.layout.nav_header_home, null);
-        tvName = (TextView)navigationView.findViewById(R.id.tv_name_header);
-        tvEmail = (TextView)navigationView.findViewById(R.id.tv_email_header);
+        navigationView.removeHeaderView(null);
+        View header=navigationView.getHeaderView(0);
+        //View header = LayoutInflater.from(this).inflate(R.layout.nav_header_home, null);
+        tvName = (TextView)header.findViewById(R.id.tv_name_header);
+        tvEmail = (TextView)header.findViewById(R.id.tv_email_header);
         tvName.setText(sharedPreferences.getString("volunteer_name",""));
-        tvEmail.setText(sharedPreferences.getString("login_email",""));*/
+        tvEmail.setText(sharedPreferences.getString("login_email",""));
 
     }
 
@@ -216,6 +219,10 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_policy) {
             showToast("Coming Soon..");
         } else if (id == R.id.nav_website) {
+            /*Intent intentWebsite = new Intent(getApplicationContext(), WebviewActivity.class);
+            intentWebsite.putExtra("url_web_view", "https://upay.org.in/");
+            intentWebsite.putExtra("label", "Upay");
+            startActivity(intentWebsite);*/
             showToast("Coming Soon..");
         }else if (id == R.id.nav_logout) {
             AlertDialog alertDialog = new AlertDialog.Builder(HomeActivity.this).create();
