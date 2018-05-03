@@ -2,6 +2,8 @@ package volunteer.upay.com.upay.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -17,6 +19,8 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import volunteer.upay.com.upay.Adapters.AdapterCenters;
+import volunteer.upay.com.upay.Adapters.StudentMarksAdapter;
 import volunteer.upay.com.upay.Models.Marks;
 import volunteer.upay.com.upay.Models.Student;
 import volunteer.upay.com.upay.R;
@@ -24,6 +28,9 @@ import volunteer.upay.com.upay.R;
 public class StudentMarksDetails extends AppCompatActivity {
     OkHttpClient client = new OkHttpClient();
     List<Marks> marksList = new ArrayList<>();
+    RecyclerView recyclerView;
+    LinearLayoutManager linearLayoutManager;
+    StudentMarksAdapter studentMarksAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +68,7 @@ public class StudentMarksDetails extends AppCompatActivity {
                                      final String msgFinal = obj_status.getString("type");
                                      if(Objects.equals(msgFinal, "Success")){
                                          final JSONObject obj_data=obj_response.getJSONObject("data");
-                                         JSONArray center_array = obj_data.getJSONArray("students");
+                                         JSONArray center_array = obj_data.getJSONArray("marks");
                                          for (int i=0; i<center_array.length(); i++) {
                                              JSONObject centerObject = center_array.getJSONObject(i);
                                              String id = centerObject.getString("id");
@@ -91,5 +98,10 @@ public class StudentMarksDetails extends AppCompatActivity {
     }
 
     private void initViews() {
+        recyclerView = findViewById(R.id.recycler_marks);
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        studentMarksAdapter = new StudentMarksAdapter(getApplicationContext(), marksList);
+        recyclerView.setAdapter(studentMarksAdapter);
     }
 }
