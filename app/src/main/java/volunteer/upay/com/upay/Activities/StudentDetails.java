@@ -14,7 +14,7 @@ import volunteer.upay.com.upay.R;
 
 public class StudentDetails extends AppCompatActivity {
     CircularImageView ccpStudentImage;
-    String centerName, zoneName, name, age, parentName, clss, school, photoUrl, comments;
+    String id, centerName, zoneName, name, age, parentName, clss, school, photoUrl, comments;
     TextView tvStudentName, tvStudentAge, tvCenterName, tvStudentClass, tvStudentSchool, tvStudentParentName, tvZoneName, tvComments;
     TextView tvMarks;
 
@@ -23,6 +23,7 @@ public class StudentDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_details);
         if(getIntent().getExtras() != null){
+            id = getIntent().getStringExtra("student_id");
             centerName = getIntent().getStringExtra("center_name");
             zoneName = getIntent().getStringExtra("zone_name");
             name = getIntent().getStringExtra("name");
@@ -53,7 +54,7 @@ public class StudentDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), StudentMarksDetails.class);
-                intent.putExtra("student_id", "21");
+                intent.putExtra("student_id", id);
                 startActivity(intent);
             }
         });
