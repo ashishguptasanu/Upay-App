@@ -11,4 +11,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/recycler_marks">
     </android.support.v7.widget.RecyclerView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Data Found!"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:visibility="gone"
+        android:id="@+id/tv_marks_data_not_found"/>
 </LinearLayout>

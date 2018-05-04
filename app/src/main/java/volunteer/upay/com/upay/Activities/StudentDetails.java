@@ -90,11 +90,11 @@ public class StudentDetails extends AppCompatActivity implements View.OnClickLis
             case R.id.card_student_details:
                 if(layoutStudentDetails.getVisibility() == View.VISIBLE){
                     layoutStudentDetails.setVisibility(View.GONE);
-                    imageExpand.setImageResource(R.drawable.ic_expand_less_black_24dp);
+                    imageExpand.setImageResource(R.drawable.ic_expand_more_black_24dp);
 
                 }else if(layoutStudentDetails.getVisibility() == View.GONE) {
                     layoutStudentDetails.setVisibility(View.VISIBLE);
-                    imageExpand.setImageResource(R.drawable.ic_expand_more_black_24dp);
+                    imageExpand.setImageResource(R.drawable.ic_expand_less_black_24dp);
                 }
                 break;
             case R.id.card_student_report:

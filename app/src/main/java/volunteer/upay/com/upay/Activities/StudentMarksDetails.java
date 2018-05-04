@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,13 +33,14 @@ public class StudentMarksDetails extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     StudentMarksAdapter studentMarksAdapter;
+    TextView tvMarksDataNotFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_marks_details);
         String studentId = getIntent().getStringExtra("student_id");
-
+        tvMarksDataNotFound = findViewById(R.id.tv_marks_data_not_found);
         fetchTestDetails(studentId);
 
     }
@@ -84,7 +87,12 @@ public class StudentMarksDetails extends AppCompatActivity {
                                          runOnUiThread(new Runnable() {
                                              @Override
                                              public void run() {
-                                                 initViews();
+                                                 if(marksList.size() > 0){
+                                                     initViews();
+                                                 }else{
+                                                     tvMarksDataNotFound.setVisibility(View.VISIBLE);
+                                                 }
+
                                              }
                                          });
                                      }
