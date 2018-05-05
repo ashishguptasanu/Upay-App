@@ -86,7 +86,11 @@
             android:name=".Activities.ChatActivity"
             android:label="Center Chat" />
         <activity android:name=".Activities.WebviewActivity" />
-        <activity android:name=".Activities.StudentMarksDetails"></activity>
+        <activity android:name=".Activities.StudentMarksDetails" />
+        <activity android:name=".Activities.AddStudentMarks" />
+        <activity android:name=".Activities.AttendanceActivity"
+            android:label="Attendance">
+        </activity>
     </application>
 
 </manifest>

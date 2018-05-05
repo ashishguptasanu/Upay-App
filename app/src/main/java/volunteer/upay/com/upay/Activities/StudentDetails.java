@@ -59,6 +59,7 @@ public class StudentDetails extends AppCompatActivity implements View.OnClickLis
         cardStudentReports = findViewById(R.id.card_student_report);
         cardStudentReports.setOnClickListener(this);
         cardAddMarks = findViewById(R.id.card_add_student_marks);
+        cardAddMarks.setOnClickListener(this);
         cardViewAttendance = findViewById(R.id.card_student_attendance);
         layoutStudentDetails = findViewById(R.id.layout_student_details);
         imageExpand = findViewById(R.id.image_student_details);
@@ -103,6 +104,9 @@ public class StudentDetails extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.card_add_student_marks:
+                Intent addMarksIntent = new Intent(getApplicationContext(), AddStudentMarks.class);
+                addMarksIntent.putExtra("student_id", id);
+                startActivity(addMarksIntent);
                 break;
             case R.id.card_student_attendance:
                 break;

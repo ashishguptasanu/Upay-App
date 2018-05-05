@@ -161,7 +161,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                                              String zone_name = centerObject.getString("zone_name");
                                              String photo_url = centerObject.getString("photo_url");
                                              String comments = centerObject.getString("comments");
-                                             Student student = new Student(id, student_name, parent_name, age, clss, school, center_name, center_id, zone_name, zone_id, photo_url, comments);
+                                             Student student = new Student(id, student_name, parent_name, age, clss, school, center_name, center_id, zone_name, zone_id, photo_url, comments, false);
                                              studentList.add(student);
                                          }
                                          runOnUiThread(new Runnable() {
@@ -279,7 +279,8 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                 showToast("Coming Soon..");
                 break;
             case R.id.card_attandence:
-                showToast("Coming Soon..");
+                Intent attendanceIntent = new Intent(getApplicationContext(), AttendanceActivity.class);
+                startActivity(attendanceIntent);
                 break;
             case R.id.card_chat:
                 Intent chatIntent = new Intent(getApplicationContext(), ChatActivity.class);
