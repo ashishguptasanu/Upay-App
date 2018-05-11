@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -54,9 +55,11 @@ import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.views.BannerSlider;
 import volunteer.upay.com.upay.Adapters.AdapterCategories;
 import volunteer.upay.com.upay.Adapters.AdapterZones;
+import volunteer.upay.com.upay.Models.CategoryModel;
 import volunteer.upay.com.upay.Models.Volunteer;
 import volunteer.upay.com.upay.Models.Zones;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.util.AppConstants;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -68,13 +71,8 @@ public class HomeActivity extends AppCompatActivity
     TextView tvName, tvEmail;
     private Boolean exit = false;
     OkHttpClient client = new OkHttpClient();
-    String[] categories = new String[]{"Events", "Volunteers", "Students", "Centers", "Contacts"};
-    String[] categories_background = new String[]{
-            "http://upay.org.in/api/app_images/star.png",
-            "http://upay.org.in/api/app_images/volunteers.png",
-            "http://upay.org.in/api/app_images/students.png",
-            "http://upay.org.in/api/app_images/centers.png",
-            "http://upay.org.in/api/app_images/contact.png"};
+
+
     List<Zones> zonesList = new ArrayList<>();
     List<String> zonesData = new ArrayList<>();
 
@@ -134,7 +132,9 @@ public class HomeActivity extends AppCompatActivity
 
     private void initviews() {
         imgBanner = findViewById(R.id.img_banner);
-        Picasso.with(getApplicationContext()).load("http://upay.org.in/images/vinay/IMG_8480.JPG").into(imgBanner);
+        Glide.with(getApplicationContext()).load("https://www.upay.org.in/images/vinay/IMG_20170319_074547.jpg")
+                .placeholder(R.drawable.upay)
+                .into(imgBanner);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_zones);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -143,9 +143,19 @@ public class HomeActivity extends AppCompatActivity
         recyclerViewCategories = (RecyclerView) findViewById(R.id.recycler_categories);
 //        recyclerViewCategories.setHasFixedSize(true);
         recyclerViewCategories.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapterCategories = new AdapterCategories(getApplicationContext(), categories, categories_background);
+        adapterCategories = new AdapterCategories(getApplicationContext(), getCategoriesList());
         recyclerViewCategories.setAdapter(adapterCategories);
 //        recyclerViewCategories.smoothScrollBy(240, 0);
+    }
+
+    private List<CategoryModel> getCategoriesList() {
+        List<CategoryModel> categoryModels = new ArrayList<>();
+        categoryModels.add(new CategoryModel("Volunteers", "https://www.upay.org.in/images/vinay/IMG_8480.JPG", "http://upay.org.in/api/app_images/volunteers.png"));
+        categoryModels.add(new CategoryModel("Students", "https://www.upay.org.in/images/vinay/IMG_20171112_144508014.jpg", "http://upay.org.in/api/app_images/students.png"));
+        categoryModels.add(new CategoryModel("Centers", "https://www.upay.org.in/images/vinay/footpathshala.jpg", "http://upay.org.in/api/app_images/centers.png"));
+        categoryModels.add(new CategoryModel("Events", "https://www.upay.org.in/images/vinay/IMG_2851.JPG", "http://upay.org.in/api/app_images/star.png"));
+        categoryModels.add(new CategoryModel("Contacts", "https://www.upay.org.in/images/banner.jpg", "http://upay.org.in/api/app_images/contact.png"));
+        return categoryModels;
     }
 
     @Override
@@ -200,10 +210,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_center) {
             showToast("Coming Soon..");
         } else if (id == R.id.nav_fee) {
-            Intent intentFee = new Intent(getApplicationContext(), WebviewActivity.class);
-            intentFee.putExtra("url_web_view", "https://www.payumoney.com/paybypayumoney/#/73831");
-            intentFee.putExtra("label", "Pay Membership Fee");
-            startActivity(intentFee);
+            WebviewActivity.open(this, AppConstants.PAYU_URL, "Pay Membership Fee");
         } else if (id == R.id.nav_policy) {
             showToast("Coming Soon..");
         } else if (id == R.id.nav_website) {

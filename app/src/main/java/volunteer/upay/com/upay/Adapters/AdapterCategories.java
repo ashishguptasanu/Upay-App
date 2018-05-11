@@ -13,85 +13,74 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import java.util.List;
 
 import volunteer.upay.com.upay.Activities.CenterActivity;
 import volunteer.upay.com.upay.Activities.ImpContactsActivity;
 import volunteer.upay.com.upay.Activities.StudentActivity;
 import volunteer.upay.com.upay.Activities.VolunteerActivity;
+import volunteer.upay.com.upay.Models.CategoryModel;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.manager.NavigationManager;
 
 /**
  * Created by ashish on 11/3/18.
  */
 
 public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.MyViewHolder> {
-    Context context;
-    String[] categories;
-    String[] background;
+    private Context context;
+    private List<CategoryModel> categories;
 
-    public AdapterCategories(Context context, String[] categories, String[] background){
+    public AdapterCategories(Context context, List<CategoryModel> categoryModelList) {
         this.context = context;
-        this.categories = categories;
-        this.background = background;
+        this.categories = categoryModelList;
     }
+
     @NonNull
     @Override
     public AdapterCategories.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_categories,parent,false);
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_categories, parent, false);
+        return new MyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AdapterCategories.MyViewHolder holder, int position) {
-        holder.tvCategories.setText(categories[position]);
-        Picasso.with(context).load(background[position]).into(holder.imgCategories);
+        CategoryModel categoryModel = categories.get(position);
+        holder.tvCategories.setText(categoryModel.getCategory());
+        Glide.with(context).load(categoryModel.getIconUrl()).into(holder.imgCategories);
+        Glide.with(context)
+                .load(categoryModel.getBackgroundUrl())
+                .placeholder(R.drawable.upay)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.background);
     }
 
     @Override
     public int getItemCount() {
-        return categories.length;
+        return categories.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         CardView cardCategories;
         TextView tvCategories;
         ImageView imgCategories;
-        public MyViewHolder(View itemView) {
+        ImageView background;
+
+        MyViewHolder(View itemView) {
             super(itemView);
             cardCategories = itemView.findViewById(R.id.card_categories);
             cardCategories.setOnClickListener(this);
             tvCategories = itemView.findViewById(R.id.tv_categories);
             imgCategories = itemView.findViewById(R.id.image_categories);
+            background = itemView.findViewById(R.id.background);
         }
 
         @Override
         public void onClick(View v) {
-            switch (getAdapterPosition()){
-                case 0:
-                    Toast.makeText(context, "Coming Soon..",Toast.LENGTH_LONG).show();
-                    break;
-                case 1:
-                    Intent intentVolunteer = new Intent(context, VolunteerActivity.class);
-                    intentVolunteer.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intentVolunteer);
-                    break;
-
-                case 2:
-                    Intent intentStudents = new Intent(context, StudentActivity.class);
-                    intentStudents.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intentStudents);
-                    break;
-                case 3:
-                    Intent intentCenter = new Intent(context, CenterActivity.class);
-                    intentCenter.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intentCenter);
-                    break;
-                case 4:
-                    Toast.makeText(context, "Coming Soon..",Toast.LENGTH_LONG).show();
-                    break;
-            }
+            NavigationManager.openCategory(v.getContext(), categories.get(getAdapterPosition()));
         }
     }
 }
