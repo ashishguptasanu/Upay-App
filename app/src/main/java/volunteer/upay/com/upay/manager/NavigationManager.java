@@ -44,7 +44,7 @@ public class NavigationManager {
                 context.startActivity(intentCenter);
                 break;
             case "contacts":
-                WebviewActivity.open(context, AppConstants.CONTACT_US_URL, "Events");
+                WebviewActivity.open(context, AppConstants.CONTACT_US_URL, "Contact Us");
                 break;
         }
     }

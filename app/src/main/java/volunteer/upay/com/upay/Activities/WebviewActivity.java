@@ -17,6 +17,7 @@ import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -32,7 +33,8 @@ public class WebviewActivity extends AppCompatActivity {
     String url;
     ProgressDialog progressDialog;
     String firebaseToken;
-    TextView tvProgress, tvLoading;
+    private ProgressBar progressBar;
+    private TextView loading_status;
 
     public static void open(@NonNull Context context, @NonNull String url, @NonNull String label) {
         Intent intentFee = new Intent(context, WebviewActivity.class);
@@ -50,7 +52,8 @@ public class WebviewActivity extends AppCompatActivity {
             ActionBar actionBar = getSupportActionBar();
             actionBar.setTitle(getIntent().getStringExtra("label"));
         }
-
+        progressBar = findViewById(R.id.progressBar);
+        loading_status = findViewById(R.id.loading_status);
         wv1 = findViewById(R.id.web_view);
         wv1.getSettings().setLoadsImagesAutomatically(true);
         wv1.getSettings().setJavaScriptEnabled(true);
@@ -88,9 +91,14 @@ public class WebviewActivity extends AppCompatActivity {
                         "})()");
                 if (progress == 100) {
                     while (!injectJavaScript(view)) {
-
                         view.setVisibility(View.VISIBLE);
                     }
+                    progressBar.setVisibility(View.GONE);
+                    loading_status.setVisibility(View.GONE);
+                } else {
+                    loading_status.setText("Loading... (" + progress + "%)");
+                    progressBar.setVisibility(View.VISIBLE);
+                    loading_status.setVisibility(View.VISIBLE);
                 }
             }
         });

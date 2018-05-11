@@ -6,8 +6,10 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:background="@color/white"
+    android:foreground="?android:attr/selectableItemBackground"
     android:focusable="true"
     app:cardCornerRadius="8dp"
+    android:clickable="true"
     app:cardElevation="4dp">
 
     <LinearLayout
@@ -41,7 +43,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="0dp"
-                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:gravity="bottom"
                 android:padding="10dp"
