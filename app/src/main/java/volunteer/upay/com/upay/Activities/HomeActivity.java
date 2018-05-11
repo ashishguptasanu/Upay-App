@@ -83,14 +83,14 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        if(!isNetworkConnected()){
+        if (!isNetworkConnected()) {
             showToast("Please Check Your Internet Connection.");
-        }else{
+        } else {
             getZonalDetails("");
         }
-        Log.d("Token:", FirebaseInstanceId.getInstance().getToken());
+//        Log.d("Token:", FirebaseInstanceId.getInstance().getToken());
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        sharedPreferences.edit().putInt("center_id",0).apply();
+        sharedPreferences.edit().putInt("center_id", 0).apply();
 
         initviews();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -114,12 +114,12 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.removeHeaderView(null);
-        View header=navigationView.getHeaderView(0);
+        View header = navigationView.getHeaderView(0);
         //View header = LayoutInflater.from(this).inflate(R.layout.nav_header_home, null);
-        tvName = (TextView)header.findViewById(R.id.tv_name_header);
-        tvEmail = (TextView)header.findViewById(R.id.tv_email_header);
-        tvName.setText(sharedPreferences.getString("volunteer_name",""));
-        tvEmail.setText(sharedPreferences.getString("login_email",""));
+        tvName = (TextView) header.findViewById(R.id.tv_name_header);
+        tvEmail = (TextView) header.findViewById(R.id.tv_email_header);
+        tvName.setText(sharedPreferences.getString("volunteer_name", ""));
+        tvEmail.setText(sharedPreferences.getString("login_email", ""));
 
     }
 
@@ -133,31 +133,19 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void initviews() {
-        /*BannerSlider bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
-        List<Banner> banners=new ArrayList<>();
-        //add banner using image url
-        banners.add(new RemoteBanner("http://upay.org.in/images/vinay/IMG_8480.JPG"));
-        banners.add(new RemoteBanner("http://upay.org.in/images/vinay/IMG-20170813-WA0000.jpg"));
-        banners.add(new RemoteBanner("http://upay.org.in/images/vinay/DSC_0194.JPG"));
-        banners.add(new RemoteBanner("http://upay.org.in/images/vinay/IMG_20170319_074547.jpg"));
-        banners.add(new RemoteBanner("http://upay.org.in/images/vinay/IMG-20170926-WA0037.jpg"));
-
-        //add banner using resource drawable
-        //banners.add(new DrawableBanner(R.drawable.yourDrawable));
-        bannerSlider.setBanners(banners);*/
         imgBanner = findViewById(R.id.img_banner);
         Picasso.with(getApplicationContext()).load("http://upay.org.in/images/vinay/IMG_8480.JPG").into(imgBanner);
-        recyclerView = (RecyclerView)findViewById(R.id.recycler_zones);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_zones);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         adapterZones = new AdapterZones(getApplicationContext(), zonesList);
 
-        recyclerViewCategories = (RecyclerView)findViewById(R.id.recycler_categories);
-        recyclerViewCategories.setHasFixedSize(true);
-        recyclerViewCategories.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewCategories = (RecyclerView) findViewById(R.id.recycler_categories);
+//        recyclerViewCategories.setHasFixedSize(true);
+        recyclerViewCategories.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         adapterCategories = new AdapterCategories(getApplicationContext(), categories, categories_background);
         recyclerViewCategories.setAdapter(adapterCategories);
-        recyclerViewCategories.smoothScrollBy(240,0);
+//        recyclerViewCategories.smoothScrollBy(240, 0);
     }
 
     @Override
@@ -180,7 +168,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+//        getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
 
@@ -224,7 +212,7 @@ public class HomeActivity extends AppCompatActivity
             intentWebsite.putExtra("label", "Upay");
             startActivity(intentWebsite);*/
             showToast("Coming Soon..");
-        }else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_logout) {
             AlertDialog alertDialog = new AlertDialog.Builder(HomeActivity.this).create();
             alertDialog.setTitle("Logout");
             alertDialog.setMessage("are you sure you want to logout??");
@@ -237,11 +225,11 @@ public class HomeActivity extends AppCompatActivity
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Logout",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            sharedPreferences.edit().putString("login_email","").apply();
-                            sharedPreferences.edit().putString("volunteer_name","").apply();
+                            sharedPreferences.edit().putString("login_email", "").apply();
+                            sharedPreferences.edit().putString("volunteer_name", "").apply();
                             sharedPreferences.edit().putInt("login", 0).apply();
                             dialog.dismiss();
-                            Intent intent = new Intent(getApplicationContext(),WelcomeActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
                             startActivity(intent);
                         }
                     });
@@ -264,29 +252,30 @@ public class HomeActivity extends AppCompatActivity
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("zone_id", zone_id)
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/get_zone_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(getResources().getString(R.string.base_url) + "/get_zone_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override
                          public void onFailure(okhttp3.Call call, IOException e) {
                              System.out.println("Registration Error" + e.getMessage());
                          }
+
                          @Override
                          public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
                              String resp = response.body().string();
-                             Log.d("resp",resp);
+                             Log.d("resp", resp);
 
                              if (response.isSuccessful()) {
                                  JSONObject obj = null;
                                  try {
                                      obj = new JSONObject(resp);
-                                     JSONObject obj_response=obj.getJSONObject("Response");
-                                     final JSONObject obj_status=obj_response.getJSONObject("status");
+                                     JSONObject obj_response = obj.getJSONObject("Response");
+                                     final JSONObject obj_status = obj_response.getJSONObject("status");
                                      final String msgFinal = obj_status.getString("type");
-                                     if(Objects.equals(msgFinal, "Success")){
-                                         final JSONObject obj_data=obj_response.getJSONObject("data");
+                                     if (Objects.equals(msgFinal, "Success")) {
+                                         final JSONObject obj_data = obj_response.getJSONObject("data");
                                          JSONArray center_array = obj_data.getJSONArray("zones");
-                                         for (int i=0; i<center_array.length(); i++) {
+                                         for (int i = 0; i < center_array.length(); i++) {
                                              JSONObject centerObject = center_array.getJSONObject(i);
                                              String id = centerObject.getString("id");
                                              String zoneId = centerObject.getString("zone_id");
@@ -295,9 +284,9 @@ public class HomeActivity extends AppCompatActivity
                                              String headName = centerObject.getString("head_name");
                                              String headPhone = centerObject.getString("head_phone");
                                              String headCoordinatorName = centerObject.getString("head_coordinator_name");
-                                             String headCoordinatorPhone  = centerObject.getString("head_coordinator_phone");
+                                             String headCoordinatorPhone = centerObject.getString("head_coordinator_phone");
                                              String numCenters = centerObject.getString("num_centers");
-                                             String zonalOfficeAddress= centerObject.getString("zonal_office_address");
+                                             String zonalOfficeAddress = centerObject.getString("zonal_office_address");
                                              String numVolunteers = centerObject.getString("num_volunteers");
                                              String numStudents = centerObject.getString("num_students");
                                              Zones zone = new Zones(id, zoneId, zoneName, contactEmail, headName, headPhone, headCoordinatorName, headCoordinatorPhone, numCenters, zonalOfficeAddress, numVolunteers, numStudents);

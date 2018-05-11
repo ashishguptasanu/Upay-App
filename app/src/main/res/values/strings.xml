@@ -104,4 +104,6 @@
     <string name="number_of_centers">Number of Centers</string>
     <string name="number_of_volunteers">Number of Volunteers</string>
     <string name="number_of_students">Number of Students</string>
+    <string name="zones">Zones</string>
+    <string name="explore">Explore</string>
 </resources>
