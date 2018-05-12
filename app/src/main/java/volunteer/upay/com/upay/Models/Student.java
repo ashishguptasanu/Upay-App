@@ -66,6 +66,13 @@ public class Student {
         return comments;
     }
 
+    public boolean containText(String text) {
+        return (clss != null && clss.toLowerCase().contains(text.toLowerCase()))
+                || (age!= null && age.toLowerCase().contains(text.toLowerCase()))
+                || (studentName != null && studentName.toLowerCase().contains(text.toLowerCase()));
+    }
+
+
 
 
     public Student(String id, String studentName, String parentName, String age, String clss, String school, String centerName, String centerId, String zoneName, String zoneId, String photoUrl, String comments) {

@@ -32,7 +32,7 @@ import volunteer.upay.com.upay.Models.Student;
 import volunteer.upay.com.upay.Models.Volunteer;
 import volunteer.upay.com.upay.R;
 
-public class VolunteerActivity extends AppCompatActivity implements TextWatcher {
+public class VolunteerActivity extends BaseFilterActivity {
     OkHttpClient client = new OkHttpClient();
     List<Volunteer> volunteerList = new ArrayList<>();
     RecyclerView recyclerView;
@@ -119,8 +119,6 @@ public class VolunteerActivity extends AppCompatActivity implements TextWatcher 
     }
 
     private void initViews() {
-        filterText = findViewById(R.id.filterText);
-        filterText.addTextChangedListener(this);
         recyclerView = findViewById(R.id.recycler_volunteers);
         linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -128,19 +126,14 @@ public class VolunteerActivity extends AppCompatActivity implements TextWatcher 
         recyclerView.setAdapter(volunteerAdapter);
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+    @Override
+    public int getFilterEditTextId() {
+        return R.id.filterText;
     }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        volunteerAdapter.changeText(s);
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
+    public void textChanged(CharSequence text) {
+        volunteerAdapter.changeText(text);
     }
 }

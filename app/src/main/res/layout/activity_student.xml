@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/activty_background"
+    android:orientation="vertical"
     tools:context="volunteer.upay.com.upay.Activities.StudentActivity">
-    <android.support.v7.widget.RecyclerView
+
+    <EditText
+        android:id="@+id/filterText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/recycler_students">
-    </android.support.v7.widget.RecyclerView>
-</android.support.constraint.ConstraintLayout>
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:hint="@string/search_by_name_class_or_age"
+        android:inputType="text"
+        android:padding="10dp"
+        tools:ignore="LabelFor" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_students"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
