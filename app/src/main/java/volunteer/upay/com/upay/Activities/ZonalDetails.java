@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,7 +26,7 @@ import volunteer.upay.com.upay.R;
 
 public class ZonalDetails extends AppCompatActivity {
     TextView tvAddress, tvHeadName, tvHeadPhone, tvCoordinatorName, tvCoordinatorPhone, tvNumCenter, tvNumStudents, tvNumVolunteers;
-    Button btnMail;
+    ImageButton btnMail;
     String officeAddress, headName, headPhone, coordinatorName, coordinatorPhone, numCenter, numStudent, numVolunteers, zonalMail;
     FloatingActionButton fab;
 
