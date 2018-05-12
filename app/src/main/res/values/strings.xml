@@ -106,4 +106,5 @@
     <string name="number_of_students">Number of Students</string>
     <string name="zones">Zones</string>
     <string name="explore">Explore</string>
+    <string name="search_by_name_center_or_zone">Search by name, center or zone</string>
 </resources>

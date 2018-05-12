@@ -6,7 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,13 +32,14 @@ import volunteer.upay.com.upay.Models.Student;
 import volunteer.upay.com.upay.Models.Volunteer;
 import volunteer.upay.com.upay.R;
 
-public class VolunteerActivity extends AppCompatActivity {
+public class VolunteerActivity extends AppCompatActivity implements TextWatcher {
     OkHttpClient client = new OkHttpClient();
     List<Volunteer> volunteerList = new ArrayList<>();
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     VolunteerAdapter volunteerAdapter;
     SharedPreferences sharedPreferences;
+    EditText filterText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,42 +47,44 @@ public class VolunteerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_valunteer);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int centerId = sharedPreferences.getInt("center_id", 0);
-        if(Objects.equals(centerId, 0)){
+        if (Objects.equals(centerId, 0)) {
             getVolunteersDetails("");
-        }else{
+        } else {
             getVolunteersDetails(String.valueOf(centerId));
         }
 
 
     }
+
     private void getVolunteersDetails(String center_id) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("center_id", center_id)
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/get_volunteer_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(getResources().getString(R.string.base_url) + "/get_volunteer_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override
                          public void onFailure(okhttp3.Call call, IOException e) {
                              System.out.println("Registration Error" + e.getMessage());
                          }
+
                          @Override
                          public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
                              String resp = response.body().string();
-                             Log.d("resp",resp);
+                             Log.d("resp", resp);
 
                              if (response.isSuccessful()) {
                                  JSONObject obj = null;
                                  try {
                                      obj = new JSONObject(resp);
-                                     JSONObject obj_response=obj.getJSONObject("Response");
-                                     final JSONObject obj_status=obj_response.getJSONObject("status");
+                                     JSONObject obj_response = obj.getJSONObject("Response");
+                                     final JSONObject obj_status = obj_response.getJSONObject("status");
                                      final String msgFinal = obj_status.getString("type");
-                                     if(Objects.equals(msgFinal, "Success")){
-                                         final JSONObject obj_data=obj_response.getJSONObject("data");
+                                     if (Objects.equals(msgFinal, "Success")) {
+                                         final JSONObject obj_data = obj_response.getJSONObject("data");
                                          JSONArray center_array = obj_data.getJSONArray("volunteers");
-                                         for (int i=0; i<center_array.length(); i++) {
+                                         for (int i = 0; i < center_array.length(); i++) {
                                              JSONObject centerObject = center_array.getJSONObject(i);
                                              String id = centerObject.getString("id");
                                              String centerName = centerObject.getString("center_name");
@@ -85,9 +93,9 @@ public class VolunteerActivity extends AppCompatActivity {
                                              String zoneId = centerObject.getString("zone_id");
                                              String upayId = centerObject.getString("upay_id");
                                              String emailId = centerObject.getString("email_id");
-                                             String phone  = centerObject.getString("phone");
+                                             String phone = centerObject.getString("phone");
                                              String password = centerObject.getString("password");
-                                             String adminAccess= centerObject.getString("admin_access");
+                                             String adminAccess = centerObject.getString("admin_access");
                                              String name = centerObject.getString("name");
                                              String addedBy = centerObject.getString("added_by");
                                              String photoUrl = centerObject.getString("photo_url");
@@ -111,10 +119,28 @@ public class VolunteerActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        filterText = findViewById(R.id.filterText);
+        filterText.addTextChangedListener(this);
         recyclerView = findViewById(R.id.recycler_volunteers);
         linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         volunteerAdapter = new VolunteerAdapter(getApplicationContext(), volunteerList);
         recyclerView.setAdapter(volunteerAdapter);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        volunteerAdapter.changeText(s);
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
     }
 }
