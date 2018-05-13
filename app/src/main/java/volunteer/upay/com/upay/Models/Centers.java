@@ -10,6 +10,7 @@ public class Centers {
     private String zone_name;
     private String zone_id;
     private String latitude;
+    private String longitude;
     private String center_head_name;
     private String center_head_phone;
     private String center_address;
@@ -33,7 +34,6 @@ public class Centers {
         this.centerType = centerType;
     }
 
-    String longitude;
 
     public String getLatitude() {
         return latitude;

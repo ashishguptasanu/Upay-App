@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
@@ -64,9 +65,9 @@ public class VolunteerDetails extends AppCompatActivity {
             accessType.setText("None");
         }
         if(!TextUtils.isEmpty(photoUrl)){
-            Picasso.with(getApplicationContext()).load(photoUrl).into(ccpVoluImage);
+            Glide.with(getApplicationContext()).load(photoUrl).into(ccpVoluImage);
         }else{
-            Picasso.with(getApplicationContext()).load("http://upay.org.in/api/app_images/volunteer.png").into(ccpVoluImage);
+            Glide.with(getApplicationContext()).load("http://upay.org.in/api/app_images/volunteer.png").into(ccpVoluImage);
         }
     }
 }

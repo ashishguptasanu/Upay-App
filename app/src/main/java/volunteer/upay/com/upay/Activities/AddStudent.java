@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -109,7 +110,7 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
         btnAddStudent = findViewById(R.id.btn_add_student);
         imgStudent.setOnClickListener(this);
         btnAddStudent.setOnClickListener(this);
-        Picasso.with(getApplicationContext())
+        Glide.with(getApplicationContext())
                 .load("http://upay.org.in/api/images_api/student_icon.png")
                 .into(imgStudent);
     }

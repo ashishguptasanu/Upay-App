@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
@@ -36,7 +37,7 @@ public class StudentDetails extends AppCompatActivity {
         }
         initViews();
 
-        Picasso.with(getApplicationContext()).load("http://upay.org.in/api/images_api/student_icon.png").into(ccpStudentImage);
+        Glide.with(getApplicationContext()).load("http://upay.org.in/api/images_api/student_icon.png").into(ccpStudentImage);
     }
 
     private void initViews() {
@@ -72,10 +73,10 @@ public class StudentDetails extends AppCompatActivity {
         tvZoneName.setText(zoneName);
         tvComments.setText(comments);
         if(!TextUtils.isEmpty(photoUrl)){
-            Picasso.with(getApplicationContext()).load(photoUrl).into(ccpStudentImage);
+            Glide.with(getApplicationContext()).load(photoUrl).into(ccpStudentImage);
             //Log.d("True", "Yes");
         }else{
-            Picasso.with(getApplicationContext()).load("http://upay.org.in/api/images_api/student_icon.png").into(ccpStudentImage);
+            Glide.with(getApplicationContext()).load("http://upay.org.in/api/images_api/student_icon.png").into(ccpStudentImage);
         }
 
     }
