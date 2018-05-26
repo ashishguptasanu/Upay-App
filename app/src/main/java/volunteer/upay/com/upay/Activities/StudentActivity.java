@@ -124,6 +124,7 @@ public class StudentActivity extends BaseFilterActivity {
 
     @Override
     public void textChanged(CharSequence text) {
-        studentsAdapter.changeText(text);
+        if (studentsAdapter != null)
+            studentsAdapter.changeText(text);
     }
 }

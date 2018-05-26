@@ -9,14 +9,31 @@ android {
         versionCode 4
         versionName "1.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+            buildConfigField "int", "NETWORK_READ_TIME_OUT", project.NETWORK_READ_TIME_OUT
+            buildConfigField "int", "CONNECT_TIME_OUT", project.CONNECT_TIME_OUT
+            buildConfigField "int", "MAX_IDLE_CONNECTIONS", project.MAX_IDLE_CONNECTIONS
+            buildConfigField "int", "KEEP_ALIVE_DURATION", project.KEEP_ALIVE_DURATION
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            buildConfigField "int", "NETWORK_READ_TIME_OUT", project.NETWORK_READ_TIME_OUT
+            buildConfigField "int", "CONNECT_TIME_OUT", project.CONNECT_TIME_OUT
+            buildConfigField "int", "MAX_IDLE_CONNECTIONS", project.MAX_IDLE_CONNECTIONS
+            buildConfigField "int", "KEEP_ALIVE_DURATION", project.KEEP_ALIVE_DURATION
         }
     }
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -26,6 +43,7 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.google.firebase:firebase-database:12.0.1'
     implementation 'com.google.firebase:firebase-crash:12.0.1'
+    implementation 'com.android.support:support-v4:27.1.1'
     compile 'com.github.bumptech.glide:glide:3.8.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
@@ -42,6 +60,13 @@ dependencies {
     implementation 'com.github.Kennyc1012:BottomSheet:2.3.4'
     implementation 'com.google.firebase:firebase-messaging:12.0.1'
     implementation 'com.github.antonKozyriatskyi:CircularProgressIndicator:1.0.5'
+    implementation 'com.google.android.gms:play-services:12.0.1'
+    implementation 'com.google.android.gms:play-services-location:12.0.1'
+
+
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 
 }
 

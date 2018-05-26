@@ -13,7 +13,7 @@ import android.widget.EditText;
  * Created by amanbansal on 12/05/18.
  */
 
-public abstract class BaseFilterActivity extends AppCompatActivity {
+public abstract class BaseFilterActivity extends BaseActivity {
 
     @IdRes
     public abstract int getFilterEditTextId();

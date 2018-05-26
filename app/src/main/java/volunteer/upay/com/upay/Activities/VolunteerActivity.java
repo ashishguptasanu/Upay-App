@@ -134,6 +134,7 @@ public class VolunteerActivity extends BaseFilterActivity {
 
     @Override
     public void textChanged(CharSequence text) {
-        volunteerAdapter.changeText(text);
+        if (volunteerAdapter != null)
+            volunteerAdapter.changeText(text);
     }
 }

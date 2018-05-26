@@ -65,9 +65,9 @@ public class ZonalDetails extends AppCompatActivity {
         tvNumStudents = findViewById(R.id.tv_zone_num_students);
         tvNumVolunteers = findViewById(R.id.tv_zone_num_volunteer);
         btnMail = findViewById(R.id.btn_zone_mail);
-        fab =  findViewById(R.id.fab_zone);
+        fab = findViewById(R.id.fab_zone);
         setDataToViews();
-        }
+    }
 
     private void setDataToViews() {
         tvAddress.setText(officeAddress);
@@ -92,7 +92,7 @@ public class ZonalDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:"+ zonalMail)); // only email apps should handle this
+                intent.setData(Uri.parse("mailto:" + zonalMail)); // only email apps should handle this
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 }
@@ -100,6 +100,7 @@ public class ZonalDetails extends AppCompatActivity {
             }
         });
     }
+
     private void openBottomSheetContact() {
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setMinimumHeight(100);
@@ -114,8 +115,8 @@ public class ZonalDetails extends AppCompatActivity {
         linearLayout.addView(tvCallTo);
         linearLayout.addView(phone1);
         linearLayout.addView(phone2);
-        phone1.setPadding(60,20,10,20);
-        phone2.setPadding(60,20,10,40);
+        phone1.setPadding(60, 20, 10, 20);
+        phone2.setPadding(60, 20, 10, 40);
         phone1.setTextColor(Color.parseColor("#000000"));
         phone2.setTextColor(Color.parseColor("#000000"));
         phone1.setTextSize(16);
@@ -140,7 +141,7 @@ public class ZonalDetails extends AppCompatActivity {
                             public void onClick(View view) {
                                 bottomSheet.dismiss();
                                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                                intent.setData(Uri.parse("tel:"+ headPhone));
+                                intent.setData(Uri.parse("tel:" + headPhone));
                                 startActivity(intent);
 
                             }
@@ -150,16 +151,18 @@ public class ZonalDetails extends AppCompatActivity {
                             public void onClick(View view) {
                                 bottomSheet.dismiss();
                                 Intent intent2 = new Intent(Intent.ACTION_DIAL);
-                                intent2.setData(Uri.parse("tel:"+ coordinatorPhone));
+                                intent2.setData(Uri.parse("tel:" + coordinatorPhone));
                                 startActivity(intent2);
 
                             }
                         });
                     }
+
                     @Override
                     public void onSheetItemSelected(@NonNull BottomSheet bottomSheet, MenuItem menuItem) {
 
                     }
+
                     @Override
                     public void onSheetDismissed(@NonNull BottomSheet bottomSheet, @DismissEvent int i) {
                     }

@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -87,7 +88,8 @@
             android:label="Center Chat" />
         <activity android:name=".Activities.WebviewActivity" />
         <activity android:name=".Activities.StudentMarksDetails" />
-        <activity android:name=".Activities.AttendanceActivity"></activity>
+        <activity android:name=".Activities.AttendanceActivity" />
+
     </application>
 
 </manifest>
