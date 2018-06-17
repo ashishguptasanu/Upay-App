@@ -47,7 +47,6 @@ public abstract class LocationActivity extends BaseActivity {
                 }
                 for (Location location : locationResult.getLocations()) {
                     locationChanged(location.getLatitude(), location.getLongitude());
-                    Toast.makeText(LocationActivity.this, location.getLatitude() + " " + location.getLongitude(), Toast.LENGTH_LONG).show();
                 }
             }
         };
