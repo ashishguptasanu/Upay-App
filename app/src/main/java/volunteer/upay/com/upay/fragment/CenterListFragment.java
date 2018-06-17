@@ -55,6 +55,7 @@ public class CenterListFragment extends Fragment implements RestCallback.RestCal
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Toast.makeText(getActivity(), "Select your center", Toast.LENGTH_SHORT).show();
         View view = inflater.inflate(R.layout.fragment_centeritem_list, container, false);
         if (view instanceof RecyclerView) {
             Context context = view.getContext();

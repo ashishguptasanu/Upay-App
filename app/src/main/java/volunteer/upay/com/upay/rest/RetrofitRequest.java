@@ -25,4 +25,9 @@ public class RetrofitRequest {
         return requestInterface.fetchCenters(params);
     }
 
+    public static Call<GeneralResponseModel> markAttendance(Map<String, String> headers, Map<String, String> fieldMap) {
+        return requestInterface.markAttendance(headers, fieldMap);
+    }
+
+
 }

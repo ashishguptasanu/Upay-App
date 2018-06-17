@@ -4,6 +4,8 @@ import android.os.Environment;
 import android.text.TextUtils;
 
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+
 import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -46,6 +48,7 @@ public class RetrofitAdapter {
             }
         };
         builder.addNetworkInterceptor(interceptor);
+        builder.addNetworkInterceptor(new StethoInterceptor());
         builder.connectionPool(new okhttp3.ConnectionPool(CORE_POOL_SIZE, BuildConfig.KEEP_ALIVE_DURATION, TimeUnit.MILLISECONDS));
         builder.readTimeout(DEFAULT_READ_TIMEOUT, TimeUnit.SECONDS);
         builder.connectTimeout(BuildConfig.CONNECT_TIME_OUT, TimeUnit.SECONDS);

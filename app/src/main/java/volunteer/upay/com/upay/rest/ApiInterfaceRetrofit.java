@@ -5,6 +5,8 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Headers;
@@ -29,6 +31,10 @@ public interface ApiInterfaceRetrofit {
     @Headers("Content-Type: application/json")
     @GET("get_center_details.php")
     Call<CenterListResponse> fetchCenters(@HeaderMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST("submit_volunteer_attendance.php")
+    Call<GeneralResponseModel> markAttendance(@HeaderMap Map<String, String> headerMap, @FieldMap Map<String, String> fieldMap);
 
 
 }

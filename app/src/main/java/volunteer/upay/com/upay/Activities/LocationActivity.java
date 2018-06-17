@@ -91,7 +91,7 @@ public abstract class LocationActivity extends BaseActivity {
         stopLocationUpdates();
     }
 
-    private void stopLocationUpdates() {
+    public void stopLocationUpdates() {
         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
     }
 }
