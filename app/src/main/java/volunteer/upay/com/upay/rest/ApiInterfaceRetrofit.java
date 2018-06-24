@@ -34,7 +34,7 @@ public interface ApiInterfaceRetrofit {
 
     @FormUrlEncoded
     @POST("submit_volunteer_attendance.php")
-    Call<GeneralResponseModel> markAttendance(@HeaderMap Map<String, String> headerMap, @FieldMap Map<String, String> fieldMap);
+    Call<GeneralResponseModel> markAttendance(@HeaderMap Map<String, String> headerMap, @FieldMap(encoded = true) Map<String, String> fieldMap);
 
 
 }
