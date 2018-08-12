@@ -17,6 +17,15 @@ public class Student {
     String zoneId;
     String photoUrl;
     String comments;
+    boolean isSelected;
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
 
     public String getId() {
         return id;
@@ -68,7 +77,7 @@ public class Student {
 
 
 
-    public Student(String id, String studentName, String parentName, String age, String clss, String school, String centerName, String centerId, String zoneName, String zoneId, String photoUrl, String comments) {
+    public Student(String id, String studentName, String parentName, String age, String clss, String school, String centerName, String centerId, String zoneName, String zoneId, String photoUrl, String comments, boolean isSelected) {
         this.id = id;
         this.studentName = studentName;
         this.parentName = parentName;
@@ -81,5 +90,6 @@ public class Student {
         this.zoneId = zoneId;
         this.photoUrl = photoUrl;
         this.comments = comments;
+        this.isSelected = isSelected;
     }
 }

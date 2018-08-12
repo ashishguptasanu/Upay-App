@@ -59,6 +59,7 @@ public class StudentDetails extends AppCompatActivity implements View.OnClickLis
         cardStudentReports = findViewById(R.id.card_student_report);
         cardStudentReports.setOnClickListener(this);
         cardAddMarks = findViewById(R.id.card_add_student_marks);
+        cardAddMarks.setOnClickListener(this);
         cardViewAttendance = findViewById(R.id.card_student_attendance);
         layoutStudentDetails = findViewById(R.id.layout_student_details);
         imageExpand = findViewById(R.id.image_student_details);
@@ -90,11 +91,11 @@ public class StudentDetails extends AppCompatActivity implements View.OnClickLis
             case R.id.card_student_details:
                 if(layoutStudentDetails.getVisibility() == View.VISIBLE){
                     layoutStudentDetails.setVisibility(View.GONE);
-                    imageExpand.setImageResource(R.drawable.ic_expand_less_black_24dp);
+                    imageExpand.setImageResource(R.drawable.ic_expand_more_black_24dp);
 
                 }else if(layoutStudentDetails.getVisibility() == View.GONE) {
                     layoutStudentDetails.setVisibility(View.VISIBLE);
-                    imageExpand.setImageResource(R.drawable.ic_expand_more_black_24dp);
+                    imageExpand.setImageResource(R.drawable.ic_expand_less_black_24dp);
                 }
                 break;
             case R.id.card_student_report:
@@ -103,6 +104,9 @@ public class StudentDetails extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.card_add_student_marks:
+                Intent addMarksIntent = new Intent(getApplicationContext(), AddStudentMarks.class);
+                addMarksIntent.putExtra("student_id", id);
+                startActivity(addMarksIntent);
                 break;
             case R.id.card_student_attendance:
                 break;

@@ -2,9 +2,9 @@
     android:shape="rectangle">
     <corners android:radius="25dp"/>
     <gradient
-        android:startColor="#6622be"
-        android:centerColor="#651fff"
+        android:startColor="#ff6e40"
+        android:centerColor="#ffab40"
         android:type="linear"
-        android:endColor="#0d47a1"
+        android:endColor="#ffeb3b"
         android:angle="0" />
 </shape>
