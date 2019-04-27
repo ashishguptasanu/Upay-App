@@ -7,12 +7,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
 
     <application
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/upay_app_logo"
@@ -86,6 +88,7 @@
             android:name=".Activities.ChatActivity"
             android:label="Center Chat" />
         <activity android:name=".Activities.WebviewActivity" />
+
         <activity android:name=".Activities.StudentMarksDetails"
             android:label="Student Report"/>
         <activity android:name=".Activities.AddStudentMarks"

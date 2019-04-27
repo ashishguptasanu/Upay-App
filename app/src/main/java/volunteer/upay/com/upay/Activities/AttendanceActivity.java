@@ -1,121 +1,151 @@
+
 package volunteer.upay.com.upay.Activities;
 
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.HashMap;
+import java.util.Map;
 
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import volunteer.upay.com.upay.Adapters.AttendanceAdapter;
-import volunteer.upay.com.upay.Adapters.StudentsAdapter;
-import volunteer.upay.com.upay.Models.Student;
+import retrofit2.Call;
+import retrofit2.Response;
+import volunteer.upay.com.upay.Models.Centers;
+import volunteer.upay.com.upay.Models.GeneralResponseModel;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.fragment.CenterListFragment;
+import volunteer.upay.com.upay.rest.RestCallback;
+import volunteer.upay.com.upay.rest.RetrofitRequest;
+import volunteer.upay.com.upay.util.Utilities;
 
-public class AttendanceActivity extends AppCompatActivity {
-    OkHttpClient client = new OkHttpClient();
-    List<Student> studentList = new ArrayList<>();
-    RecyclerView recyclerView;
-    LinearLayoutManager linearLayoutManager;
-    AttendanceAdapter studentsAdapter;
-    SharedPreferences sharedPreferences;
-    FloatingActionButton fabSubmitAttendance;
+import static volunteer.upay.com.upay.util.Utilities.getHeaderMap;
 
+
+public class AttendanceActivity extends LocationActivity implements CenterListFragment.OnCenterSelectListener, RestCallback.RestCallbacks<GeneralResponseModel> {
+
+    private static final double MAX_DISTANCE = 1000; //1km
+
+    private Centers mSelectedCenter;
+    private double lat;
+    private double lon;
+    private CenterListFragment mCenterFrag;
+    private Button mPresentButton;
+    private ProgressBar mProgressBar;
+    private TextView mStatusText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_attendance);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int centerId = sharedPreferences.getInt("center_id", 0);
-        if(Objects.equals(centerId, 0)){
-            getStudentsDetails("");
-        }else{
-            getStudentsDetails(String.valueOf(centerId));
+        setContentView(R.layout.activity_attendence);
+        mPresentButton = findViewById(R.id.presentButton);
+        mProgressBar = findViewById(R.id.progressBar);
+        mStatusText = findViewById(R.id.status_text);
+
+        setTitle("Attendance");
+
+        pushFragment(null, mCenterFrag = CenterListFragment.newInstance(), R.id.container, "TAG", false);
+    }
+
+    @Override
+    protected void locationChanged(double lat, double lon) {
+        this.lat = lat;
+        this.lon = lon;
+        checkForDistance();
+    }
+
+    private void checkForDistance() {
+        if (mSelectedCenter != null && lat != 0 && lon != 0) {
+            double distance = Utilities.distance(lat, lon, mSelectedCenter.getLatitudeDouble(), mSelectedCenter.getLongitudeDouble());
+            if (distance < MAX_DISTANCE) {
+                mProgressBar.setVisibility(View.GONE);
+                mPresentButton.setVisibility(View.VISIBLE);
+                stopLocationUpdates();
+            } else {
+                mPresentButton.setVisibility(View.GONE);
+                mStatusText.setText("Please go to center and mark your attendance");
+            }
         }
-        fabSubmitAttendance = findViewById(R.id.fab_submit_attendance);
+    }
 
 
-    }
-    private void getStudentsDetails(String center_id) {
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("center_id", center_id)
-                .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/get_students_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
-        okhttp3.Call call = client.newCall(request);
-        call.enqueue(new okhttp3.Callback() {
-                         @Override
-                         public void onFailure(okhttp3.Call call, IOException e) {
-                             System.out.println("Registration Error" + e.getMessage());
-                         }
-                         @Override
-                         public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
-                             String resp = response.body().string();
-                             Log.d("resp",resp);
+    public void presentButton(View view) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String loginId = sharedPreferences.getString("login_email", "");
 
-                             if (response.isSuccessful()) {
-                                 JSONObject obj = null;
-                                 try {
-                                     obj = new JSONObject(resp);
-                                     JSONObject obj_response=obj.getJSONObject("Response");
-                                     final JSONObject obj_status=obj_response.getJSONObject("status");
-                                     final String msgFinal = obj_status.getString("type");
-                                     if(Objects.equals(msgFinal, "Success")){
-                                         final JSONObject obj_data=obj_response.getJSONObject("data");
-                                         JSONArray center_array = obj_data.getJSONArray("students");
-                                         for (int i=0; i<center_array.length(); i++) {
-                                             JSONObject centerObject = center_array.getJSONObject(i);
-                                             String id = centerObject.getString("id");
-                                             String student_name = centerObject.getString("student_name");
-                                             String parent_name = centerObject.getString("parent_name");
-                                             String age = centerObject.getString("age");
-                                             String clss = centerObject.getString("class");
-                                             String school = centerObject.getString("school");
-                                             String center_id  = centerObject.getString("center_id");
-                                             String zone_id = centerObject.getString("zone_id");
-                                             String center_name = centerObject.getString("center_name");
-                                             String zone_name = centerObject.getString("zone_name");
-                                             String photo_url = centerObject.getString("photo_url");
-                                             String comments = centerObject.getString("comments");
-                                             Student student = new Student(id, student_name, parent_name, age, clss, school, center_name, center_id, zone_name, zone_id, photo_url, comments, false);
-                                             studentList.add(student);
-                                         }
-                                         runOnUiThread(new Runnable() {
-                                             @Override
-                                             public void run() {
-                                                 initViews();
-                                             }
-                                         });
-                                     }
-                                 } catch (JSONException e) {
-                                     e.printStackTrace();
-                                 }
-                             }
-                         }
-                     }
-        );
+        Map<String, String> headers = getHeaderMap();
+        headers.put("Content-Type", "application/x-www-form-urlencoded");
+        Map<String, String> fieldMap = new HashMap<>();
+        fieldMap.put("volunteer_id", loginId);
+        fieldMap.put("attendance_status", "P");
+        if (mSelectedCenter != null)
+            fieldMap.put("center_id", mSelectedCenter.getCenter_id());
+        fieldMap.put("timestmp", String.valueOf(System.currentTimeMillis()));
+
+        Call<GeneralResponseModel> call = RetrofitRequest.markAttendance(headers, fieldMap);
+        RestCallback<GeneralResponseModel> responseRestCallback = new RestCallback<>(this, call, this);
+        responseRestCallback.executeRequest();
+        showLoading();
     }
-    private void initViews() {
-        recyclerView = findViewById(R.id.recycler_students_attendance);
-        linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        studentsAdapter = new AttendanceAdapter(getApplicationContext(), studentList, fabSubmitAttendance);
-        recyclerView.setAdapter(studentsAdapter);
+
+    private void showLoading() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        mPresentButton.setVisibility(View.GONE);
     }
+
+    private void hideLoading() {
+        mProgressBar.setVisibility(View.GONE);
+        mPresentButton.setVisibility(View.GONE);
+        mStatusText.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onCenterSelect(Centers item) {
+        mSelectedCenter = item;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.remove(mCenterFrag);
+        transaction.commit();
+
+        checkForDistance();
+
+//        pushFragment(null, AttendanceFragment.newInstance(item), R.id.container, "oCS", true);
+    }
+
+    private void attendenceMarked() {
+        mStatusText.setText("Attendance Marked");
+        hideLoading();
+    }
+
+    private void attendenceNotMarked() {
+        mStatusText.setText("Some problem occurred, please try again in some time");
+        hideLoading();
+    }
+
+    @Override
+    public void onResponse(Call<GeneralResponseModel> call, Response<GeneralResponseModel> response) {
+        if (response != null && response.body() != null && response.body().getResponse() != null
+                && response.body().getResponse().getData() != null
+                && !TextUtils.isEmpty(response.body().getResponse().getData().getType())
+                && response.body().getResponse().getData().getType().equalsIgnoreCase("success")) {
+            attendenceMarked();
+        } else {
+            attendenceNotMarked();
+        }
+    }
+
+
+    @Override
+    public void onFailure(Call<GeneralResponseModel> call, Throwable t) {
+        attendenceNotMarked();
+
+    }
+
 }

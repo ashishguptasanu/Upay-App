@@ -1,15 +1,18 @@
 package volunteer.upay.com.upay.Models;
 
+import java.io.Serializable;
+
 /**
  * Created by ashish on 10/3/18.
  */
 
-public class Centers {
+public class Centers implements Serializable {
     private String center_name;
     private String center_id;
     private String zone_name;
     private String zone_id;
     private String latitude;
+    private String longitude;
     private String center_head_name;
     private String center_head_phone;
     private String center_address;
@@ -33,7 +36,6 @@ public class Centers {
         this.centerType = centerType;
     }
 
-    String longitude;
 
     public String getLatitude() {
         return latitude;
@@ -72,4 +74,11 @@ public class Centers {
     }
 
 
+    public double getLongitudeDouble() {
+        return Double.parseDouble(longitude);
+    }
+
+    public double getLatitudeDouble() {
+        return Double.parseDouble(latitude);
+    }
 }

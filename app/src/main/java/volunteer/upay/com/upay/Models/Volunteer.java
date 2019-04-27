@@ -73,6 +73,12 @@ public class Volunteer {
         return added_by;
     }
 
+    public boolean containText(String text) {
+        return (center_name != null && center_name.toLowerCase().contains(text.toLowerCase()))
+                || (zone_name != null && zone_name.toLowerCase().contains(text.toLowerCase()))
+                || (name != null && name.toLowerCase().contains(text.toLowerCase()));
+    }
+
     public Volunteer(String id, String center_name, String center_id, String zone_name, String zone_id, String upay_id, String email_id, String phone, String password, String admin_access, String name, String added_by, String photoUrl) {
         this.id = id;
         this.center_name = center_name;
