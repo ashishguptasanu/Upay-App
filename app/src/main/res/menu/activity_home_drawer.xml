@@ -11,9 +11,6 @@
             android:id="@+id/nav_center"
             android:title="My Center" />
         <item
-            android:id="@+id/nav_attendance"
-            android:title="My Attendance" />
-        <item
             android:id="@+id/nav_fee"
             android:title="Pay Membership Fee" />
 

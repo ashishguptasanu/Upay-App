@@ -205,9 +205,6 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_profile) {
             showToast("Coming Soon..");
-        } else if (id == R.id.nav_attendance) {
-            Intent intent=new Intent(this,AttendanceActivity.class);
-            startActivity(intent);
         } else if (id == R.id.nav_center) {
             showToast("Coming Soon..");
         } else if (id == R.id.nav_fee) {

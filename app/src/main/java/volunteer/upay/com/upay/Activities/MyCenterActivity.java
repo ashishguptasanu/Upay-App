@@ -33,7 +33,7 @@ import volunteer.upay.com.upay.Models.Student;
 import volunteer.upay.com.upay.Models.Volunteer;
 import volunteer.upay.com.upay.R;
 
-public class MyCenterActivity extends AppCompatActivity implements View.OnClickListener{
+public class MyCenterActivity extends AppCompatActivity implements View.OnClickListener {
     OkHttpClient client = new OkHttpClient();
     LinearLayout layoutStudents, layoutVolunteers;
     CardView cardAddStudent, cardAddVolunteer, cardSyllabus, cardChat, cardAttendance;
@@ -42,7 +42,6 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
     TextView tvNumStudents, tvNumVolunteers;
     double latitude, longitude;
     String lat, lang, center_id;
-
 
 
     @Override
@@ -56,7 +55,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
         try {
             latitude = Double.parseDouble(lat);
             longitude = Double.parseDouble(lang);
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             latitude = 0.00;
             latitude = 0.00;
         }
@@ -67,6 +66,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
 
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -83,7 +83,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_navigate) {
-            if(!Objects.equals(latitude, 0.00)){
+            if (!Objects.equals(latitude, 0.00)) {
                 String label = "Upay Center";
                 String uriBegin = "geo:" + latitude + "," + longitude;
                 String query = latitude + "," + longitude + "(" + label + ")";
@@ -92,7 +92,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                 Uri uri = Uri.parse(uriString);
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
                 startActivity(intent);
-            }else{
+            } else {
                 showToast("Provided location is not valid.");
             }
             return true;
@@ -125,29 +125,30 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("center_id", center_id)
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/get_students_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(getResources().getString(R.string.base_url) + "/get_students_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override
                          public void onFailure(okhttp3.Call call, IOException e) {
                              System.out.println("Registration Error" + e.getMessage());
                          }
+
                          @Override
                          public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
                              String resp = response.body().string();
-                             Log.d("resp",resp);
+                             Log.d("resp", resp);
 
                              if (response.isSuccessful()) {
                                  JSONObject obj = null;
                                  try {
                                      obj = new JSONObject(resp);
-                                     JSONObject obj_response=obj.getJSONObject("Response");
-                                     final JSONObject obj_status=obj_response.getJSONObject("status");
+                                     JSONObject obj_response = obj.getJSONObject("Response");
+                                     final JSONObject obj_status = obj_response.getJSONObject("status");
                                      final String msgFinal = obj_status.getString("type");
-                                     if(Objects.equals(msgFinal, "Success")){
-                                         final JSONObject obj_data=obj_response.getJSONObject("data");
+                                     if (Objects.equals(msgFinal, "Success")) {
+                                         final JSONObject obj_data = obj_response.getJSONObject("data");
                                          JSONArray center_array = obj_data.getJSONArray("students");
-                                         for (int i=0; i<center_array.length(); i++) {
+                                         for (int i = 0; i < center_array.length(); i++) {
                                              JSONObject centerObject = center_array.getJSONObject(i);
                                              String id = centerObject.getString("id");
                                              String student_name = centerObject.getString("student_name");
@@ -155,7 +156,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                                              String age = centerObject.getString("age");
                                              String clss = centerObject.getString("class");
                                              String school = centerObject.getString("school");
-                                             String center_id  = centerObject.getString("center_id");
+                                             String center_id = centerObject.getString("center_id");
                                              String zone_id = centerObject.getString("zone_id");
                                              String center_name = centerObject.getString("center_name");
                                              String zone_name = centerObject.getString("zone_name");
@@ -170,9 +171,9 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                                                  getVolunteerDetails(center_id);
                                                  tvNumStudents = findViewById(R.id.tv_num_students);
 
-                                                 if(studentList.size()> 0){
+                                                 if (studentList.size() > 0) {
                                                      tvNumStudents.setText(String.valueOf(studentList.size()));
-                                                 }else{
+                                                 } else {
                                                      tvNumStudents.setText("0");
                                                  }
                                                  initViews();
@@ -187,34 +188,36 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                      }
         );
     }
+
     private void getVolunteerDetails(final String center_id) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("center_id", center_id)
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/get_volunteer_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(getResources().getString(R.string.base_url) + "/get_volunteer_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override
                          public void onFailure(okhttp3.Call call, IOException e) {
                              System.out.println("Registration Error" + e.getMessage());
                          }
+
                          @Override
                          public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
                              String resp = response.body().string();
-                             Log.d("resp",resp);
+                             Log.d("resp", resp);
 
                              if (response.isSuccessful()) {
                                  JSONObject obj = null;
                                  try {
                                      obj = new JSONObject(resp);
-                                     JSONObject obj_response=obj.getJSONObject("Response");
-                                     final JSONObject obj_status=obj_response.getJSONObject("status");
+                                     JSONObject obj_response = obj.getJSONObject("Response");
+                                     final JSONObject obj_status = obj_response.getJSONObject("status");
                                      final String msgFinal = obj_status.getString("type");
-                                     if(Objects.equals(msgFinal, "Success")){
-                                         final JSONObject obj_data=obj_response.getJSONObject("data");
+                                     if (Objects.equals(msgFinal, "Success")) {
+                                         final JSONObject obj_data = obj_response.getJSONObject("data");
                                          JSONArray center_array = obj_data.getJSONArray("volunteers");
-                                         for (int i=0; i<center_array.length(); i++) {
+                                         for (int i = 0; i < center_array.length(); i++) {
                                              JSONObject centerObject = center_array.getJSONObject(i);
                                              String id = centerObject.getString("id");
                                              String centerName = centerObject.getString("center_name");
@@ -223,9 +226,9 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                                              String zoneId = centerObject.getString("zone_id");
                                              String upayId = centerObject.getString("upay_id");
                                              String emailId = centerObject.getString("email_id");
-                                             String phone  = centerObject.getString("phone");
+                                             String phone = centerObject.getString("phone");
                                              String password = centerObject.getString("password");
-                                             String adminAccess= centerObject.getString("admin_access");
+                                             String adminAccess = centerObject.getString("admin_access");
                                              String name = centerObject.getString("name");
                                              String addedBy = centerObject.getString("added_by");
                                              String photoUrl = centerObject.getString("photo_url");
@@ -238,9 +241,9 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                                              public void run() {
 
                                                  tvNumVolunteers = findViewById(R.id.tv_num_volunteers);
-                                                 if(volunteerList.size() > 0){
+                                                 if (volunteerList.size() > 0) {
                                                      tvNumVolunteers.setText(String.valueOf(volunteerList.size()));
-                                                 }else{
+                                                 } else {
                                                      tvNumVolunteers.setText("0");
                                                  }
 
@@ -258,7 +261,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.layout_students:
                 Intent studentIntent = new Intent(getApplicationContext(), StudentActivity.class);
                 startActivity(studentIntent);
@@ -280,6 +283,9 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.card_attandence:
                 Intent attendanceIntent = new Intent(getApplicationContext(), AttendanceActivity.class);
+                attendanceIntent.putExtra("center_id", center_id);
+                attendanceIntent.putExtra("lat", lat);
+                attendanceIntent.putExtra("long", longitude);
                 startActivity(attendanceIntent);
                 break;
             case R.id.card_chat:

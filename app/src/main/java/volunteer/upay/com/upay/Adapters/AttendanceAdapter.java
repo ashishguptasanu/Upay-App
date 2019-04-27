@@ -91,107 +91,10 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
 
             }
         });
-
-
-        fabSubmitAttendance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JSONObject jsonObject = new JSONObject();
-                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                try {
-                    jsonObject.put("added_by",sharedPreferences.getString("login_email",""));
-                    jsonObject.put("center_id", String.valueOf(sharedPreferences.getInt("center_id", 0)));
-                    JSONArray attendanceArray = new JSONArray();
-
-                    for(int i=0; i<studentList.size(); i++){
-                        JSONObject attendanceObject = new JSONObject();
-                        attendanceObject.put("student_id", studentList.get(i).getId());
-
-                        if(studentList.get(i).isSelected()){
-                            isItemSelected = true;
-                            attendanceObject.put("status", "1");
-                        }
-                        else{
-                            attendanceObject.put("status", "0");
-                        }
-                        attendanceArray.put(attendanceObject);
-                        jsonObject.put("students",attendanceArray);
-
-
-                    }
-                    if(isItemSelected){
-                        postAttendanceData(jsonObject);
-                    }else{
-                        Toast.makeText(context, "No Students Selected", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
-    private void postAttendanceData(final JSONObject jsonObject) {
-        showToast("Please Wait..");
-        OkHttpClient client = new OkHttpClient();
-        String POST_URL = context.getResources().getString(R.string.base_url)+ "/submit_student_attendance.php";
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-        okhttp3.RequestBody requestBody = RequestBody.create(JSON,jsonObject.toString());
-        Request request = new Request.Builder().url(POST_URL)
-                .addHeader("Token","d75542712c868c1690110db641ba01a")
-                .post(requestBody).build();
-        okhttp3.Call call = client.newCall(request);
-        call.enqueue(new okhttp3.Callback() {
-                         @Override
-                         public void onFailure(okhttp3.Call call, IOException e) {
-                             postAttendanceData(jsonObject);
-                             System.out.println("Registration Error" + e.getMessage());
-                             showToast("Something Went Wrong!");
-                         }
-                         @Override
-                         public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
-                             String resp = response.body().string();
-                             Log.d("resp",resp);
 
-                             if (response.isSuccessful()) {
-                                 JSONObject obj = null;
-                                 try {
-                                     obj = new JSONObject(resp);
-                                     JSONObject obj_response=obj.getJSONObject("Response");
-                                     final JSONObject obj_status=obj_response.getJSONObject("status");
-                                     final String msgFinal = obj_status.getString("type");
-                                     if(Objects.equals(msgFinal, "Success")){
-                                         final JSONObject obj_data=obj_response.getJSONObject("data");
-                                         String msgType = obj_data.getString("type");
-                                         if(Objects.equals(msgType, "Success")){
-                                             Intent myCenterIntent = new Intent(context, MyCenterActivity.class);
-                                             myCenterIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                             myCenterIntent.putExtra("center_id", String.valueOf(sharedPreferences.getInt("center_id",0)));
-                                             myCenterIntent.putExtra("latitude", String.valueOf(sharedPreferences.getString("latitude","")));
-                                             myCenterIntent.putExtra("longitude", String.valueOf(sharedPreferences.getString("longitude","")));
-                                             context.startActivity(myCenterIntent);
-                                         }else{
-                                             showToast("Something Went Wrong!");
-                                         }
-                                     }
-                                 } catch (JSONException e) {
-                                     showToast("Something Went Wrong!");
-
-                                     e.printStackTrace();
-                                 }
-                             }else{
-                                 showToast("Something Went Wrong!");
-                             }
-
-                         }
-                     }
-        );
-    }
-
-    private void showToast(String s) {
-        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public int getItemCount() {
