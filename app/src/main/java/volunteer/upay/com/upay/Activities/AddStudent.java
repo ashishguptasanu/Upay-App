@@ -44,7 +44,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import volunteer.upay.com.upay.R;
 
-public class AddStudent extends AppCompatActivity implements View.OnClickListener, PermissionListener{
+public class AddStudent extends AppCompatActivity implements View.OnClickListener, PermissionListener {
     EditText edtName, edtParentName, edtAge, edtClss, edtSchool, edtComments;
     CircularImageView imgStudent;
     Button btnAddStudent;
@@ -62,7 +62,7 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_student);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        centerId = sharedPreferences.getString("center_id_volu","");
+        centerId = sharedPreferences.getString("center_id_volu", "");
         zoneId = sharedPreferences.getString("zone_id_volu", "");
         init();
     }
@@ -70,27 +70,29 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
     private void init() {
         layoutAccessDenied = findViewById(R.id.layout_background_student);
         layoutAddStudent = findViewById(R.id.layout_add_student);
-        if(Objects.equals(Integer.parseInt(sharedPreferences.getString("admin_access","")), 1)){
+        try {
+            if (Objects.equals(Integer.parseInt(sharedPreferences.getString("admin_access", "")), 1)) {
 
-            if(Objects.equals(centerId, String.valueOf(sharedPreferences.getInt("center_id", 0)))){
+                if (Objects.equals(centerId, String.valueOf(sharedPreferences.getInt("center_id", 0)))) {
+                    initViews();
+                } else {
+                    layoutAddStudent.setVisibility(View.GONE);
+                    layoutAccessDenied.setVisibility(View.VISIBLE);
+                }
+            } else if (Objects.equals(Integer.parseInt(sharedPreferences.getString("admin_access", "")), 2)) {
+                if (Objects.equals(zoneId, String.valueOf(sharedPreferences.getInt("zone_id", 0)))) {
+                    initViews();
+                } else {
+                    layoutAddStudent.setVisibility(View.GONE);
+                    layoutAccessDenied.setVisibility(View.VISIBLE);
+                }
+            } else if (Objects.equals(Integer.parseInt(sharedPreferences.getString("admin_access", "")), 3)) {
                 initViews();
-            }else{
+            } else {
                 layoutAddStudent.setVisibility(View.GONE);
                 layoutAccessDenied.setVisibility(View.VISIBLE);
             }
-        }
-        else if(Objects.equals(Integer.parseInt(sharedPreferences.getString("admin_access","")), 2)){
-            if(Objects.equals(zoneId, String.valueOf(sharedPreferences.getInt("zone_id",0)))){
-                initViews();
-            }else{
-                layoutAddStudent.setVisibility(View.GONE);
-                layoutAccessDenied.setVisibility(View.VISIBLE);
-            }
-        }
-        else if(Objects.equals(Integer.parseInt(sharedPreferences.getString("admin_access","")), 3)){
-            initViews();
-        }
-        else{
+        } catch (Exception e) {
             layoutAddStudent.setVisibility(View.GONE);
             layoutAccessDenied.setVisibility(View.VISIBLE);
         }
@@ -117,7 +119,7 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_add_student:
                 validateStudentData(edtName.getText().toString(), edtParentName.getText().toString(), edtAge.getText().toString(), edtClss.getText().toString(), edtSchool.getText().toString(), edtComments.getText().toString());
                 break;
@@ -128,28 +130,40 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
     }
 
     private void validateStudentData(String name, String parentName, String age, String clss, String school, String comments) {
-        if(!name.isEmpty()) {
+        if (!name.isEmpty()) {
             if (!parentName.isEmpty()) {
-                if(!age.isEmpty()){
-                    if(!clss.isEmpty()) {
-                        if(!school.isEmpty()) {
-                            if(!comments.isEmpty()) {
+                if (!age.isEmpty()) {
+                    if (!clss.isEmpty()) {
+                        if (!school.isEmpty()) {
+                            if (!comments.isEmpty()) {
                                 showProgress("Adding Student", "Please wait, Adding new student..");
                                 checkFile(name, parentName, age, clss, school, comments);
 
-                            }else{edtComments.setError("Field can't be blank.");}
-                        }else{edtSchool.setError("Please enter a valid email.");}
-                    }else{edtClss.setError("Field can't be blank.");}
-                }else{ edtAge.setError("Field can't be blank.");}
-            } else {edtParentName.setError("Field can't be blank.");}
-        }else{edtName.setError("Field can't be blank.");}
+                            } else {
+                                edtComments.setError("Field can't be blank.");
+                            }
+                        } else {
+                            edtSchool.setError("Please enter a valid email.");
+                        }
+                    } else {
+                        edtClss.setError("Field can't be blank.");
+                    }
+                } else {
+                    edtAge.setError("Field can't be blank.");
+                }
+            } else {
+                edtParentName.setError("Field can't be blank.");
+            }
+        } else {
+            edtName.setError("Field can't be blank.");
+        }
     }
 
     private void checkFile(String name, String parentName, String age, String clss, String school, String comments) {
-        if(filePath.length() > 0){
+        if (filePath.length() > 0) {
             String timeStamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + "";
             uploadFileToServer(timeStamp, tempUri, name, parentName, age, clss, school, comments);
-        }else{
+        } else {
             uploadStudentData(name, parentName, age, clss, school, comments, "");
         }
     }
@@ -170,15 +184,15 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
                 .addFormDataPart("age", age)
                 .addFormDataPart("class", clss)
                 .addFormDataPart("school", school)
-                .addFormDataPart("center_name", sharedPreferences.getString("center_name",""))
-                .addFormDataPart("center_id", String.valueOf(sharedPreferences.getInt("center_id",0)))
-                .addFormDataPart("zone_name", sharedPreferences.getString("zone_name",""))
-                .addFormDataPart("zone_id", String.valueOf(sharedPreferences.getInt("zone_id",0)))
+                .addFormDataPart("center_name", sharedPreferences.getString("center_name", ""))
+                .addFormDataPart("center_id", String.valueOf(sharedPreferences.getInt("center_id", 0)))
+                .addFormDataPart("zone_name", sharedPreferences.getString("zone_name", ""))
+                .addFormDataPart("zone_id", String.valueOf(sharedPreferences.getInt("zone_id", 0)))
                 .addFormDataPart("photo_url", finalData)
                 .addFormDataPart("comments", comments)
-                .addFormDataPart("added_by", sharedPreferences.getString("login_email",""))
+                .addFormDataPart("added_by", sharedPreferences.getString("login_email", ""))
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "//submit_students_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(getResources().getString(R.string.base_url) + "//submit_students_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override
@@ -187,32 +201,33 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
                              showToast("Adding Student failed.");
                              alertDialog.cancel();
                          }
+
                          @Override
                          public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
                              String resp = response.body().string();
-                             Log.d("resp",resp);
+                             Log.d("resp", resp);
 
                              if (response.isSuccessful()) {
                                  JSONObject obj = null;
                                  try {
                                      obj = new JSONObject(resp);
-                                     JSONObject obj_response=obj.getJSONObject("Response");
-                                     final JSONObject obj_status=obj_response.getJSONObject("status");
+                                     JSONObject obj_response = obj.getJSONObject("Response");
+                                     final JSONObject obj_status = obj_response.getJSONObject("status");
                                      final String msgFinal = obj_status.getString("type");
-                                     if(Objects.equals(msgFinal, "Success")){
-                                         final JSONObject obj_data=obj_response.getJSONObject("data");
+                                     if (Objects.equals(msgFinal, "Success")) {
+                                         final JSONObject obj_data = obj_response.getJSONObject("data");
                                          String msgType = obj_data.getString("type");
                                          String finalData = obj_data.getString("data");
-                                         if(Objects.equals(msgType, "Success")){
+                                         if (Objects.equals(msgType, "Success")) {
                                              alertDialog.cancel();
                                              showToast(finalData);
                                              Intent intent = new Intent(getApplicationContext(), MyCenterActivity.class);
-                                             intent.putExtra("center_id", String.valueOf(sharedPreferences.getInt("center_id",0)));
-                                             intent.putExtra("latitude", String.valueOf(sharedPreferences.getString("latitude","")));
-                                             intent.putExtra("longitude", String.valueOf(sharedPreferences.getString("longitude","")));
+                                             intent.putExtra("center_id", String.valueOf(sharedPreferences.getInt("center_id", 0)));
+                                             intent.putExtra("latitude", String.valueOf(sharedPreferences.getString("latitude", "")));
+                                             intent.putExtra("longitude", String.valueOf(sharedPreferences.getString("longitude", "")));
                                              startActivity(intent);
                                              //saveLoginDetails(email);
-                                         }else{
+                                         } else {
                                              showToast(finalData);
                                              alertDialog.cancel();
                                          }
@@ -222,7 +237,7 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
                                      alertDialog.cancel();
                                      e.printStackTrace();
                                  }
-                             }else{
+                             } else {
                                  showToast("Sign up failed.");
                                  alertDialog.cancel();
                              }
@@ -230,17 +245,19 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
                      }
         );
     }
-    private void showProgress(String title, String msg){
+
+    private void showProgress(String title, String msg) {
         alertDialog = new ProgressDialog(this);
         alertDialog.setTitle(title);
         alertDialog.setMessage(msg);
         alertDialog.show();
     }
-    private void showToast(final String msg){
+
+    private void showToast(final String msg) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), msg,Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -280,7 +297,6 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
     }
 
 
-
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
@@ -294,6 +310,7 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         return cursor.getString(idx);
     }
+
     private void uploadFileToServer(String timeStamp, Uri finalFile, final String name, final String parentName, final String age, final String clss, final String school, final String comments) {
         File file = new File(getRealPathFromURI(finalFile));
         RequestBody requestBody = new MultipartBody.Builder()
@@ -303,7 +320,7 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
                         RequestBody.create(MediaType.parse("image/jpeg"), file))
                 .build();
         Request request = new Request.Builder()
-                .url(getResources().getString(R.string.base_url)+"/upload_photo.php")
+                .url(getResources().getString(R.string.base_url) + "/upload_photo.php")
                 .addHeader("Token", getResources().getString(R.string.token))
                 .post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
@@ -315,6 +332,7 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
                              showToast("Adding Student failed.");
                              alertDialog.cancel();
                          }
+
                          @Override
                          public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
                              String resp = response.body().string();
@@ -322,20 +340,20 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
                                  JSONObject obj = null;
                                  try {
                                      obj = new JSONObject(resp);
-                                     JSONObject obj_response=obj.getJSONObject("Response");
-                                     final JSONObject obj_status=obj_response.getJSONObject("status");
+                                     JSONObject obj_response = obj.getJSONObject("Response");
+                                     final JSONObject obj_status = obj_response.getJSONObject("status");
                                      final String msgFinal = obj_status.getString("type");
-                                     if(Objects.equals(msgFinal, "Success")){
-                                         final JSONObject obj_data=obj_response.getJSONObject("data");
+                                     if (Objects.equals(msgFinal, "Success")) {
+                                         final JSONObject obj_data = obj_response.getJSONObject("data");
                                          String msgType = obj_data.getString("type");
                                          String finalData = obj_data.getString("data");
-                                         if(Objects.equals(msgType, "Success")){
+                                         if (Objects.equals(msgType, "Success")) {
                                              /*alertDialog.cancel();
                                              showToast(finalData);*/
                                              uploadStudentData(name, parentName, age, clss, school, comments, finalData);
                                              /*Intent intent = new Intent(getApplicationContext(), MyCenterActivity.class);
                                              startActivity(intent);*/
-                                         }else{
+                                         } else {
                                              showToast(finalData);
                                              alertDialog.cancel();
                                          }
@@ -345,13 +363,13 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
                                      alertDialog.cancel();
                                      e.printStackTrace();
                                  }
-                             }else{
+                             } else {
                                  showToast("Adding Student failed.");
                                  alertDialog.cancel();
                              }
 
-                             }
                          }
+                     }
 
         );
     }

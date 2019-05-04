@@ -31,11 +31,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.mikhaellopez.circularimageview.CircularImageView;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -132,7 +127,7 @@ public class HomeActivity extends AppCompatActivity
 
     private void initviews() {
         imgBanner = findViewById(R.id.img_banner);
-        Glide.with(getApplicationContext()).load("https://www.upay.org.in/images/vinay/IMG_20170319_074547.jpg")
+        Glide.with(getApplicationContext()).load("https://www.upay.org.in/wp-content/uploads/slider5/1011639_602810313103800_2114245395_n.jpeg")
                 .placeholder(R.drawable.upay)
                 .into(imgBanner);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_zones);
@@ -150,11 +145,11 @@ public class HomeActivity extends AppCompatActivity
 
     private List<CategoryModel> getCategoriesList() {
         List<CategoryModel> categoryModels = new ArrayList<>();
-        categoryModels.add(new CategoryModel("Volunteers", "https://www.upay.org.in/images/vinay/IMG_8480.JPG", "http://upay.org.in/api/app_images/volunteers.png"));
-        categoryModels.add(new CategoryModel("Students", "https://www.upay.org.in/images/vinay/IMG_20171112_144508014.jpg", "http://upay.org.in/api/app_images/students.png"));
-        categoryModels.add(new CategoryModel("Centers", "https://www.upay.org.in/images/vinay/footpathshala.jpg", "http://upay.org.in/api/app_images/centers.png"));
-        categoryModels.add(new CategoryModel("Events", "https://www.upay.org.in/images/vinay/IMG_2851.JPG", "http://upay.org.in/api/app_images/star.png"));
-        categoryModels.add(new CategoryModel("Contacts", "https://www.upay.org.in/images/banner.jpg", "http://upay.org.in/api/app_images/contact.png"));
+        categoryModels.add(new CategoryModel("Volunteers", "https://www.upay.org.in/wp-content/uploads/2019/01/volunteers.jpg", "http://upay.org.in/api/app_images/volunteers.png"));
+        categoryModels.add(new CategoryModel("Students", "https://www.upay.org.in/wp-content/uploads/2019/01/sponsor-hilds.jpg", "http://upay.org.in/api/app_images/students.png"));
+        categoryModels.add(new CategoryModel("Centers", "https://www.upay.org.in/wp-content/uploads/2019/01/Screen-Shot-2019-01-06-at-7.00.03-AM.png", "http://upay.org.in/api/app_images/centers.png"));
+//        categoryModels.add(new CategoryModel("Events", "https://www.upay.org.in/wp-content/uploads/2018/11/g5.png", "http://upay.org.in/api/app_images/star.png"));
+        categoryModels.add(new CategoryModel("Contacts", "https://www.upay.org.in/wp-content/uploads/slider5/IMG_4961.jpeg", "http://upay.org.in/api/app_images/contact.png"));
         return categoryModels;
     }
 

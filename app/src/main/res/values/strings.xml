@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Upay</string>
-    <string name="base_url">http://www.upay.org.in/api/v1.0</string>
+    <string name="base_url">https://www.upay.org.in/api/v1.0</string>
     <string name="token">d75542712c868c1690110db641ba01a</string>
     <string name="title_activity_home">Upay</string>
 
@@ -112,4 +112,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="present">Present</string>
+    <string name="subject">Subject</string>
+    <string name="work_activities_done">Work/Activities Done</string>
+    <string name="thought_of_the_day">Thought of the Day</string>
 </resources>

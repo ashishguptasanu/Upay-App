@@ -96,8 +96,11 @@
             android:name=".Activities.AddStudentMarks"
             android:label="Add Student Marks" />
         <activity
-            android:name=".Activities.AttendanceActivity"
+            android:name=".Activities.VolunteerLogFormActivity"
             android:label="Attendance" />
+        <activity
+            android:name=".Activities.VolunteerLogHistoryActivity"
+            android:label="History" />
         <activity
             android:name=".Activities.StudentAttendanceActivity"
             android:label="Student Attendance"></activity>

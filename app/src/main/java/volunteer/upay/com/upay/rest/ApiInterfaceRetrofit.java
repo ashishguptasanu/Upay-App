@@ -12,6 +12,7 @@ import retrofit2.http.HeaderMap;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import volunteer.upay.com.upay.Models.CenterListResponse;
 import volunteer.upay.com.upay.Models.GeneralResponseModel;
 
@@ -31,6 +32,10 @@ public interface ApiInterfaceRetrofit {
     @Headers("Content-Type: application/json")
     @GET("get_center_details.php")
     Call<CenterListResponse> fetchCenters(@HeaderMap Map<String, String> map);
+
+    @Headers("Content-Type: application/json")
+    @GET("get_volunteer_attendance.php")
+    Call<GeneralResponseModel> getVolunteersDetails(@HeaderMap Map<String, String> map, @Query("volunteer_id") String volunteerId);
 
     @FormUrlEncoded
     @POST("submit_volunteer_attendance.php")

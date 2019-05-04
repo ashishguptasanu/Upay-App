@@ -13,8 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.messaging.FirebaseMessaging;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +26,6 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.Models.Student;
 import volunteer.upay.com.upay.Models.Volunteer;
 import volunteer.upay.com.upay.R;
@@ -36,7 +33,7 @@ import volunteer.upay.com.upay.R;
 public class MyCenterActivity extends AppCompatActivity implements View.OnClickListener {
     OkHttpClient client = new OkHttpClient();
     LinearLayout layoutStudents, layoutVolunteers;
-    CardView cardAddStudent, cardAddVolunteer, cardSyllabus, cardChat, cardAttendance;
+    CardView cardAddStudent, cardAddVolunteer, cardSyllabus, cardChat, cardAttendance,volunteerLog;
     List<Student> studentList = new ArrayList<>();
     List<Volunteer> volunteerList = new ArrayList<>();
     TextView tvNumStudents, tvNumVolunteers;
@@ -110,8 +107,10 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
         cardAddVolunteer = findViewById(R.id.card_add_volunteer);
         cardSyllabus = findViewById(R.id.card_syllabus);
         cardAttendance = findViewById(R.id.card_attandence);
+        volunteerLog= findViewById(R.id.volunteer_log);
         cardChat = findViewById(R.id.card_chat);
         cardSyllabus.setOnClickListener(this);
+        volunteerLog.setOnClickListener(this);
         cardAttendance.setOnClickListener(this);
         cardChat.setOnClickListener(this);
         cardAddVolunteer.setOnClickListener(this);
@@ -281,12 +280,15 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.card_syllabus:
                 showToast("Coming Soon..");
                 break;
-            case R.id.card_attandence:
-                Intent attendanceIntent = new Intent(getApplicationContext(), AttendanceActivity.class);
+            case R.id.volunteer_log:
+                Intent attendanceIntent = new Intent(getApplicationContext(), VolunteerLogHistoryActivity.class);
                 attendanceIntent.putExtra("center_id", center_id);
                 attendanceIntent.putExtra("lat", lat);
                 attendanceIntent.putExtra("long", longitude);
                 startActivity(attendanceIntent);
+                break;
+            case R.id.card_attandence:
+                StudentAttendanceActivity.open(this, center_id);
                 break;
             case R.id.card_chat:
                 Intent chatIntent = new Intent(getApplicationContext(), ChatActivity.class);

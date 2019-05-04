@@ -15,8 +15,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

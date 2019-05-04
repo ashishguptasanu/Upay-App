@@ -1,10 +1,12 @@
 package volunteer.upay.com.upay.Activities;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 /**
  * Created by amanbansal on 11/05/18.
@@ -31,5 +33,9 @@ public class BaseActivity extends AppCompatActivity {
         ft.commit();
     }
 
+
+    public void showToast(@NonNull String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
 
 }

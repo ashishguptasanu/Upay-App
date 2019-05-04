@@ -114,6 +114,7 @@ public class AddVolunteer extends AppCompatActivity implements View.OnClickListe
                 .addFormDataPart("email_volunteer", emailId)
                 .addFormDataPart("added_by", sharedPreferences.getString("login_email",""))
                 .addFormDataPart("upay_id", upayId)
+                .addFormDataPart("phone", "9876543210")
                 .addFormDataPart("center_name", sharedPreferences.getString("center_name",""))
                 .addFormDataPart("center_id", String.valueOf(sharedPreferences.getInt("center_id",0)))
                 .addFormDataPart("zone_name", sharedPreferences.getString("zone_name",""))

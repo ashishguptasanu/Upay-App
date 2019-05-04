@@ -16,6 +16,9 @@ public class Data {
     @SerializedName("centers")
     @Expose
     private List<Centers> centers = null;
+    @SerializedName("attendance")
+    @Expose
+    private List<VolunteerLogModel> attendance = null;
 
     public String getType() {
         return type;
@@ -31,5 +34,13 @@ public class Data {
 
     public void setCenters(List<Centers> centers) {
         this.centers = centers;
+    }
+
+    public List<VolunteerLogModel> getAttendance() {
+        return attendance;
+    }
+
+    public void setAttendance(List<VolunteerLogModel> attendance) {
+        this.attendance = attendance;
     }
 }

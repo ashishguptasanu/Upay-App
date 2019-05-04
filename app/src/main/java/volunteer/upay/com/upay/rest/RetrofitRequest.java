@@ -29,5 +29,9 @@ public class RetrofitRequest {
         return requestInterface.markAttendance(headers, fieldMap);
     }
 
+    public static Call<GeneralResponseModel> getVolunteersDetails(Map<String, String> headers, String volunteerId) {
+        return requestInterface.getVolunteersDetails(headers, volunteerId);
+    }
+
 
 }
