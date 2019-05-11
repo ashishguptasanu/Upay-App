@@ -1,95 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.10" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.10" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline_end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.90" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.90" />
 
-    <EditText
-        android:id="@+id/subject"
-        style="@style/form_edit_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/subject"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/thought"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/work_don"
-        style="@style/form_edit_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/work_activities_done"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/thought"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="9dp" />
-
-    <EditText
-        android:id="@+id/thought"
-        style="@style/form_edit_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/thought_of_the_day"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/work_don"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/subject"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="9dp" />
+        <TextView
+            android:id="@+id/details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Add Log"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toTopOf="@id/class_taught"
+            app:layout_constraintEnd_toStartOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/in_time"
-        style="@style/form_text_style"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="In Time"
-        app:layout_constraintEnd_toStartOf="@+id/out_time"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toEndOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/work_don"
-        tools:ignore="MissingConstraints" />
+        <EditText
+            android:id="@+id/class_taught"
+            style="@style/form_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/class_taught"
+            android:inputType="text"
+            android:lines="2"
+            app:layout_constraintBottom_toTopOf="@+id/subject"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/details"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/subject"
+            style="@style/form_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/subject"
+            android:inputType="text"
+            android:lines="2"
+            app:layout_constraintBottom_toTopOf="@+id/thought"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/class_taught"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/thought"
+            style="@style/form_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/thought_of_the_day"
+            android:inputType="text"
+            android:lines="2"
+            app:layout_constraintBottom_toTopOf="@+id/work_don"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/subject"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/work_don"
+            style="@style/form_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/work_activities_done"
+            android:inputType="text"
+            android:lines="3"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/thought"
+            tools:ignore="MissingConstraints" />
 
 
-    <TextView
-        android:id="@+id/out_time"
-        style="@style/form_text_style"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Out Time"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/in_time"
-        app:layout_constraintTop_toBottomOf="@+id/work_don"
+        <EditText
+            android:id="@+id/in_time"
+            style="@style/form_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="In Time"
+            app:layout_constraintEnd_toStartOf="@+id/out_time"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/work_don"
+            tools:ignore="MissingConstraints" />
 
-        tools:ignore="MissingConstraints" />
 
-</android.support.constraint.ConstraintLayout>
+        <EditText
+            android:id="@+id/out_time"
+            style="@style/form_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="Out Time"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toEndOf="@+id/in_time"
+            app:layout_constraintTop_toBottomOf="@+id/work_don"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_gradient"
+            android:onClick="addLogClicked"
+            android:text="@string/submit"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/out_time" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/submit_button"
+            app:layout_constraintEnd_toEndOf="@id/submit_button"
+            app:layout_constraintStart_toStartOf="@id/submit_button"
+            app:layout_constraintTop_toTopOf="@id/submit_button" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

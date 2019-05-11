@@ -12,6 +12,7 @@ import java.util.List;
 
 import volunteer.upay.com.upay.Models.VolunteerLogModel;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.widgets.CircularDateView;
 
 public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogListAdapter.MyViewHolder> {
     private List<VolunteerLogModel> mList;
@@ -36,7 +37,7 @@ public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogLi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         VolunteerLogModel model = mList.get(position);
-        holder.date.setText(model.getTimestmp());
+        holder.date.setTimestamp(Long.parseLong(model.getTimestmp()));
         holder.subject.setText(model.getSubject());
 
     }
@@ -47,7 +48,7 @@ public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogLi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView date;
+        private CircularDateView date;
         private TextView subject;
 
         public MyViewHolder(View itemView) {

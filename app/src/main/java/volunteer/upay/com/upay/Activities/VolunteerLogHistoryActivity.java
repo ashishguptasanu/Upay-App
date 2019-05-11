@@ -6,11 +6,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
 
 
 import java.util.List;
@@ -26,11 +27,12 @@ import volunteer.upay.com.upay.rest.RetrofitRequest;
 import volunteer.upay.com.upay.util.LocationUtils;
 
 
+import static android.widget.LinearLayout.HORIZONTAL;
 import static volunteer.upay.com.upay.util.Utilities.getHeaderMap;
 
 
-public class VolunteerLogHistoryActivity extends LocationActivity implements RestCallback.RestCallbacks<GeneralResponseModel> {
-
+public class VolunteerLogHistoryActivity extends LocationActivity implements RestCallback.RestCallbacks<GeneralResponseModel>, SwipeRefreshLayout.OnRefreshListener {
+    private SwipeRefreshLayout swipeRefresh;
 
     private double currentLat;
     private double currentLong;
@@ -48,14 +50,23 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
         setContentView(R.layout.activity_attendence);
 
         fab = findViewById(R.id.fabButton);
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(this);
         mAttendanceList = findViewById(R.id.attendance_list);
         mAttendanceList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        DividerItemDecoration itemDecor = new DividerItemDecoration(this, HORIZONTAL);
+        mAttendanceList.addItemDecoration(itemDecor);
         mAttendanceList.setAdapter(mAdapter = new VolunteerLogListAdapter());
         fetchVolunteerLogHistory();
         setDefaults();
 
         setTitle("Attendance");
 
+    }
+
+    @Override
+    public void onRefresh() {
+        fetchVolunteerLogHistory();
     }
 
     private void setDefaults() {
@@ -116,13 +127,17 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
                 && response.body().getResponse().getData().getType().equalsIgnoreCase("success")) {
             List<VolunteerLogModel> volunteerLogModelList = response.body().getResponse().getData().getAttendance();
             mAdapter.swapItems(volunteerLogModelList);
+        } else {
+            showToast("Some problem in fetching");
         }
+        swipeRefresh.setRefreshing(false);
     }
 
 
     @Override
     public void onFailure(Call<GeneralResponseModel> call, Throwable t) {
         showToast("Some problem in fetching");
+        swipeRefresh.setRefreshing(false);
     }
 
 }

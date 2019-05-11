@@ -115,4 +115,6 @@
     <string name="subject">Subject</string>
     <string name="work_activities_done">Work/Activities Done</string>
     <string name="thought_of_the_day">Thought of the Day</string>
+    <string name="submit">Submit</string>
+    <string name="class_taught">Class taught</string>
 </resources>
