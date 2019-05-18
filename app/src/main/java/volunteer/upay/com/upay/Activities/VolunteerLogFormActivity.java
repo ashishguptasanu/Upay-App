@@ -86,8 +86,25 @@ public class VolunteerLogFormActivity extends BaseActivity implements RestCallba
         volunteerLogModel.setOut_time(outTime);
         volunteerLogModel.setClass_taught(classTaught);
         volunteerLogModel.setNo_of_students(noOfStudents);
+        String error = validate(volunteerLogModel);
+        if (TextUtils.isEmpty(error)) {
+            submitAttendance(volunteerLogModel);
+        } else {
+            showToast(error);
+        }
+    }
 
-        submitAttendance(volunteerLogModel);
+    private String validate(@NonNull VolunteerLogModel volunteerLogModel) {
+        if (TextUtils.isEmpty(volunteerLogModel.getSubject())) {
+            return "Subject cannot be empty";
+        } else if (TextUtils.isEmpty(volunteerLogModel.getNo_of_students())) {
+            return "Number of students cannot be empty";
+        } else if (TextUtils.isEmpty(volunteerLogModel.getIn_time())) {
+            return "In time cannot be empty";
+        } else if (TextUtils.isEmpty(volunteerLogModel.getOut_time())) {
+            return "Out time cannot be empty";
+        }
+        return null;
     }
 
 
