@@ -3,6 +3,7 @@ package volunteer.upay.com.upay.Activities;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -49,6 +50,7 @@ public class CenterActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_centers);
         linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         adapterCenters = new AdapterCenters(getApplicationContext(), centerList);
         recyclerView.setAdapter(adapterCenters);
     }

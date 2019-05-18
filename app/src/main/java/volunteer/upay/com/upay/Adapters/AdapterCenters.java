@@ -29,7 +29,7 @@ public class AdapterCenters extends RecyclerView.Adapter<AdapterCenters.MyViewHo
     List<Centers> centersList = new ArrayList<>();
     SharedPreferences sharedPreferences;
 
-    public AdapterCenters(Context context, List<Centers> centersList){
+    public AdapterCenters(Context context, List<Centers> centersList) {
         this.context = context;
         this.centersList = centersList;
     }
@@ -38,7 +38,7 @@ public class AdapterCenters extends RecyclerView.Adapter<AdapterCenters.MyViewHo
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_centers,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_centers, parent, false);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }
@@ -54,20 +54,18 @@ public class AdapterCenters extends RecyclerView.Adapter<AdapterCenters.MyViewHo
         return centersList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         CardView cardCenters;
         ImageView imgMoveToCenter;
         TextView tvCenterName, tvZoneName;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             cardCenters = itemView.findViewById(R.id.card_centers);
             imgMoveToCenter = itemView.findViewById(R.id.img_move_to_center);
             tvCenterName = itemView.findViewById(R.id.tv_center_name);
             tvZoneName = itemView.findViewById(R.id.tv_zone_name);
-            cardCenters.setOnClickListener(this);
-            imgMoveToCenter.setOnClickListener(this);
-            tvCenterName.setOnClickListener(this);
-            tvZoneName.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override
@@ -77,9 +75,9 @@ public class AdapterCenters extends RecyclerView.Adapter<AdapterCenters.MyViewHo
             int centerId = Integer.parseInt(centersList.get(getAdapterPosition()).getCenter_id());
             sharedPreferences.edit().putInt("center_id", centerId).apply();
             intent.putExtra("center_id", String.valueOf(centerId));
-            intent.putExtra("center_name",centersList.get(getAdapterPosition()).getCenter_name());
-            intent.putExtra("latitude",centersList.get(getAdapterPosition()).getLatitude());
-            intent.putExtra("longitude",centersList.get(getAdapterPosition()).getLongitude());
+            intent.putExtra("center_name", centersList.get(getAdapterPosition()).getCenter_name());
+            intent.putExtra("latitude", centersList.get(getAdapterPosition()).getLatitude());
+            intent.putExtra("longitude", centersList.get(getAdapterPosition()).getLongitude());
             sharedPreferences.edit().putInt("zone_id", Integer.parseInt(centersList.get(getAdapterPosition()).getZone_id())).apply();
             sharedPreferences.edit().putString("center_name", centersList.get(getAdapterPosition()).getCenter_name()).apply();
             sharedPreferences.edit().putString("zone_name", centersList.get(getAdapterPosition()).getZone_name()).apply();
