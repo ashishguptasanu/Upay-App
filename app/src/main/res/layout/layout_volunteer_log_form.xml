@@ -30,8 +30,7 @@
             android:id="@+id/details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Add Log"
+            android:text="@string/add_log"
             android:textSize="26sp"
             app:layout_constraintBottom_toTopOf="@id/class_taught"
             app:layout_constraintEnd_toStartOf="@id/guideline_end"
@@ -96,6 +95,19 @@
             app:layout_constraintTop_toBottomOf="@+id/thought"
             tools:ignore="MissingConstraints" />
 
+        <EditText
+            android:id="@+id/no_of_students"
+            style="@style/form_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/no_of_students"
+            android:inputType="text"
+            android:lines="3"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/work_don"
+            tools:ignore="MissingConstraints" />
+
 
         <EditText
             android:id="@+id/in_time"
@@ -103,11 +115,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="In Time"
+            android:hint="@string/in_time"
             app:layout_constraintEnd_toStartOf="@+id/out_time"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/work_don"
+            app:layout_constraintTop_toBottomOf="@+id/no_of_students"
             tools:ignore="MissingConstraints" />
 
 
@@ -117,10 +129,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Out Time"
+            android:hint="@string/out_time"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toEndOf="@+id/in_time"
-            app:layout_constraintTop_toBottomOf="@+id/work_don"
+            app:layout_constraintTop_toBottomOf="@+id/no_of_students"
             tools:ignore="MissingConstraints" />
 
         <Button

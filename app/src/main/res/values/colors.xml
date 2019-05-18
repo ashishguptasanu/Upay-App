@@ -3,7 +3,14 @@
     <color name="colorPrimary">#673ab7</color>
     <color name="colorPrimaryDark">#512da8</color>
     <color name="colorAccent">#fbc02d</color>
-    <color name="white">#fff</color>
     <color name="black">#000000</color>
     <color name="activty_background">#e0e0e0</color>
+    <color name="green">#25d366</color>
+    <color name="blue_dark">#3b5998</color>
+    <color name="blue_light">#4099FF</color>
+    <color name="red">#c23417</color>
+    <color name="gray">#a7a7a7</color>
+    <color name="bg_gray">#e7e7e7</color>
+    <color name="dark_gray">#b6b5b5</color>
+    <color name="white">#fff</color>
 </resources>

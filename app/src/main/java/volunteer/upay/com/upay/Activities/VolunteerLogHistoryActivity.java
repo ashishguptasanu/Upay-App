@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,8 +27,6 @@ import volunteer.upay.com.upay.rest.RestCallback;
 import volunteer.upay.com.upay.rest.RetrofitRequest;
 import volunteer.upay.com.upay.util.LocationUtils;
 
-
-import static android.widget.LinearLayout.HORIZONTAL;
 import static volunteer.upay.com.upay.util.Utilities.getHeaderMap;
 
 
@@ -54,7 +53,7 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
         swipeRefresh.setOnRefreshListener(this);
         mAttendanceList = findViewById(R.id.attendance_list);
         mAttendanceList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        DividerItemDecoration itemDecor = new DividerItemDecoration(this, HORIZONTAL);
+        DividerItemDecoration itemDecor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         mAttendanceList.addItemDecoration(itemDecor);
         mAttendanceList.setAdapter(mAdapter = new VolunteerLogListAdapter());
         fetchVolunteerLogHistory();
@@ -126,6 +125,7 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
                 && !TextUtils.isEmpty(response.body().getResponse().getData().getType())
                 && response.body().getResponse().getData().getType().equalsIgnoreCase("success")) {
             List<VolunteerLogModel> volunteerLogModelList = response.body().getResponse().getData().getAttendance();
+            Collections.sort(volunteerLogModelList);
             mAdapter.swapItems(volunteerLogModelList);
         } else {
             showToast("Some problem in fetching");

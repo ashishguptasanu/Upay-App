@@ -26,7 +26,6 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
         android:onClick="addLog"
-        android:src="@drawable/ic_add_24dp"
-        app:backgroundTint="@color/black_35" />
+        app:srcCompat="@drawable/ic_add_24dp" />
 
 </FrameLayout>

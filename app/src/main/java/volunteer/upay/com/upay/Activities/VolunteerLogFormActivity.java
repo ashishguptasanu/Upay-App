@@ -29,7 +29,7 @@ import static volunteer.upay.com.upay.util.Utilities.getHeaderMap;
 public class VolunteerLogFormActivity extends BaseActivity implements RestCallback.RestCallbacks<GeneralResponseModel> {
 
     private String mCenterId;
-    private EditText subject, thought, work_don, in_time, out_time, class_taught;
+    private EditText subject, thought, work_don, in_time, out_time, class_taught, no_of_students;
     private Button submit_button;
     private ProgressBar progressBar;
 
@@ -61,6 +61,7 @@ public class VolunteerLogFormActivity extends BaseActivity implements RestCallba
         class_taught = findViewById(R.id.class_taught);
         progressBar = findViewById(R.id.progressBar);
         submit_button = findViewById(R.id.submit_button);
+        no_of_students = findViewById(R.id.no_of_students);
     }
 
     public void addLogClicked(View View) {
@@ -73,6 +74,7 @@ public class VolunteerLogFormActivity extends BaseActivity implements RestCallba
         String inTime = in_time.getText().toString();
         String outTime = out_time.getText().toString();
         String classTaught = class_taught.getText().toString();
+        String noOfStudents = no_of_students.getText().toString();
         VolunteerLogModel volunteerLogModel = new VolunteerLogModel();
         volunteerLogModel.setAttendance_status("P");
         volunteerLogModel.setVolunteer_id(loginId);
@@ -83,6 +85,7 @@ public class VolunteerLogFormActivity extends BaseActivity implements RestCallba
         volunteerLogModel.setIn_time(inTime);
         volunteerLogModel.setOut_time(outTime);
         volunteerLogModel.setClass_taught(classTaught);
+        volunteerLogModel.setNo_of_students(noOfStudents);
 
         submitAttendance(volunteerLogModel);
     }
@@ -113,6 +116,7 @@ public class VolunteerLogFormActivity extends BaseActivity implements RestCallba
         fieldMap.put("subject", volunteerLogModel.getSubject());
         fieldMap.put("work_done", volunteerLogModel.getWork_done());
         fieldMap.put("thought_of_day", volunteerLogModel.getThought_of_day());
+        fieldMap.put("no_of_students", volunteerLogModel.getNo_of_students());
         if (volunteerLogModel.getCenter_id() != null)
             fieldMap.put("center_id", volunteerLogModel.getCenter_id());
         fieldMap.put("timestmp", String.valueOf(System.currentTimeMillis()));

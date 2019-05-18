@@ -10,9 +10,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import bolts.Continuation;
+import bolts.Task;
+import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.Models.VolunteerLogModel;
 import volunteer.upay.com.upay.R;
 import volunteer.upay.com.upay.widgets.CircularDateView;
+
+import static volunteer.upay.com.upay.util.CenterUtils.getCenterNameFromId;
 
 public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogListAdapter.MyViewHolder> {
     private List<VolunteerLogModel> mList;
@@ -35,10 +40,20 @@ public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogLi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         VolunteerLogModel model = mList.get(position);
         holder.date.setTimestamp(Long.parseLong(model.getTimestmp()));
         holder.subject.setText(model.getSubject());
+        holder.work_done.setText(model.getWork_done());
+        holder.time.setText(model.getIn_time() + " - " + model.getOut_time());
+        getCenterNameFromId(holder.itemView.getContext(), model.getCenter_id()).onSuccess(new Continuation<Centers, Object>() {
+            @Override
+            public Object then(Task<Centers> task) throws Exception {
+                holder.center_name.setText(task.getResult().getCenter_name());
+                return null;
+            }
+        });
+
 
     }
 
@@ -49,12 +64,15 @@ public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogLi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private CircularDateView date;
-        private TextView subject;
+        private TextView subject, work_done, time, center_name;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.date);
             subject = itemView.findViewById(R.id.subject);
+            center_name = itemView.findViewById(R.id.center_name);
+            time = itemView.findViewById(R.id.time);
+            work_done = itemView.findViewById(R.id.work_done);
         }
     }
 }

@@ -1,13 +1,19 @@
 package volunteer.upay.com.upay.Models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
  * Created by ashish on 10/3/18.
  */
-
+@Entity
 public class Centers implements Serializable {
     private String center_name;
+    @PrimaryKey
+    @NonNull
     private String center_id;
     private String zone_name;
     private String zone_id;
@@ -23,7 +29,7 @@ public class Centers implements Serializable {
 
     private String centerType;
 
-    public Centers(String center_name, String center_id, String zone_name, String zone_id, String latitude, String longitude, String center_head_name, String center_head_phone, String center_address, String centerType) {
+    public Centers(String center_name, @NonNull String center_id, String zone_name, String zone_id, String latitude, String longitude, String center_head_name, String center_head_phone, String center_address, String centerType) {
         this.center_name = center_name;
         this.center_id = center_id;
         this.zone_name = zone_name;

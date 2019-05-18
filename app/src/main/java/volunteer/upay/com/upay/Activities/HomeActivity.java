@@ -145,9 +145,9 @@ public class HomeActivity extends AppCompatActivity
 
     private List<CategoryModel> getCategoriesList() {
         List<CategoryModel> categoryModels = new ArrayList<>();
+        categoryModels.add(new CategoryModel("Centers", "https://www.upay.org.in/wp-content/uploads/2019/01/Screen-Shot-2019-01-06-at-7.00.03-AM.png", "http://upay.org.in/api/app_images/centers.png"));
         categoryModels.add(new CategoryModel("Volunteers", "https://www.upay.org.in/wp-content/uploads/2019/01/volunteers.jpg", "http://upay.org.in/api/app_images/volunteers.png"));
         categoryModels.add(new CategoryModel("Students", "https://www.upay.org.in/wp-content/uploads/2019/01/sponsor-hilds.jpg", "http://upay.org.in/api/app_images/students.png"));
-        categoryModels.add(new CategoryModel("Centers", "https://www.upay.org.in/wp-content/uploads/2019/01/Screen-Shot-2019-01-06-at-7.00.03-AM.png", "http://upay.org.in/api/app_images/centers.png"));
 //        categoryModels.add(new CategoryModel("Events", "https://www.upay.org.in/wp-content/uploads/2018/11/g5.png", "http://upay.org.in/api/app_images/star.png"));
         categoryModels.add(new CategoryModel("Contacts", "https://www.upay.org.in/wp-content/uploads/slider5/IMG_4961.jpeg", "http://upay.org.in/api/app_images/contact.png"));
         return categoryModels;

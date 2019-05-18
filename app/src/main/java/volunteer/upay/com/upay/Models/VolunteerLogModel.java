@@ -1,6 +1,8 @@
 package volunteer.upay.com.upay.Models;
 
-public class VolunteerLogModel {
+import android.support.annotation.NonNull;
+
+public class VolunteerLogModel implements Comparable<VolunteerLogModel> {
     private String id;
     private String volunteer_id;
     private String center_id;
@@ -12,6 +14,7 @@ public class VolunteerLogModel {
     private String subject;
     private String work_done;
     private String thought_of_day;
+    private String no_of_students;
 
 
     public String getId() {
@@ -50,6 +53,14 @@ public class VolunteerLogModel {
         return timestmp;
     }
 
+    public Long getTimestmpInLong() {
+        try {
+            return Long.parseLong(timestmp);
+        } catch (NumberFormatException e) {
+            return 0L;
+        }
+    }
+
     public void setTimestmp(String timestmp) {
         this.timestmp = timestmp;
     }
@@ -61,6 +72,7 @@ public class VolunteerLogModel {
     public void setIn_time(String in_time) {
         this.in_time = in_time;
     }
+
 
     public String getOut_time() {
         return out_time;
@@ -100,5 +112,18 @@ public class VolunteerLogModel {
 
     public void setThought_of_day(String thought_of_day) {
         this.thought_of_day = thought_of_day;
+    }
+
+    public void setNo_of_students(String no_of_students) {
+        this.no_of_students = no_of_students;
+    }
+
+    public String getNo_of_students() {
+        return no_of_students;
+    }
+
+    @Override
+    public int compareTo(@NonNull VolunteerLogModel volunteerLogModel) {
+        return volunteerLogModel.getTimestmpInLong().compareTo(this.getTimestmpInLong());
     }
 }
