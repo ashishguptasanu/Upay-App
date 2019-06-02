@@ -7,7 +7,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.LinearLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,6 +14,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -99,6 +99,7 @@ public class CenterActivity extends AppCompatActivity {
                                              addCenterToLocalDb(centers);
                                              centerList.add(centers);
                                          }
+                                         Collections.sort(centerList);
                                          runOnUiThread(new Runnable() {
                                              @Override
                                              public void run() {

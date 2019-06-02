@@ -45,15 +45,13 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import ss.com.bannerslider.banners.Banner;
-import ss.com.bannerslider.banners.RemoteBanner;
-import ss.com.bannerslider.views.BannerSlider;
 import volunteer.upay.com.upay.Adapters.AdapterCategories;
 import volunteer.upay.com.upay.Adapters.AdapterZones;
 import volunteer.upay.com.upay.Models.CategoryModel;
 import volunteer.upay.com.upay.Models.Volunteer;
 import volunteer.upay.com.upay.Models.Zones;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.manager.NavigationManager;
 import volunteer.upay.com.upay.util.AppConstants;
 
 public class HomeActivity extends AppCompatActivity
@@ -201,7 +199,7 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_profile) {
             showToast("Coming Soon..");
         } else if (id == R.id.nav_center) {
-            showToast("Coming Soon..");
+            NavigationManager.openCategory(this, new CategoryModel("centers", null, null));
         } else if (id == R.id.nav_fee) {
             WebviewActivity.open(this, AppConstants.PAYU_URL, "Pay Membership Fee");
         } else if (id == R.id.nav_policy) {

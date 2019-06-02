@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Created by ashish on 10/3/18.
  */
 @Entity
-public class Centers implements Serializable {
+public class Centers implements Serializable, Comparable<Centers> {
     private String center_name;
     @PrimaryKey
     @NonNull
@@ -79,6 +79,13 @@ public class Centers implements Serializable {
         return zone_id;
     }
 
+    private int getZoneIdInt() {
+        try {
+            return Integer.parseInt(zone_id);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
 
     public double getLongitudeDouble() {
         return Double.parseDouble(longitude);
@@ -86,5 +93,16 @@ public class Centers implements Serializable {
 
     public double getLatitudeDouble() {
         return Double.parseDouble(latitude);
+    }
+
+    @Override
+    public int compareTo(@NonNull Centers o) {
+        if (getZoneIdInt() > o.getZoneIdInt()) {
+            return 1;
+        } else if (getZoneIdInt() == o.getZoneIdInt()) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 }
