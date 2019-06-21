@@ -49,7 +49,7 @@ public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogLi
         holder.date.setTimestamp(Long.parseLong(model.getTimestmp()));
         holder.subject.setText(model.getSubject());
         holder.work_done.setText(model.getWork_done());
-        holder.time.setText(model.getIn_time() + " - " + model.getOut_time());
+        holder.time.setText(model.getClass_taught() + " (" + model.getIn_time() + " - " + model.getOut_time() + ")");
         if (mIsAdmin) {
             getVolunteerName(holder.itemView.getContext(), model.getVolunteer_id()).onSuccess(new Continuation<Volunteer, Object>() {
                 @Override
