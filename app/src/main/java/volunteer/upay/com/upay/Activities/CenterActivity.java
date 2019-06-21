@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +32,7 @@ import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.R;
 import volunteer.upay.com.upay.localDb.CenterRepository;
 
-public class CenterActivity extends AppCompatActivity {
+public class CenterActivity extends AppCompatActivity implements TextWatcher {
     OkHttpClient client = new OkHttpClient();
     List<Centers> centerList = new ArrayList<>();
     AdapterCenters adapterCenters;
@@ -41,8 +44,13 @@ public class CenterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_center);
+
+        EditText filterText = findViewById(R.id.filterText);
+        filterText.addTextChangedListener(this);
+
         centerRepository = new CenterRepository(this);
         getCenterDetails();
+        initViews();
 
     }
 
@@ -51,7 +59,7 @@ public class CenterActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        adapterCenters = new AdapterCenters(getApplicationContext(), centerList);
+        adapterCenters = new AdapterCenters(getApplicationContext());
         recyclerView.setAdapter(adapterCenters);
     }
 
@@ -82,7 +90,7 @@ public class CenterActivity extends AppCompatActivity {
                                      final String msgFinal = obj_status.getString("type");
                                      if (Objects.equals(msgFinal, "Success")) {
                                          final JSONObject obj_data = obj_response.getJSONObject("data");
-                                         JSONArray center_array = obj_data.getJSONArray("centers");
+                                         final JSONArray center_array = obj_data.getJSONArray("centers");
                                          for (int i = 0; i < center_array.length(); i++) {
                                              JSONObject centerObject = center_array.getJSONObject(i);
                                              String center_name = centerObject.getString("center_name");
@@ -103,7 +111,7 @@ public class CenterActivity extends AppCompatActivity {
                                          runOnUiThread(new Runnable() {
                                              @Override
                                              public void run() {
-                                                 initViews();
+                                                 adapterCenters.swapCenters(centerList);
                                              }
                                          });
                                      }
@@ -118,5 +126,20 @@ public class CenterActivity extends AppCompatActivity {
 
     private void addCenterToLocalDb(@NonNull Centers centers) {
         centerRepository.insertTask(centers);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        adapterCenters.onFilterApplied(s.toString());
     }
 }

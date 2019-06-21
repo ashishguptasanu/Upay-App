@@ -121,4 +121,5 @@
     <string name="in_time">In Time</string>
     <string name="out_time">Out Time</string>
     <string name="add_log">Add Log</string>
+    <string name="search_center_hint">Search for center/zone name</string>
 </resources>

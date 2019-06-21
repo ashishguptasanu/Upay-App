@@ -4,10 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context="volunteer.upay.com.upay.Activities.CenterActivity">
-    <android.support.v7.widget.RecyclerView
+
+    <EditText
+        android:id="@+id/filterText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/recycler_centers">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:hint="@string/search_center_hint"
+        android:inputType="text"
+        android:padding="10dp"
+        tools:ignore="LabelFor" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_centers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
