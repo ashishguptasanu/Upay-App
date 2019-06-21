@@ -1,10 +1,19 @@
 package volunteer.upay.com.upay.Models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
+
 /**
  * Created by ashish on 25/3/18.
  */
 
-public class Volunteer {
+@Entity
+public class Volunteer implements Serializable {
+    @PrimaryKey
+    @NonNull
     private String id;
 
     public String getId() {

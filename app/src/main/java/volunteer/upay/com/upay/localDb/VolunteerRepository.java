@@ -9,73 +9,74 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import bolts.Task;
-import volunteer.upay.com.upay.Models.Centers;
+import volunteer.upay.com.upay.Models.Volunteer;
 import volunteer.upay.com.upay.util.FetchUtils;
 import volunteer.upay.com.upay.util.TaskUtilities;
 
-public class CenterRepository {
+public class VolunteerRepository {
+
     private String DB_NAME = "db_task";
 
     private UpayDatabase upayDatabase;
 
-    public CenterRepository(Context context) {
+    public VolunteerRepository(Context context) {
         upayDatabase = FetchUtils.getDatabase(context, DB_NAME);
     }
 
 
-    public void insertTask(final Centers note) {
+    public void insertTask(final Volunteer note) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                upayDatabase.centersDao().insertCenter(note);
+                upayDatabase.volunteerDao().insertCenter(note);
                 return null;
             }
         }.execute();
     }
 
-    public void updateTask(final Centers note) {
+    public void updateTask(final Volunteer note) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                upayDatabase.centersDao().updateTask(note);
+                upayDatabase.volunteerDao().updateTask(note);
                 return null;
             }
         }.execute();
     }
 
     public void deleteTask(final String id) {
-        final Task<Centers> task = getTask(id);
+        final Task<Volunteer> task = getTask(id);
         if (task != null) {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... voids) {
-                    upayDatabase.centersDao().deleteTask(task.getResult());
+                    upayDatabase.volunteerDao().deleteTask(task.getResult());
                     return null;
                 }
             }.execute();
         }
     }
 
-    public void deleteTask(final Centers note) {
+    public void deleteTask(final Volunteer note) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                upayDatabase.centersDao().deleteTask(note);
+                upayDatabase.volunteerDao().deleteTask(note);
                 return null;
             }
         }.execute();
     }
 
-    public Task<Centers> getTask(final String id) {
-        return TaskUtilities.runOnBackgroundThread(new Callable<Centers>() {
+    public Task<Volunteer> getTask(final String emailId) {
+        return TaskUtilities.runOnBackgroundThread(new Callable<Volunteer>() {
             @Override
-            public Centers call() throws Exception {
-                return upayDatabase.centersDao().getTask(id);
+            public Volunteer call() throws Exception {
+                return upayDatabase.volunteerDao().getTask(emailId);
             }
         });
     }
 
-    public LiveData<List<Centers>> getTasks() {
-        return upayDatabase.centersDao().fetchAllTasks();
+    public LiveData<List<Volunteer>> getTasks() {
+        return upayDatabase.volunteerDao().fetchAllTasks();
     }
 }

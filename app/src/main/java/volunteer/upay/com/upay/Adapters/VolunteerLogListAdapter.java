@@ -13,11 +13,13 @@ import java.util.List;
 import bolts.Continuation;
 import bolts.Task;
 import volunteer.upay.com.upay.Models.Centers;
+import volunteer.upay.com.upay.Models.Volunteer;
 import volunteer.upay.com.upay.Models.VolunteerLogModel;
 import volunteer.upay.com.upay.R;
 import volunteer.upay.com.upay.widgets.CircularDateView;
 
-import static volunteer.upay.com.upay.util.CenterUtils.getCenterNameFromId;
+import static volunteer.upay.com.upay.util.FetchUtils.getCenterNameFromId;
+import static volunteer.upay.com.upay.util.FetchUtils.getVolunteerName;
 
 public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogListAdapter.MyViewHolder> {
     private List<VolunteerLogModel> mList;
@@ -49,7 +51,13 @@ public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogLi
         holder.work_done.setText(model.getWork_done());
         holder.time.setText(model.getIn_time() + " - " + model.getOut_time());
         if (mIsAdmin) {
-            holder.center_name.setText("");
+            getVolunteerName(holder.itemView.getContext(), model.getVolunteer_id()).onSuccess(new Continuation<Volunteer, Object>() {
+                @Override
+                public Object then(Task<Volunteer> task) throws Exception {
+                    holder.center_name.setText(task.getResult().getName());
+                    return null;
+                }
+            });
         } else {
             getCenterNameFromId(holder.itemView.getContext(), model.getCenter_id()).onSuccess(new Continuation<Centers, Object>() {
                 @Override

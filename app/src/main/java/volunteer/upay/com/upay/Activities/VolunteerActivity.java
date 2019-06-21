@@ -2,16 +2,13 @@ package volunteer.upay.com.upay.Activities;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,11 +23,10 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import volunteer.upay.com.upay.Adapters.StudentsAdapter;
 import volunteer.upay.com.upay.Adapters.VolunteerAdapter;
-import volunteer.upay.com.upay.Models.Student;
 import volunteer.upay.com.upay.Models.Volunteer;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.localDb.VolunteerRepository;
 
 public class VolunteerActivity extends BaseFilterActivity {
     OkHttpClient client = new OkHttpClient();
@@ -40,10 +36,12 @@ public class VolunteerActivity extends BaseFilterActivity {
     VolunteerAdapter volunteerAdapter;
     SharedPreferences sharedPreferences;
     EditText filterText;
+    private VolunteerRepository mVolunteerRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mVolunteerRepository = new VolunteerRepository(this);
         setContentView(R.layout.activity_valunteer);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int centerId = sharedPreferences.getInt("center_id", 0);
@@ -57,11 +55,7 @@ public class VolunteerActivity extends BaseFilterActivity {
     }
 
     private void getVolunteersDetails(String center_id) {
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("center_id", center_id)
-                .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url) + "/get_volunteer_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(getResources().getString(R.string.base_url) + "/get_volunteer_details.php").addHeader("Token", getResources().getString(R.string.token)).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override
@@ -99,7 +93,11 @@ public class VolunteerActivity extends BaseFilterActivity {
                                              String name = centerObject.getString("name");
                                              String addedBy = centerObject.getString("added_by");
                                              String photoUrl = centerObject.getString("photo_url");
+                                             if (TextUtils.isEmpty(name)) {
+                                                 continue;
+                                             }
                                              Volunteer volunteer = new Volunteer(id, centerName, centerId, zoneName, zoneId, upayId, emailId, phone, password, adminAccess, name, addedBy, photoUrl);
+                                             addVolunteerToLocalDb(volunteer);
                                              volunteerList.add(volunteer);
                                          }
                                          runOnUiThread(new Runnable() {
@@ -116,6 +114,11 @@ public class VolunteerActivity extends BaseFilterActivity {
                          }
                      }
         );
+    }
+
+
+    private void addVolunteerToLocalDb(@NonNull Volunteer volunteer) {
+        mVolunteerRepository.insertTask(volunteer);
     }
 
     private void initViews() {

@@ -59,8 +59,6 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
         mAttendanceList.setAdapter(mAdapter = new VolunteerLogListAdapter(isAdmin));
         setDefaults();
         fetchVolunteerLogHistory();
-
-
         setTitle("Attendance");
 
     }
