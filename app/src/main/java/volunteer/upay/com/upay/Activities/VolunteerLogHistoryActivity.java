@@ -42,12 +42,13 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
     private RecyclerView mAttendanceList;
     private VolunteerLogListAdapter mAdapter;
     private double lastLoggedDistance;
+    private boolean isAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendence);
-
+        setAdminAccess();
         fab = findViewById(R.id.fabButton);
         swipeRefresh = findViewById(R.id.swipeRefresh);
         swipeRefresh.setOnRefreshListener(this);
@@ -55,12 +56,19 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
         mAttendanceList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         DividerItemDecoration itemDecor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         mAttendanceList.addItemDecoration(itemDecor);
-        mAttendanceList.setAdapter(mAdapter = new VolunteerLogListAdapter());
-        fetchVolunteerLogHistory();
+        mAttendanceList.setAdapter(mAdapter = new VolunteerLogListAdapter(isAdmin));
         setDefaults();
+        fetchVolunteerLogHistory();
+
 
         setTitle("Attendance");
 
+    }
+
+    private void setAdminAccess() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String volunteerAccess = sharedPreferences.getString("admin_access", "");
+        isAdmin = !TextUtils.isEmpty(volunteerAccess) && volunteerAccess.equalsIgnoreCase("3");
     }
 
     @Override
@@ -101,9 +109,14 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
 
 
     public void fetchVolunteerLogHistory() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String volunteerId = sharedPreferences.getString("login_email", "");
-        Call<GeneralResponseModel> call = RetrofitRequest.getVolunteersDetails(getHeaderMap(), volunteerId);
+        Call<GeneralResponseModel> call;
+        if (isAdmin) {
+            call = RetrofitRequest.getAllVolunteersDetails(getHeaderMap(), centerId);
+        } else {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            String volunteerId = sharedPreferences.getString("login_email", "");
+            call = RetrofitRequest.getVolunteersDetails(getHeaderMap(), volunteerId);
+        }
         RestCallback<GeneralResponseModel> responseRestCallback = new RestCallback<>(this, call, this);
         responseRestCallback.executeRequest();
     }

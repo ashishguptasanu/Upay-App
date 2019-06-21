@@ -37,6 +37,10 @@ public interface ApiInterfaceRetrofit {
     @GET("get_volunteer_attendance.php")
     Call<GeneralResponseModel> getVolunteersDetails(@HeaderMap Map<String, String> map, @Query("volunteer_id") String volunteerId);
 
+    @Headers("Content-Type: application/json")
+    @GET("admin_get_volunteer_attendance.php")
+    Call<GeneralResponseModel> getAllVolunteerDetails(@HeaderMap Map<String, String> map, @Query("center_id") String centerId);
+
     @FormUrlEncoded
     @POST("submit_volunteer_attendance.php")
     Call<GeneralResponseModel> markAttendance(@HeaderMap Map<String, String> headerMap, @FieldMap(encoded = true) Map<String, String> fieldMap);

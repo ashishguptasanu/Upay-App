@@ -21,9 +21,11 @@ import static volunteer.upay.com.upay.util.CenterUtils.getCenterNameFromId;
 
 public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogListAdapter.MyViewHolder> {
     private List<VolunteerLogModel> mList;
+    private boolean mIsAdmin;
 
-    public VolunteerLogListAdapter() {
+    public VolunteerLogListAdapter(boolean isAdmin) {
         mList = new ArrayList<>();
+        mIsAdmin = isAdmin;
     }
 
     @NonNull
@@ -46,14 +48,17 @@ public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogLi
         holder.subject.setText(model.getSubject());
         holder.work_done.setText(model.getWork_done());
         holder.time.setText(model.getIn_time() + " - " + model.getOut_time());
-        getCenterNameFromId(holder.itemView.getContext(), model.getCenter_id()).onSuccess(new Continuation<Centers, Object>() {
-            @Override
-            public Object then(Task<Centers> task) throws Exception {
-                holder.center_name.setText(task.getResult().getCenter_name());
-                return null;
-            }
-        });
-
+        if (mIsAdmin) {
+            holder.center_name.setText("");
+        } else {
+            getCenterNameFromId(holder.itemView.getContext(), model.getCenter_id()).onSuccess(new Continuation<Centers, Object>() {
+                @Override
+                public Object then(Task<Centers> task) throws Exception {
+                    holder.center_name.setText(task.getResult().getCenter_name());
+                    return null;
+                }
+            });
+        }
 
     }
 
