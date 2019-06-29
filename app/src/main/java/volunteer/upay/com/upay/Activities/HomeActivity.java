@@ -203,13 +203,13 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_fee) {
             WebviewActivity.open(this, AppConstants.PAYU_URL, "Pay Membership Fee");
         } else if (id == R.id.nav_policy) {
-            showToast("Coming Soon..");
+            WebviewActivity.open(this, "https://upay.org.in/upay-policies", "Upay Policies");
         } else if (id == R.id.nav_website) {
-            /*Intent intentWebsite = new Intent(getApplicationContext(), WebviewActivity.class);
-            intentWebsite.putExtra("url_web_view", "https://upay.org.in/");
-            intentWebsite.putExtra("label", "Upay");
-            startActivity(intentWebsite);*/
-            showToast("Coming Soon..");
+            WebviewActivity.open(this, "https://upay.org.in/", "Upay");
+        } else if (id == R.id.footpathshala) {
+            WebviewActivity.open(this, "https://www.upay.org.in/footpathshala-syllabus-level/", "Footpathshala Syllabus");
+        } else if (id == R.id.reach_and_teach) {
+            WebviewActivity.open(this, "https://www.upay.org.in/rt-syllabus/", "Reach & Teach Syllabus");
         } else if (id == R.id.nav_logout) {
             AlertDialog alertDialog = new AlertDialog.Builder(HomeActivity.this).create();
             alertDialog.setTitle("Logout");

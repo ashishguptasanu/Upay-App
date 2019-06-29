@@ -122,4 +122,14 @@
     <string name="out_time">Out Time</string>
     <string name="add_log">Add Log</string>
     <string name="search_center_hint">Search for center/zone name</string>
+    <string name="footpathshala">Footpathshala</string>
+    <string name="reach_and_teach">Reach and Teach</string>
+    <string name="syllabus">Syllabus</string>
+    <string name="pay_membership_fee">Pay Membership Fee</string>
+    <string name="centers">Centers</string>
+    <string name="my_profile">My Profile</string>
+    <string name="visit_upay_website">Visit Upay Website</string>
+    <string name="policy_amp_guidelines"><![CDATA[Policy & Guidelines]]></string>
+    <string name="logout">Logout</string>
+    <string name="other">Other</string>
 </resources>

@@ -2,6 +2,7 @@ package volunteer.upay.com.upay.Adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,13 @@ public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogLi
         VolunteerLogModel model = mList.get(position);
         holder.date.setTimestamp(Long.parseLong(model.getTimestmp()));
         holder.subject.setText(model.getSubject());
-        holder.work_done.setText(model.getWork_done());
+        String noOfStudents = model.getNo_of_students();
+        if (TextUtils.isEmpty(noOfStudents)) {
+            holder.work_done.setText(model.getWork_done());
+        } else {
+            holder.work_done.setText(noOfStudents + " Students (" + model.getWork_done() + ")");
+        }
+
         holder.time.setText(model.getClass_taught() + " (" + model.getIn_time() + " - " + model.getOut_time() + ")");
         if (mIsAdmin) {
             getVolunteerName(holder.itemView.getContext(), model.getVolunteer_id()).onSuccess(new Continuation<Volunteer, Object>() {

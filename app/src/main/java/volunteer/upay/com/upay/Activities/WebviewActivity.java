@@ -141,6 +141,17 @@ public class WebviewActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }*/
+
+
+    @Override
+    public void onBackPressed() {
+        if (wv1 != null && wv1.canGoBack()) {
+            wv1.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     private class MyBrowser extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {

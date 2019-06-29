@@ -17,9 +17,12 @@ import android.view.View;
 import java.util.Collections;
 import java.util.List;
 
+import bolts.Continuation;
+import bolts.Task;
 import retrofit2.Call;
 import retrofit2.Response;
 import volunteer.upay.com.upay.Adapters.VolunteerLogListAdapter;
+import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.Models.GeneralResponseModel;
 import volunteer.upay.com.upay.Models.VolunteerLogModel;
 import volunteer.upay.com.upay.R;
@@ -27,6 +30,7 @@ import volunteer.upay.com.upay.rest.RestCallback;
 import volunteer.upay.com.upay.rest.RetrofitRequest;
 import volunteer.upay.com.upay.util.LocationUtils;
 
+import static volunteer.upay.com.upay.util.FetchUtils.getCenterNameFromId;
 import static volunteer.upay.com.upay.util.Utilities.getHeaderMap;
 
 
@@ -59,8 +63,26 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
         mAttendanceList.setAdapter(mAdapter = new VolunteerLogListAdapter(isAdmin));
         setDefaults();
         fetchVolunteerLogHistory();
-        setTitle("Attendance");
+        if (isAdmin)
+            setTitle("Vollunteer Attendance");
+        else
+            setTitle("My Attendance");
 
+        fetchCenterName();
+
+    }
+
+    private void fetchCenterName() {
+        if (TextUtils.isEmpty(centerId)) {
+            return;
+        }
+        getCenterNameFromId(this, centerId).onSuccess(new Continuation<Centers, Object>() {
+            @Override
+            public Object then(Task<Centers> task) throws Exception {
+                setTitle(task.getResult().getCenter_name() + " Attendance");
+                return null;
+            }
+        });
     }
 
     private void setAdminAccess() {

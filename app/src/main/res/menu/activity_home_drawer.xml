@@ -6,29 +6,40 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_profile"
-            android:visible="false"
-            android:title="My Profile" />
+            android:title="@string/my_profile"
+            android:visible="false" />
         <item
             android:id="@+id/nav_center"
-            android:title="Centers" />
+            android:title="@string/centers" />
         <item
             android:id="@+id/nav_fee"
-            android:title="Pay Membership Fee" />
+            android:title="@string/pay_membership_fee" />
 
     </group>
 
-    <item android:title="Other">
+    <item android:title="@string/syllabus">
+        <menu>
+
+            <item
+                android:id="@+id/reach_and_teach"
+                android:title="@string/reach_and_teach" />
+            <item
+                android:id="@+id/footpathshala"
+                android:title="@string/footpathshala" />
+        </menu>
+    </item>
+    <item android:title="@string/other">
         <menu>
 
             <item
                 android:id="@+id/nav_website"
-                android:title="Visit Upay Website" />
+                android:title="@string/visit_upay_website" />
             <item
                 android:id="@+id/nav_policy"
-                android:title="Policy &amp; Guidelines" />
+                android:title="@string/policy_amp_guidelines" />
             <item
                 android:id="@+id/nav_logout"
-                android:title="Logout" />
+                android:title="@string/logout" />
         </menu>
     </item>
 
