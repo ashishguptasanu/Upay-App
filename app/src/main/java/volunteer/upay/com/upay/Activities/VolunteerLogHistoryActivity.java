@@ -28,7 +28,9 @@ import volunteer.upay.com.upay.Models.VolunteerLogModel;
 import volunteer.upay.com.upay.R;
 import volunteer.upay.com.upay.rest.RestCallback;
 import volunteer.upay.com.upay.rest.RetrofitRequest;
+import volunteer.upay.com.upay.util.AccessLevel;
 import volunteer.upay.com.upay.util.LocationUtils;
+import volunteer.upay.com.upay.util.Utilities;
 
 import static volunteer.upay.com.upay.util.FetchUtils.getCenterNameFromId;
 import static volunteer.upay.com.upay.util.Utilities.getHeaderMap;
@@ -46,7 +48,7 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
     private RecyclerView mAttendanceList;
     private VolunteerLogListAdapter mAdapter;
     private double lastLoggedDistance;
-    private boolean isAdmin;
+    private AccessLevel accessLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +62,10 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
         mAttendanceList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         DividerItemDecoration itemDecor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         mAttendanceList.addItemDecoration(itemDecor);
-        mAttendanceList.setAdapter(mAdapter = new VolunteerLogListAdapter(isAdmin));
+        mAttendanceList.setAdapter(mAdapter = new VolunteerLogListAdapter(accessLevel));
         setDefaults();
         fetchVolunteerLogHistory();
-        if (isAdmin)
+        if (accessLevel != AccessLevel.USER)
             setTitle("Vollunteer Attendance");
         else
             setTitle("My Attendance");
@@ -86,9 +88,7 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
     }
 
     private void setAdminAccess() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String volunteerAccess = sharedPreferences.getString("admin_access", "");
-        isAdmin = !TextUtils.isEmpty(volunteerAccess) && volunteerAccess.equalsIgnoreCase("3");
+        accessLevel = Utilities.getAccessLevel(this);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
 
     public void fetchVolunteerLogHistory() {
         Call<GeneralResponseModel> call;
-        if (isAdmin) {
+        if (accessLevel != AccessLevel.USER) {
             call = RetrofitRequest.getAllVolunteersDetails(getHeaderMap(), centerId);
         } else {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -143,10 +143,10 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
 
 
     public void addLog(View view) {
-        if (lastLoggedDistance > LocationUtils.getMaxDistanceInMeters()) {
-            showToast("Please to go center for logging");
-        } else {
+        if (lastLoggedDistance < LocationUtils.getMaxDistanceInMeters() || accessLevel == AccessLevel.SUPER_ADMIN) {
             VolunteerLogFormActivity.open(this, centerId);
+        } else {
+            showToast("Please to go center for logging");
         }
     }
 

@@ -17,6 +17,7 @@ import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.Models.Volunteer;
 import volunteer.upay.com.upay.Models.VolunteerLogModel;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.util.AccessLevel;
 import volunteer.upay.com.upay.widgets.CircularDateView;
 
 import static volunteer.upay.com.upay.util.FetchUtils.getCenterNameFromId;
@@ -24,11 +25,11 @@ import static volunteer.upay.com.upay.util.FetchUtils.getVolunteerName;
 
 public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogListAdapter.MyViewHolder> {
     private List<VolunteerLogModel> mList;
-    private boolean mIsAdmin;
+    private AccessLevel mAccessLevel;
 
-    public VolunteerLogListAdapter(boolean isAdmin) {
+    public VolunteerLogListAdapter(AccessLevel accessLevel) {
         mList = new ArrayList<>();
-        mIsAdmin = isAdmin;
+        this.mAccessLevel = accessLevel;
     }
 
     @NonNull
@@ -48,7 +49,7 @@ public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogLi
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         VolunteerLogModel model = mList.get(position);
         holder.date.setTimestamp(Long.parseLong(model.getTimestmp()));
-        holder.subject.setText(model.getSubject());
+
         String noOfStudents = model.getNo_of_students();
         if (TextUtils.isEmpty(noOfStudents)) {
             holder.work_done.setText(model.getWork_done());
@@ -57,14 +58,15 @@ public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogLi
         }
 
         holder.time.setText(model.getClass_taught() + " (" + model.getIn_time() + " - " + model.getOut_time() + ")");
-        if (mIsAdmin) {
+        if (mAccessLevel != AccessLevel.USER) {
             getVolunteerName(holder.itemView.getContext(), model.getVolunteer_id()).onSuccess(new Continuation<Volunteer, Object>() {
                 @Override
                 public Object then(Task<Volunteer> task) throws Exception {
-                    holder.center_name.setText(task.getResult().getName());
+                    holder.subject.setText(task.getResult().getName());
                     return null;
                 }
             });
+            holder.center_name.setText(model.getSubject());
         } else {
             getCenterNameFromId(holder.itemView.getContext(), model.getCenter_id()).onSuccess(new Continuation<Centers, Object>() {
                 @Override
@@ -73,6 +75,7 @@ public class VolunteerLogListAdapter extends RecyclerView.Adapter<VolunteerLogLi
                     return null;
                 }
             });
+            holder.subject.setText(model.getSubject());
         }
 
     }
