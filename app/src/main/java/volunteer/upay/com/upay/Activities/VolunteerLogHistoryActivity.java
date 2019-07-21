@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
@@ -26,6 +27,7 @@ import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.Models.GeneralResponseModel;
 import volunteer.upay.com.upay.Models.VolunteerLogModel;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.localDb.VolunteerAttendanceRepository;
 import volunteer.upay.com.upay.rest.RestCallback;
 import volunteer.upay.com.upay.rest.RetrofitRequest;
 import volunteer.upay.com.upay.util.AccessLevel;
@@ -44,21 +46,21 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
     private String centerId;
     private double centerLat;
     private double centerLong;
-    private FloatingActionButton fab;
-    private RecyclerView mAttendanceList;
     private VolunteerLogListAdapter mAdapter;
     private double lastLoggedDistance;
     private AccessLevel accessLevel;
+    private VolunteerAttendanceRepository volunteerLogRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        volunteerLogRepository = new VolunteerAttendanceRepository(this);
         setContentView(R.layout.activity_attendence);
         setAdminAccess();
-        fab = findViewById(R.id.fabButton);
+        FloatingActionButton fab = findViewById(R.id.fabButton);
         swipeRefresh = findViewById(R.id.swipeRefresh);
         swipeRefresh.setOnRefreshListener(this);
-        mAttendanceList = findViewById(R.id.attendance_list);
+        RecyclerView mAttendanceList = findViewById(R.id.attendance_list);
         mAttendanceList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         DividerItemDecoration itemDecor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         mAttendanceList.addItemDecoration(itemDecor);
@@ -130,7 +132,7 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
 
     public void fetchVolunteerLogHistory() {
         Call<GeneralResponseModel> call;
-        if (accessLevel != AccessLevel.USER) {
+        if (accessLevel == AccessLevel.ADMIN || accessLevel == AccessLevel.SUPER_ADMIN) {
             call = RetrofitRequest.getAllVolunteersDetails(getHeaderMap(), centerId);
         } else {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -159,6 +161,7 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
                 && response.body().getResponse().getData().getType().equalsIgnoreCase("success")) {
             List<VolunteerLogModel> volunteerLogModelList = response.body().getResponse().getData().getAttendance();
             Collections.sort(volunteerLogModelList);
+            addToLocalDb(volunteerLogModelList);
             mAdapter.swapItems(volunteerLogModelList);
         } else {
             showToast("Some problem in fetching");
@@ -166,10 +169,16 @@ public class VolunteerLogHistoryActivity extends LocationActivity implements Res
         swipeRefresh.setRefreshing(false);
     }
 
+    private void addToLocalDb(@NonNull List<VolunteerLogModel> volunteerLogModelList) {
+        for (VolunteerLogModel volunteerLogModel : volunteerLogModelList) {
+            volunteerLogRepository.insertTask(volunteerLogModel);
+        }
+    }
+
 
     @Override
     public void onFailure(Call<GeneralResponseModel> call, Throwable t) {
-        showToast("Some problem in fetching");
+        showToast("Some problem in fetching, Please try again after some time");
         swipeRefresh.setRefreshing(false);
     }
 

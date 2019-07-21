@@ -1,8 +1,15 @@
 package volunteer.upay.com.upay.Models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-public class VolunteerLogModel implements Comparable<VolunteerLogModel> {
+import java.io.Serializable;
+
+@Entity
+public class VolunteerLogModel implements Serializable, Comparable<VolunteerLogModel> {
+    @PrimaryKey
+    @NonNull
     private String id;
     private String volunteer_id;
     private String center_id;
@@ -15,6 +22,7 @@ public class VolunteerLogModel implements Comparable<VolunteerLogModel> {
     private String work_done;
     private String thought_of_day;
     private String no_of_students;
+    private boolean is_uploaded;
 
 
     public String getId() {
@@ -59,6 +67,14 @@ public class VolunteerLogModel implements Comparable<VolunteerLogModel> {
         } catch (NumberFormatException e) {
             return 0L;
         }
+    }
+
+    public boolean isIs_uploaded() {
+        return is_uploaded;
+    }
+
+    public void setIs_uploaded(boolean is_uploaded) {
+        this.is_uploaded = is_uploaded;
     }
 
     public void setTimestmp(String timestmp) {
