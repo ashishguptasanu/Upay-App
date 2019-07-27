@@ -28,9 +28,7 @@ public class NavigationManager {
                 WebviewActivity.open(context, AppConstants.EVENTS_URL, "Events");
                 break;
             case "volunteers":
-                Intent intentVolunteer = new Intent(context, VolunteerActivity.class);
-                intentVolunteer.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intentVolunteer);
+                VolunteerActivity.open(context, "");
                 break;
 
             case "students":
@@ -48,8 +46,6 @@ public class NavigationManager {
                 break;
         }
     }
-
-
 
 
 }

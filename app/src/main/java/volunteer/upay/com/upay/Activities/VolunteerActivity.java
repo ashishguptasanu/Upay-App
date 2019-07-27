@@ -1,9 +1,12 @@
 package volunteer.upay.com.upay.Activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -38,24 +41,31 @@ public class VolunteerActivity extends BaseFilterActivity {
     EditText filterText;
     private VolunteerRepository mVolunteerRepository;
 
+    public static void open(@NonNull Context context, @Nullable String centerId) {
+        Intent intent = new Intent(context, VolunteerActivity.class);
+        if (TextUtils.isEmpty(centerId)) {
+            centerId = "";
+        }
+        intent.putExtra("center_id", centerId);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mVolunteerRepository = new VolunteerRepository(this);
         setContentView(R.layout.activity_valunteer);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int centerId = sharedPreferences.getInt("center_id", 0);
-        if (Objects.equals(centerId, 0)) {
-            getVolunteersDetails("");
-        } else {
-            getVolunteersDetails(String.valueOf(centerId));
-        }
-
-
+        String centerId = getIntent().getStringExtra("center_id");
+        getVolunteersDetails(centerId);
     }
 
     private void getVolunteersDetails(String center_id) {
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url) + "/get_volunteer_details.php").addHeader("Token", getResources().getString(R.string.token)).build();
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("center_id", center_id)
+                .build();
+        Request request = new Request.Builder().url(getResources().getString(R.string.base_url) + "/get_volunteer_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override

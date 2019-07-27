@@ -33,7 +33,7 @@ import volunteer.upay.com.upay.R;
 public class MyCenterActivity extends AppCompatActivity implements View.OnClickListener {
     OkHttpClient client = new OkHttpClient();
     LinearLayout layoutStudents, layoutVolunteers;
-    CardView cardAddStudent, cardAddVolunteer, cardSyllabus, cardChat, cardAttendance,volunteerLog;
+    CardView cardAddStudent, cardAddVolunteer, cardSyllabus, cardChat, cardAttendance, volunteerLog;
     List<Student> studentList = new ArrayList<>();
     List<Volunteer> volunteerList = new ArrayList<>();
     TextView tvNumStudents, tvNumVolunteers;
@@ -107,7 +107,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
         cardAddVolunteer = findViewById(R.id.card_add_volunteer);
         cardSyllabus = findViewById(R.id.card_syllabus);
         cardAttendance = findViewById(R.id.card_attandence);
-        volunteerLog= findViewById(R.id.volunteer_log);
+        volunteerLog = findViewById(R.id.volunteer_log);
         cardChat = findViewById(R.id.card_chat);
         cardSyllabus.setOnClickListener(this);
         volunteerLog.setOnClickListener(this);
@@ -274,8 +274,7 @@ public class MyCenterActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(intent);
                 break;
             case R.id.layout_volunteer:
-                Intent volunteer2Intent = new Intent(getApplicationContext(), VolunteerActivity.class);
-                startActivity(volunteer2Intent);
+                VolunteerActivity.open(this, center_id);
                 break;
             case R.id.card_syllabus:
                 showToast("Coming Soon..");
