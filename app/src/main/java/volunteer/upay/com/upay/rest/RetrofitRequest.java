@@ -40,5 +40,8 @@ public class RetrofitRequest {
     public static Call<GeneralResponseModel> deleteVolunteer(Map<String, String> headers, String volunteerId) {
         return requestInterface.deleteVolunteer(headers, volunteerId);
     }
+    public static Call<GeneralResponseModel> deleteStudent(Map<String, String> headers, String studentId) {
+        return requestInterface.deleteStudent(headers, studentId);
+    }
 
 }

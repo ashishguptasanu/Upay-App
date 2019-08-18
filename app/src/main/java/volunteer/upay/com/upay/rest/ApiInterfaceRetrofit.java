@@ -50,5 +50,9 @@ public interface ApiInterfaceRetrofit {
     @POST("delete_volunteer.php")
     Call<GeneralResponseModel> deleteVolunteer(@HeaderMap Map<String, String> headerMap, @Field(value = "volunteer_id") String volunteerId);
 
+    @FormUrlEncoded
+    @POST("delete_student.php")
+    Call<GeneralResponseModel> deleteStudent(@HeaderMap Map<String, String> headerMap, @Field(value = "student_id") String studentId);
+
 
 }
