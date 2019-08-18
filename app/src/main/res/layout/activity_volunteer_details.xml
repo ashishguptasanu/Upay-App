@@ -219,6 +219,7 @@
             android:id="@+id/deleteButton"
             android:layout_width="match_parent"
             android:textColor="@color/white"
+            android:visibility="gone"
             android:text="@string/delete"
             android:onClick="deleteVolunteer"
             android:layout_margin="15dp"

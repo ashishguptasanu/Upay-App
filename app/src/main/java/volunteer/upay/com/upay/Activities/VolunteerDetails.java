@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,11 +22,14 @@ import volunteer.upay.com.upay.R;
 import volunteer.upay.com.upay.localDb.VolunteerRepository;
 import volunteer.upay.com.upay.rest.RestCallback;
 import volunteer.upay.com.upay.rest.RetrofitRequest;
+import volunteer.upay.com.upay.util.AccessLevel;
+import volunteer.upay.com.upay.util.Utilities;
 
 import static volunteer.upay.com.upay.util.Utilities.getHeaderMap;
 
 public class VolunteerDetails extends AppCompatActivity implements RestCallback.RestCallbacks<GeneralResponseModel> {
     TextView volunteerName, upayId, email, zoneName, phone, centerName, accessType;
+    Button deleteButton;
     String id, name, uid, mail, zone, center, mobile, access, photoUrl;
     CircularImageView ccpVoluImage;
 
@@ -50,6 +54,7 @@ public class VolunteerDetails extends AppCompatActivity implements RestCallback.
     }
 
     private void initViews() {
+        deleteButton = findViewById(R.id.deleteButton);
         ccpVoluImage = findViewById(R.id.view_volunteer_image_details);
         volunteerName = findViewById(R.id.tv_volunteer_name_details);
         upayId = findViewById(R.id.tv_volunteer_upay_id_details);
@@ -58,6 +63,11 @@ public class VolunteerDetails extends AppCompatActivity implements RestCallback.
         phone = findViewById(R.id.tv_volunteer_phone_details);
         centerName = findViewById(R.id.tv_volunteer_center_name_details);
         accessType = findViewById(R.id.tv_volunteer_access_type_details);
+        if (Utilities.getAccessLevel(this) == AccessLevel.SUPER_ADMIN) {
+            deleteButton.setVisibility(View.VISIBLE);
+        } else {
+            deleteButton.setVisibility(View.GONE);
+        }
         setDatatoViews();
     }
 
@@ -95,7 +105,7 @@ public class VolunteerDetails extends AppCompatActivity implements RestCallback.
 
     public void deleteVolunteer(View view) {
         new AlertDialog.Builder(this)
-                .setMessage("Do you really want to delete " + name+ "?")
+                .setMessage("Do you really want to delete " + name + "?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
