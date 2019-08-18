@@ -123,14 +123,16 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.MyVi
                 public void onClick(View v) {
                     Intent intent = new Intent(context, VolunteerDetails.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("name", filteredVolunteerList.get(getAdapterPosition()).getName());
-                    intent.putExtra("uid", filteredVolunteerList.get(getAdapterPosition()).getUpay_id());
-                    intent.putExtra("zone", filteredVolunteerList.get(getAdapterPosition()).getZone_name());
-                    intent.putExtra("center", filteredVolunteerList.get(getAdapterPosition()).getCenter_name());
-                    intent.putExtra("mobile", filteredVolunteerList.get(getAdapterPosition()).getPhone());
-                    intent.putExtra("mail", filteredVolunteerList.get(getAdapterPosition()).getEmail_id());
-                    intent.putExtra("access", filteredVolunteerList.get(getAdapterPosition()).getAdmin_access());
-                    intent.putExtra("photo_url", filteredVolunteerList.get(getAdapterPosition()).getPhotoUrl());
+                    Volunteer volunteer = filteredVolunteerList.get(getAdapterPosition());
+                    intent.putExtra("id", volunteer.getId());
+                    intent.putExtra("name", volunteer.getName());
+                    intent.putExtra("uid", volunteer.getUpay_id());
+                    intent.putExtra("zone", volunteer.getZone_name());
+                    intent.putExtra("center", volunteer.getCenter_name());
+                    intent.putExtra("mobile", volunteer.getPhone());
+                    intent.putExtra("mail", volunteer.getEmail_id());
+                    intent.putExtra("access", volunteer.getAdmin_access());
+                    intent.putExtra("photo_url", volunteer.getPhotoUrl());
                     context.startActivity(intent);//TODO
                 }
             });

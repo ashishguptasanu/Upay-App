@@ -132,4 +132,5 @@
     <string name="policy_amp_guidelines"><![CDATA[Policy & Guidelines]]></string>
     <string name="logout">Logout</string>
     <string name="other">Other</string>
+    <string name="delete">Delete</string>
 </resources>

@@ -25,46 +25,42 @@ public class VolunteerRepository {
 
 
     public void insertTask(final Volunteer note) {
-        new AsyncTask<Void, Void, Void>() {
+        TaskUtilities.runOnBackgroundThread(new Runnable() {
             @Override
-            protected Void doInBackground(Void... voids) {
+            public void run() {
                 upayDatabase.volunteerDao().insertCenter(note);
-                return null;
             }
-        }.execute();
+        });
     }
 
     public void updateTask(final Volunteer note) {
-        new AsyncTask<Void, Void, Void>() {
+        TaskUtilities.runOnBackgroundThread(new Runnable() {
             @Override
-            protected Void doInBackground(Void... voids) {
+            public void run() {
                 upayDatabase.volunteerDao().updateTask(note);
-                return null;
             }
-        }.execute();
+        });
     }
 
     public void deleteTask(final String id) {
         final Task<Volunteer> task = getTask(id);
         if (task != null) {
-            new AsyncTask<Void, Void, Void>() {
+            TaskUtilities.runOnBackgroundThread(new Runnable() {
                 @Override
-                protected Void doInBackground(Void... voids) {
+                public void run() {
                     upayDatabase.volunteerDao().deleteTask(task.getResult());
-                    return null;
                 }
-            }.execute();
+            });
         }
     }
 
     public void deleteTask(final Volunteer note) {
-        new AsyncTask<Void, Void, Void>() {
+        TaskUtilities.runOnBackgroundThread(new Runnable() {
             @Override
-            protected Void doInBackground(Void... voids) {
+            public void run() {
                 upayDatabase.volunteerDao().deleteTask(note);
-                return null;
             }
-        }.execute();
+        });
     }
 
     public Task<Volunteer> getTask(final String emailId) {

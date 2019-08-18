@@ -33,9 +33,12 @@ public class RetrofitRequest {
         return requestInterface.getVolunteersDetails(headers, volunteerId);
     }
 
-    public static Call<GeneralResponseModel> getAllVolunteersDetails(Map<String, String> headers, String volunteerId) {
-        return requestInterface.getAllVolunteerDetails(headers, volunteerId);
+    public static Call<GeneralResponseModel> getAllVolunteersDetails(Map<String, String> headers, String centerId) {
+        return requestInterface.getAllVolunteerDetails(headers, centerId);
     }
 
+    public static Call<GeneralResponseModel> deleteVolunteer(Map<String, String> headers, String volunteerId) {
+        return requestInterface.deleteVolunteer(headers, volunteerId);
+    }
 
 }
