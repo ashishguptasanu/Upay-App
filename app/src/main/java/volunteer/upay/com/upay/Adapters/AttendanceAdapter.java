@@ -39,12 +39,12 @@ import volunteer.upay.com.upay.Models.Student;
 import volunteer.upay.com.upay.R;
 
 public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.MyViewHolder> {
-    List<Student> studentList = new ArrayList<>();
-    Context context;
-    FloatingActionButton fabSubmitAttendance;
-    SharedPreferences sharedPreferences;
-    boolean isItemSelected = false;
-    ProgressDialog alertDialog;
+    private List<Student> studentList;
+    private Context context;
+    private FloatingActionButton fabSubmitAttendance;
+    private SharedPreferences sharedPreferences;
+    private boolean isItemSelected = false;
+    private ProgressDialog alertDialog;
 
     public AttendanceAdapter(Context context, List<Student> studentList, FloatingActionButton fabSubmitAttendance) {
         this.context = context;
@@ -61,36 +61,42 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        holder.tvStudentName.setText(studentList.get(position).getStudentName());
-        holder.tvStudentDetails.setText("Class: " + studentList.get(position).getClss() + " | Age: " + studentList.get(position).getAge());
-        String imgUrl = studentList.get(position).getPhotoUrl();
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
+        final Student student = studentList.get(position);
+        holder.tvStudentName.setText(student.getStudentName());
+        holder.tvStudentDetails.setText("Class: " + student.getClss() + " | Age: " + student.getAge());
+        String imgUrl = student.getPhotoUrl();
         imgUrl = imgUrl.replace("\\", "");
-        if (!TextUtils.isEmpty(studentList.get(position).getPhotoUrl())) {
+        if (!TextUtils.isEmpty(student.getPhotoUrl())) {
             Picasso.with(context).load(imgUrl).into(holder.profileImage);
             //Log.d("True", "Yes");
         } else {
             Picasso.with(context).load("http://upay.org.in/api/images_api/student_icon.png").into(holder.profileImage);
         }
+
+        if (student.isSelected()) {
+            holder.btnStudentDetails.setBackgroundResource(R.drawable.gradient_green);
+            holder.btnStudentDetails.setText("P");
+        } else {
+            holder.btnStudentDetails.setBackgroundResource(R.drawable.gradient_red_attendance);
+            holder.btnStudentDetails.setText("A");
+        }
+
         holder.btnStudentDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Status:", String.valueOf(studentList.get(position).isSelected()));
-                if(!studentList.get(position).isSelected()){
+                if (!student.isSelected()) {
                     holder.btnStudentDetails.setBackgroundResource(R.drawable.gradient_green);
                     holder.btnStudentDetails.setText("P");
-                    studentList.get(position).setSelected(true);
-                }else{
+                    student.setSelected(true);
+                } else {
                     holder.btnStudentDetails.setBackgroundResource(R.drawable.gradient_red_attendance);
                     holder.btnStudentDetails.setText("A");
-                    studentList.get(position).setSelected(false);
+                    student.setSelected(false);
                 }
-
-
             }
         });
     }
-
 
 
 
