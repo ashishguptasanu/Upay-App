@@ -51,7 +51,6 @@ public class CenterActivity extends AppCompatActivity implements TextWatcher {
         centerRepository = new CenterRepository(this);
         getCenterDetails();
         initViews();
-
     }
 
     private void initViews() {
