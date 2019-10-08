@@ -7,7 +7,7 @@ import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.Models.Volunteer;
 import volunteer.upay.com.upay.Models.VolunteerLogModel;
 
-@Database(entities = {Centers.class, Volunteer.class, VolunteerLogModel.class}, version = 3, exportSchema = false)
+@Database(entities = {Centers.class, Volunteer.class, VolunteerLogModel.class}, version = 4, exportSchema = false)
 public abstract class UpayDatabase extends RoomDatabase {
 
     public abstract CentersDao centersDao();

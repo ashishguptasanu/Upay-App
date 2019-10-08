@@ -7,7 +7,7 @@ android {
         applicationId "volunteer.upay.com.upay"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 14
+        versionCode 15
         versionName "1.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
