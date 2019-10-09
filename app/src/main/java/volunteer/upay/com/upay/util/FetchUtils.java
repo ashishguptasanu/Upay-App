@@ -32,7 +32,13 @@ public class FetchUtils {
                 database.execSQL("CREATE TABLE IF NOT EXISTS `Volunteer` (`id` TEXT NOT NULL, `center_name` TEXT, `center_id` TEXT, `zone_name` TEXT, `zone_id` TEXT, `upay_id` TEXT, `email_id` TEXT, `phone` TEXT, `password` TEXT, `admin_access` TEXT, `name` TEXT, `added_by` TEXT, `photoUrl` TEXT, PRIMARY KEY(`id`))");
             }
         };
-        Migration migration_3_4 = new Migration(2, 4) {
+        Migration migration_2_3 = new Migration(2, 3) {
+            @Override
+            public void migrate(@NonNull SupportSQLiteDatabase database) {
+            }
+        };
+
+        Migration migration_3_4 = new Migration(3, 4) {
             @Override
             public void migrate(@NonNull SupportSQLiteDatabase database) {
                 database.execSQL("DROP TABLE  IF EXISTS `VolunteerLogModel`");
@@ -40,8 +46,7 @@ public class FetchUtils {
             }
         };
         return Room.databaseBuilder(context, UpayDatabase.class, db_name)
-                .addMigrations(migration_1_2)
-                .addMigrations(migration_3_4)
+                .addMigrations(migration_1_2, migration_2_3, migration_3_4)
                 .build();
     }
 }
