@@ -2,9 +2,8 @@ package volunteer.upay.com.upay.manager;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import volunteer.upay.com.upay.Activities.CenterActivity;
 import volunteer.upay.com.upay.Activities.StudentActivity;

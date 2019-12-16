@@ -1,7 +1,7 @@
 package volunteer.upay.com.upay.localDb;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.RoomDatabase;
+import androidx.room.Database;
+import androidx.room.RoomDatabase;
 
 import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.Models.Volunteer;

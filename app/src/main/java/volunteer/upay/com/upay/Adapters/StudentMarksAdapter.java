@@ -1,20 +1,18 @@
 package volunteer.upay.com.upay.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator;
-import ss.com.bannerslider.views.indicators.CircleIndicator;
 import volunteer.upay.com.upay.Models.Marks;
 import volunteer.upay.com.upay.R;
 

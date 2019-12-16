@@ -6,11 +6,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".Activities.StudentMarksDetails">
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recycler_marks">
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

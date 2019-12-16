@@ -1,27 +1,21 @@
 package volunteer.upay.com.upay.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
-import volunteer.upay.com.upay.Activities.CenterActivity;
-import volunteer.upay.com.upay.Activities.ImpContactsActivity;
-import volunteer.upay.com.upay.Activities.StudentActivity;
-import volunteer.upay.com.upay.Activities.VolunteerActivity;
 import volunteer.upay.com.upay.Models.CategoryModel;
 import volunteer.upay.com.upay.R;
 import volunteer.upay.com.upay.manager.NavigationManager;

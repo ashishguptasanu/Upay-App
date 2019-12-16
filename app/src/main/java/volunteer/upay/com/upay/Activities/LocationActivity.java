@@ -3,17 +3,14 @@ package volunteer.upay.com.upay.Activities;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.widget.Toast;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import volunteer.upay.com.upay.manager.PermissionManager;
 

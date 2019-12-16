@@ -2,10 +2,10 @@ package volunteer.upay.com.upay.Activities;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -21,9 +21,7 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import volunteer.upay.com.upay.Adapters.AdapterCenters;
 import volunteer.upay.com.upay.Adapters.StudentsAdapter;
-import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.Models.Student;
 import volunteer.upay.com.upay.R;
 

@@ -14,7 +14,7 @@
         android:id="@+id/layout_add_volunteer"
         android:orientation="vertical">
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -28,8 +28,8 @@
                 android:backgroundTint="@color/black"
                 android:inputType="textEmailAddress"
                 android:hint="Volunteer's Email"/>
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -43,7 +43,7 @@
                 android:backgroundTint="@color/black"
                 android:inputType="textEmailAddress"
                 android:hint="Upay Id"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
         <Button
             android:id="@+id/btn_add_volunteer"
             android:layout_width="120dp"
