@@ -22,7 +22,7 @@ public class StudentMarksAdapter extends RecyclerView.Adapter<StudentMarksAdapte
     private Context context;
     private List<Marks> marksList;
 
-    public StudentMarksAdapter(Context context, List<Marks> marksList){
+    public StudentMarksAdapter(Context context, List<Marks> marksList) {
         this.context = context;
         this.marksList = marksList;
     }
@@ -30,7 +30,7 @@ public class StudentMarksAdapter extends RecyclerView.Adapter<StudentMarksAdapte
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_student_marks,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_student_marks, parent, false);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }
@@ -40,12 +40,14 @@ public class StudentMarksAdapter extends RecyclerView.Adapter<StudentMarksAdapte
         holder.tvTestName.setText(marksList.get(position).getTestName());
         holder.tvTestDate.setText(marksList.get(position).getSybmittedDate());
         holder.tvTestMarks.setText(" (" + marksList.get(position).getMarksObtained() + "/" + marksList.get(position).getTotalMarks() + ")");
-        int marksObtained = Integer.parseInt(marksList.get(position).getMarksObtained());
-        int totalMarks = Integer.parseInt(marksList.get(position).getTotalMarks());
-
-        float percentage = (marksObtained * 100) / totalMarks;
-        holder.percentage.setProgress((int) percentage, 100);
-
+        try {
+            float marksObtained = Float.parseFloat(marksList.get(position).getMarksObtained());
+            float totalMarks = Float.parseFloat(marksList.get(position).getTotalMarks());
+            float percentage = (marksObtained * 100) / totalMarks;
+            holder.percentage.setProgress((int) percentage, 100);
+        } catch (NumberFormatException e) {
+            holder.percentage.setProgress(0, 100);
+        }
     }
 
     @Override
