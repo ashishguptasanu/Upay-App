@@ -1,7 +1,15 @@
 package volunteer.upay.com.upay.activities.ui.addstudents;
 
-import androidx.lifecycle.ViewModel;
+import android.app.Application;
 
-public class AddStudentsViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+
+import volunteer.upay.com.upay.adapters.AddStudentsAdapter;
+
+public class AddStudentsViewModel extends AndroidViewModel {
+
+    public AddStudentsViewModel(@NonNull Application application) {
+        super(application);
+    }
 }
