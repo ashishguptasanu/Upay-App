@@ -25,5 +25,9 @@
         <item name="android:lines">3</item>
     </style>
 
+    <style name="FullEditBox">
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
 
 </resources>

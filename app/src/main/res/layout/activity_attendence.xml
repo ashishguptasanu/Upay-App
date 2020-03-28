@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_85"
-    tools:context="volunteer.upay.com.upay.Activities.VolunteerLogHistoryActivity">
+    tools:context="volunteer.upay.com.upay.activities.VolunteerLogHistoryActivity">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"

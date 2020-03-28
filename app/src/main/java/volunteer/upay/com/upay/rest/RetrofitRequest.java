@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
-import volunteer.upay.com.upay.Models.CenterListResponse;
-import volunteer.upay.com.upay.Models.GeneralResponseModel;
+import volunteer.upay.com.upay.models.CenterListResponse;
+import volunteer.upay.com.upay.models.GeneralResponseModel;
 
 /**
  * @author amanbansal

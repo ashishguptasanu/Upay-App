@@ -24,86 +24,87 @@
         android:roundIcon="@mipmap/upay_app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.WelcomeActivity">
+        <activity android:name=".activities.AddStudentsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.WelcomeActivity">
 
-        <service android:name=".Network.MyFirebaseInstanceIDService">
+        </activity>
+
+        <service android:name=".network.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".Network.MyFirebaseMessagingService">
+        <service android:name=".network.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <activity
-            android:name=".Activities.SignInActivity"
+            android:name=".activities.SignInActivity"
             android:label="Welcome to Upay" />
         <activity
-            android:name=".Activities.HomeActivity"
+            android:name=".activities.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.CenterActivity"
+            android:name=".activities.CenterActivity"
             android:label="Centers"
-            android:parentActivityName=".Activities.HomeActivity" />
+            android:parentActivityName=".activities.HomeActivity" />
         <activity
-            android:name=".Activities.VolunteerActivity"
+            android:name=".activities.VolunteerActivity"
             android:label="Volunteers" />
         <activity
-            android:name=".Activities.StudentActivity"
+            android:name=".activities.StudentActivity"
             android:label="Students" />
         <activity
-            android:name=".Activities.ImpContactsActivity"
+            android:name=".activities.ImpContactsActivity"
             android:label="Contact Details" />
         <activity
-            android:name=".Activities.MyCenterActivity"
+            android:name=".activities.MyCenterActivity"
             android:label="Sohna Road Center"
-            android:parentActivityName=".Activities.CenterActivity" />
+            android:parentActivityName=".activities.CenterActivity" />
         <activity
-            android:name=".Activities.AddStudent"
+            android:name=".activities.AddStudent"
             android:label="Add New Student"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Activities.AddVolunteer"
+            android:name=".activities.AddVolunteer"
             android:label="Add New Volunteer" />
         <activity
-            android:name=".Activities.VolunteerDetails"
+            android:name=".activities.VolunteerDetails"
             android:label="Volunteer Details" />
         <activity
-            android:name=".Activities.StudentDetails"
+            android:name=".activities.StudentDetails"
             android:label="Student Details" />
         <activity
-            android:name=".Activities.ZonalDetails"
+            android:name=".activities.ZonalDetails"
             android:label="@string/title_activity_zonal_details"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.ChatActivity"
+            android:name=".activities.ChatActivity"
             android:label="Center Chat" />
-        <activity android:name=".Activities.WebviewActivity" />
-
+        <activity android:name=".activities.WebviewActivity" />
         <activity
-            android:name=".Activities.StudentMarksDetails"
+            android:name=".activities.StudentMarksDetails"
             android:label="Student Report" />
         <activity
-            android:name=".Activities.AddStudentMarks"
+            android:name=".activities.AddStudentMarks"
             android:label="Add Student Marks" />
         <activity
-            android:name=".Activities.VolunteerLogFormActivity"
+            android:name=".activities.VolunteerLogFormActivity"
             android:label="Attendance" />
         <activity
-            android:name=".Activities.VolunteerLogHistoryActivity"
+            android:name=".activities.VolunteerLogHistoryActivity"
             android:label="History" />
         <activity
-            android:name=".Activities.StudentAttendanceActivity"
-            android:label="Student Attendance"></activity>
+            android:name=".activities.StudentAttendanceActivity"
+            android:label="Student Attendance" />
     </application>
 
 </manifest>

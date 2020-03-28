@@ -14,8 +14,8 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import volunteer.upay.com.upay.Models.CenterListResponse;
-import volunteer.upay.com.upay.Models.GeneralResponseModel;
+import volunteer.upay.com.upay.models.CenterListResponse;
+import volunteer.upay.com.upay.models.GeneralResponseModel;
 
 /**
  * @author amanbansal

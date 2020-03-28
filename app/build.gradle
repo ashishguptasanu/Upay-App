@@ -34,6 +34,9 @@ android {
             buildConfigField "int", "KEEP_ALIVE_DURATION", project.KEEP_ALIVE_DURATION
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 
@@ -41,6 +44,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.room:room-runtime:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     annotationProcessor 'androidx.room:room-compiler:2.0.0'
     implementation 'com.parse.bolts:bolts-tasks:1.4.0'
     implementation 'com.parse.bolts:bolts-applinks:1.4.0'

@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="volunteer.upay.com.upay.Activities.ZonalDetails">
+    tools:context="volunteer.upay.com.upay.activities.ZonalDetails">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

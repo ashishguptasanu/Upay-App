@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="volunteer.upay.com.upay.Activities.MyCenterActivity">
+    tools:context="volunteer.upay.com.upay.activities.MyCenterActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

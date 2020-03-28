@@ -7,11 +7,11 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import bolts.Task;
-import volunteer.upay.com.upay.Models.Centers;
-import volunteer.upay.com.upay.Models.Volunteer;
-import volunteer.upay.com.upay.localDb.CenterRepository;
-import volunteer.upay.com.upay.localDb.UpayDatabase;
-import volunteer.upay.com.upay.localDb.VolunteerRepository;
+import volunteer.upay.com.upay.models.Centers;
+import volunteer.upay.com.upay.models.Volunteer;
+import volunteer.upay.com.upay.localdb.CenterRepository;
+import volunteer.upay.com.upay.localdb.UpayDatabase;
+import volunteer.upay.com.upay.localdb.VolunteerRepository;
 
 public class FetchUtils {
 

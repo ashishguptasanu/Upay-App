@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import volunteer.upay.com.upay.Models.Centers;
+import volunteer.upay.com.upay.models.Centers;
 import volunteer.upay.com.upay.R;
 
 /**

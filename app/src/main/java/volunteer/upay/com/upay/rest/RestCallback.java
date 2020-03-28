@@ -3,7 +3,7 @@ package volunteer.upay.com.upay.rest;
 import android.content.Context;
 import retrofit2.Call;
 import retrofit2.Callback;
-import volunteer.upay.com.upay.Models.GeneralResponseModel;
+import volunteer.upay.com.upay.models.GeneralResponseModel;
 
 /**
  * @author amanbansal

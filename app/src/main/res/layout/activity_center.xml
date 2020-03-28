@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/bg_gray"
-    tools:context="volunteer.upay.com.upay.Activities.CenterActivity">
+    tools:context="volunteer.upay.com.upay.activities.CenterActivity">
 
     <EditText
         android:id="@+id/filterText"

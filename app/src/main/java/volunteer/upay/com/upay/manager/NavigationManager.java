@@ -2,14 +2,13 @@ package volunteer.upay.com.upay.manager;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
-import volunteer.upay.com.upay.Activities.CenterActivity;
-import volunteer.upay.com.upay.Activities.StudentActivity;
-import volunteer.upay.com.upay.Activities.VolunteerActivity;
-import volunteer.upay.com.upay.Activities.WebviewActivity;
-import volunteer.upay.com.upay.Models.CategoryModel;
+import volunteer.upay.com.upay.activities.CenterActivity;
+import volunteer.upay.com.upay.activities.StudentActivity;
+import volunteer.upay.com.upay.activities.VolunteerActivity;
+import volunteer.upay.com.upay.activities.WebviewActivity;
+import volunteer.upay.com.upay.models.CategoryModel;
 import volunteer.upay.com.upay.util.AppConstants;
 
 /**
