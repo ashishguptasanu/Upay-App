@@ -23,7 +23,6 @@ import volunteer.upay.com.upay.models.Student;
 
 public class AddStudentsFragment extends Fragment {
 
-    private AddStudentsViewModel mViewModel;
     private AddStudentsFragmentBinding mBinding;
     private AddStudentsAdapter addStudentsAdapter;
 
@@ -37,7 +36,7 @@ public class AddStudentsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         AddStudentsFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.add_students_fragment, container, false);
         mBinding = binding;
-        mViewModel = new ViewModelProvider(this).get(AddStudentsViewModel.class);
+        AddStudentsViewModel mViewModel = new ViewModelProvider(this).get(AddStudentsViewModel.class);
         binding.setViewModel(mViewModel);
         addStudentsAdapter = new AddStudentsAdapter(this, null);
         mBinding.recyclerView.setAdapter(addStudentsAdapter);
@@ -50,12 +49,15 @@ public class AddStudentsFragment extends Fragment {
             @Override
             public void onChanged(Student student) {
                 addStudentsAdapter.addItem(student);
-                mBinding.age.setText("");
-                mBinding.studentName.setText("");
-                mBinding.parentName.setText("");
+                clearFields();
             }
         };
     }
 
+    private void clearFields() {
+        mBinding.age.setText("");
+        mBinding.studentName.setText("");
+        mBinding.parentName.setText("");
+    }
 
 }
