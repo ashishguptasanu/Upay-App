@@ -54,6 +54,11 @@ public class AddStudentsAdapter extends RecyclerView.Adapter<AddStudentsAdapter.
         return studentList == null ? 0 : studentList.size();
     }
 
+    public void addItem(@NonNull Student student) {
+        studentList.add(0, student);
+        notifyItemInserted(0);
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private AddStudentItemBinding binding;
 

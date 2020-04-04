@@ -19,6 +19,12 @@ public class Student {
     String comments;
     boolean isSelected;
 
+    public Student(String studentName, String parentName, String age) {
+        this.studentName = studentName;
+        this.parentName = parentName;
+        this.age = age;
+    }
+
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
@@ -77,11 +83,9 @@ public class Student {
 
     public boolean containText(String text) {
         return (clss != null && clss.toLowerCase().contains(text.toLowerCase()))
-                || (age!= null && age.toLowerCase().contains(text.toLowerCase()))
+                || (age != null && age.toLowerCase().contains(text.toLowerCase()))
                 || (studentName != null && studentName.toLowerCase().contains(text.toLowerCase()));
     }
-
-
 
 
     public Student(String id, String studentName, String parentName, String age, String clss, String school, String centerName, String centerId, String zoneName, String zoneId, String photoUrl, String comments, boolean isSelected) {

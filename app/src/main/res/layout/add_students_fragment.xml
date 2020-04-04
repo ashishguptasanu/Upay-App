@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,16 +9,82 @@
             type="volunteer.upay.com.upay.activities.ui.addstudents.AddStudentsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/addstudents"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/addstudents"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:layout_height="match_parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="@dimen/sneekpeak_height"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <TextView
+                android:id="@+id/bottom_sheet_title"
+                style="@style/ItemTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_20dp"
+                android:text="@string/add_student"
+                android:textAlignment="center"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/student_name"
+                style="@style/FullEditBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/student_name"
+                android:nextFocusForward="@id/parent_name"
+                android:text="@={viewModel.studentName}"
+                app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_title" />
+
+            <EditText
+                android:id="@+id/parent_name"
+                style="@style/FullEditBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/parent_name"
+                android:nextFocusForward="@id/age"
+                android:text="@={viewModel.parentName}"
+                app:layout_constraintEnd_toStartOf="@+id/age"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/student_name" />
+
+            <EditText
+                android:id="@+id/age"
+                style="@style/FullEditBox"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/age"
+                android:text="@={viewModel.age}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/student_name" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@color/colorPrimary"
+                android:onClick="@{()-> viewModel.addStudent()}"
+                android:text="@string/add"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/age" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
