@@ -11,7 +11,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bg_gray">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/addstudents"
@@ -28,8 +29,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            app:behavior_hideable="true"
+            android:layout_height="300dp"
+            android:background="@drawable/top_rounded_white_bg"
+            app:behavior_hideable="false"
             app:behavior_peekHeight="@dimen/sneekpeak_height"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
@@ -51,7 +53,9 @@
                 android:hint="@string/student_name"
                 android:nextFocusForward="@id/parent_name"
                 android:text="@={viewModel.studentName}"
-                app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_title" />
+                app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_title">
+                <requestFocus />
+            </EditText>
 
             <EditText
                 android:id="@+id/parent_name"

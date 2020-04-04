@@ -58,6 +58,7 @@ public class AddStudentsFragment extends Fragment {
         mBinding.age.setText("");
         mBinding.studentName.setText("");
         mBinding.parentName.setText("");
+        mBinding.studentName.requestFocus();
     }
 
 }
