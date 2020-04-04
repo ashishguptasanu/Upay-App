@@ -3,6 +3,7 @@ package volunteer.upay.com.upay.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -17,6 +18,7 @@ public class Utilities {
 
     public final static String TOKEN = "d75542712c868c1690110db641ba01a";
 
+    public static final String URL = "https://upay-student-mgmt.herokuapp.com/";
 
     public static Map<String, String> getHeaderMap() {
         Map<String, String> headerMap = new HashMap<>();

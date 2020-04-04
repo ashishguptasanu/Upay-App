@@ -1,6 +1,7 @@
 package volunteer.upay.com.upay.rest;
 
 
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -14,8 +15,10 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 import volunteer.upay.com.upay.models.CenterListResponse;
 import volunteer.upay.com.upay.models.GeneralResponseModel;
+import volunteer.upay.com.upay.models.StudentRemoteModel;
 
 /**
  * @author amanbansal
@@ -53,6 +56,9 @@ public interface ApiInterfaceRetrofit {
     @FormUrlEncoded
     @POST("delete_student.php")
     Call<GeneralResponseModel> deleteStudent(@HeaderMap Map<String, String> headerMap, @Field(value = "student_id") String studentId);
+
+    @POST("/students/upload")
+    Call<GeneralResponseModel> addStudents(@HeaderMap Map<String, String> headerMap, @Body List<StudentRemoteModel> studentRemoteModels);
 
 
 }

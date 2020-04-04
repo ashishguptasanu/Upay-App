@@ -74,6 +74,6 @@ public class AddStudentsFragment extends Fragment {
     }
 
     public void uploadStudentsData() {
-        mViewModel.uploadStudentsData();
+        mViewModel.uploadStudentsData(addStudentsAdapter.getStudentList());
     }
 }

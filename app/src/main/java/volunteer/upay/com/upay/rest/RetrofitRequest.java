@@ -2,11 +2,17 @@ package volunteer.upay.com.upay.rest;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.HeaderMap;
+import retrofit2.http.Url;
 import volunteer.upay.com.upay.models.CenterListResponse;
 import volunteer.upay.com.upay.models.GeneralResponseModel;
+import volunteer.upay.com.upay.models.StudentRemoteModel;
+import volunteer.upay.com.upay.util.Utilities;
 
 /**
  * @author amanbansal
@@ -15,7 +21,7 @@ import volunteer.upay.com.upay.models.GeneralResponseModel;
  */
 public class RetrofitRequest {
 
-    private static ApiInterfaceRetrofit requestInterface = RetrofitAdapter.getRetrofit(null).create(ApiInterfaceRetrofit.class);
+    private static ApiInterfaceRetrofit requestInterface = RetrofitAdapter.getRetrofit(Utilities.URL).create(ApiInterfaceRetrofit.class);
 
     public static Call<GeneralResponseModel> registerUser(String endpoint, HashMap<String, Object> params) {
         return requestInterface.registerUser(endpoint, new RetrofitFieldMap(params).getParams());
@@ -40,8 +46,13 @@ public class RetrofitRequest {
     public static Call<GeneralResponseModel> deleteVolunteer(Map<String, String> headers, String volunteerId) {
         return requestInterface.deleteVolunteer(headers, volunteerId);
     }
+
     public static Call<GeneralResponseModel> deleteStudent(Map<String, String> headers, String studentId) {
         return requestInterface.deleteStudent(headers, studentId);
+    }
+
+    public static Call<GeneralResponseModel> addStudents(@HeaderMap Map<String, String> headerMap, @Body List<StudentRemoteModel> studentRemoteModels) {
+        return requestInterface.addStudents(headerMap,  studentRemoteModels);
     }
 
 }

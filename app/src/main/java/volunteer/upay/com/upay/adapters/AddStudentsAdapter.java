@@ -31,6 +31,10 @@ public class AddStudentsAdapter extends RecyclerView.Adapter<AddStudentsAdapter.
         }
     }
 
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
