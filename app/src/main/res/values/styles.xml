@@ -28,7 +28,6 @@
     <style name="FullEditBox">
         <item name="android:layout_margin">10dp</item>
         <item name="android:padding">10dp</item>
-        <item name="android:background">@color/white</item>
         <item name="android:imeOptions">actionNext</item>
         <item name="android:maxLines">1</item>
     </style>
@@ -43,7 +42,6 @@
 
     <style name="ItemSubTitle">
         <item name="textSize">15sp</item>
-
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">10dp</item>
         <item name="android:layout_marginBottom">10dp</item>

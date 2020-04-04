@@ -51,4 +51,8 @@ public class AddStudentsViewModel extends AndroidViewModel {
         Student student = new Student(studentName, parentName, age);
         studentLiveData.postValue(student);
     }
+
+    public void uploadStudentsData() {
+
+    }
 }

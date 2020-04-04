@@ -1,5 +1,6 @@
 package volunteer.upay.com.upay.activities.ui.addstudents;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
 import volunteer.upay.com.upay.R;
 import volunteer.upay.com.upay.adapters.AddStudentsAdapter;
 import volunteer.upay.com.upay.databinding.AddStudentsFragmentBinding;
@@ -25,6 +28,8 @@ public class AddStudentsFragment extends Fragment {
 
     private AddStudentsFragmentBinding mBinding;
     private AddStudentsAdapter addStudentsAdapter;
+    private AddStudentsViewModel mViewModel;
+    private BottomSheetBehavior<ConstraintLayout> mBottomSheetBehaviour;
 
     public static AddStudentsFragment newInstance() {
         return new AddStudentsFragment();
@@ -36,21 +41,28 @@ public class AddStudentsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         AddStudentsFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.add_students_fragment, container, false);
         mBinding = binding;
-        AddStudentsViewModel mViewModel = new ViewModelProvider(this).get(AddStudentsViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(AddStudentsViewModel.class);
         binding.setViewModel(mViewModel);
         addStudentsAdapter = new AddStudentsAdapter(this, null);
         mBinding.recyclerView.setAdapter(addStudentsAdapter);
+        mBinding.bottomSheetTitle.setOnClickListener((view) -> expandBottomSheet());
         mViewModel.studentLiveData.observe(getViewLifecycleOwner(), getObserver());
+        mBottomSheetBehaviour = BottomSheetBehavior.from(mBinding.bottomSheet);
         return binding.getRoot();
     }
 
+    private void expandBottomSheet() {
+        if (mBottomSheetBehaviour.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            mBottomSheetBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        } else {
+            mBottomSheetBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }
+    }
+
     private Observer<Student> getObserver() {
-        return new Observer<Student>() {
-            @Override
-            public void onChanged(Student student) {
-                addStudentsAdapter.addItem(student);
-                clearFields();
-            }
+        return (student) -> {
+            addStudentsAdapter.addItem(student);
+            clearFields();
         };
     }
 
@@ -61,4 +73,7 @@ public class AddStudentsFragment extends Fragment {
         mBinding.studentName.requestFocus();
     }
 
+    public void uploadStudentsData() {
+        mViewModel.uploadStudentsData();
+    }
 }

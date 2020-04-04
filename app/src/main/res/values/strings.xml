@@ -138,4 +138,5 @@
     <string name="parent_name">Parent Name</string>
     <string name="age">Age</string>
     <string name="add">Add</string>
+    <string name="upload">Upload</string>
 </resources>

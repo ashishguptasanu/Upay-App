@@ -28,6 +28,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:background="@drawable/top_rounded_white_bg"
