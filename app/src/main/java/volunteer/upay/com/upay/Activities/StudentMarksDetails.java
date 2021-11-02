@@ -24,6 +24,7 @@ import volunteer.upay.com.upay.Adapters.StudentMarksAdapter;
 import volunteer.upay.com.upay.Models.Marks;
 import volunteer.upay.com.upay.Models.Student;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.rest.RetrofitAdapter;
 
 public class StudentMarksDetails extends AppCompatActivity {
     OkHttpClient client = new OkHttpClient();
@@ -47,7 +48,7 @@ public class StudentMarksDetails extends AppCompatActivity {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("student_id", studentId)
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/get_student_marks.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(RetrofitAdapter.BASE_URL+ "/get_student_marks.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override

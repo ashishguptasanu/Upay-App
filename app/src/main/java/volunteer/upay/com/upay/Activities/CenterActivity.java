@@ -23,6 +23,7 @@ import okhttp3.RequestBody;
 import volunteer.upay.com.upay.Adapters.AdapterCenters;
 import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.rest.RetrofitAdapter;
 
 public class CenterActivity extends AppCompatActivity {
     OkHttpClient client = new OkHttpClient();
@@ -51,7 +52,7 @@ public class CenterActivity extends AppCompatActivity {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("null", "")
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/get_center_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(RetrofitAdapter.BASE_URL+ "/get_center_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override

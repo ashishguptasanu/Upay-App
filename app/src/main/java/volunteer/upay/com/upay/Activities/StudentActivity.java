@@ -26,6 +26,7 @@ import volunteer.upay.com.upay.Adapters.StudentsAdapter;
 import volunteer.upay.com.upay.Models.Centers;
 import volunteer.upay.com.upay.Models.Student;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.rest.RetrofitAdapter;
 
 public class StudentActivity extends BaseFilterActivity {
     OkHttpClient client = new OkHttpClient();
@@ -53,7 +54,7 @@ public class StudentActivity extends BaseFilterActivity {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("center_id", center_id)
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url) + "/get_students_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(RetrofitAdapter.BASE_URL + "/get_students_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override

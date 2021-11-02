@@ -59,6 +59,7 @@ import volunteer.upay.com.upay.Models.CategoryModel;
 import volunteer.upay.com.upay.Models.Volunteer;
 import volunteer.upay.com.upay.Models.Zones;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.rest.RetrofitAdapter;
 import volunteer.upay.com.upay.util.AppConstants;
 
 public class HomeActivity extends AppCompatActivity
@@ -260,7 +261,7 @@ public class HomeActivity extends AppCompatActivity
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("zone_id", zone_id)
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url) + "/get_zone_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(RetrofitAdapter.BASE_URL + "/get_zone_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override

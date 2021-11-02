@@ -43,6 +43,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.rest.RetrofitAdapter;
 
 public class AddStudent extends AppCompatActivity implements View.OnClickListener, PermissionListener{
     EditText edtName, edtParentName, edtAge, edtClss, edtSchool, edtComments;
@@ -178,7 +179,7 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
                 .addFormDataPart("comments", comments)
                 .addFormDataPart("added_by", sharedPreferences.getString("login_email",""))
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "//submit_students_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(RetrofitAdapter.BASE_URL+ "//submit_students_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override
@@ -303,7 +304,7 @@ public class AddStudent extends AppCompatActivity implements View.OnClickListene
                         RequestBody.create(MediaType.parse("image/jpeg"), file))
                 .build();
         Request request = new Request.Builder()
-                .url(getResources().getString(R.string.base_url)+"/upload_photo.php")
+                .url(RetrofitAdapter.BASE_URL+"/upload_photo.php")
                 .addHeader("Token", getResources().getString(R.string.token))
                 .post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
