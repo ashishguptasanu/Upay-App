@@ -133,7 +133,7 @@ public class HomeActivity extends AppCompatActivity
 
     private void initviews() {
         imgBanner = findViewById(R.id.img_banner);
-        Glide.with(getApplicationContext()).load("https://www.upay.org.in/images/vinay/IMG_20170319_074547.jpg")
+        Glide.with(getApplicationContext()).load("https://www.upay.org.in/wp-content/uploads/2020/03/volunteers-1200x800.jpg")
                 .placeholder(R.drawable.upay)
                 .into(imgBanner);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_zones);
