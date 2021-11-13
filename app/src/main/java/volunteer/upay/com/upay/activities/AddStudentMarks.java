@@ -28,6 +28,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.rest.RetrofitAdapter;
 
 public class AddStudentMarks extends AppCompatActivity implements VerticalStepperForm {
     private VerticalStepperFormLayout verticalStepperForm;
@@ -171,7 +172,7 @@ public class AddStudentMarks extends AppCompatActivity implements VerticalSteppe
                     .addFormDataPart("submitted_date", testDate.getText().toString())
                     .addFormDataPart("submitted_by", sharedPreferences.getString("login_email",""))
                     .build();
-            Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/submit_student_marks.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+            Request request = new Request.Builder().url(RetrofitAdapter.BASE_URL+ "/submit_student_marks.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
             okhttp3.Call call = client.newCall(request);
             call.enqueue(new okhttp3.Callback() {
                              @Override

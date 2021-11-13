@@ -27,7 +27,8 @@ import volunteer.upay.com.upay.BuildConfig;
  */
 public class RetrofitAdapter {
 
-    final static String BASE_URL = "https://www.upay.org.in/api/v1.0/";
+    //    final static String BASE_URL = "https://www.upay.org.in/api/v1.0/";
+    public final static String BASE_URL = "https://contribute-testing.upay.org.in/mobileapis/";
     static int DEFAULT_READ_TIMEOUT = 90; //90 Seconds
 
 

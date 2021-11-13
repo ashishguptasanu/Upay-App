@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,10 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.My
     public void onBindViewHolder(@NonNull AdapterCategories.MyViewHolder holder, int position) {
         CategoryModel categoryModel = categories.get(position);
         holder.tvCategories.setText(categoryModel.getCategory());
-        Glide.with(context).load(categoryModel.getIconUrl()).into(holder.imgCategories);
+        Glide.with(context)
+                .load(categoryModel.getIconUrl())
+                .fitCenter()
+                .into(holder.imgCategories);
         Glide.with(context)
                 .load(categoryModel.getBackgroundUrl())
                 .placeholder(R.drawable.upay)

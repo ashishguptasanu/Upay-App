@@ -32,6 +32,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.rest.RetrofitAdapter;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener{
     OkHttpClient client = new OkHttpClient();
@@ -149,7 +150,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 .addFormDataPart("email_volunteer", email)
                 .addFormDataPart("password", password)
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/sign_in_volunteer.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(RetrofitAdapter.BASE_URL+ "/sign_in_volunteer.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override
@@ -235,7 +236,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 .addFormDataPart("phone", phone)
                 .addFormDataPart("password", password)
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/sign_up_volunteer.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(RetrofitAdapter.BASE_URL+ "/sign_up_volunteer.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override

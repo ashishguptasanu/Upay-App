@@ -4,12 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +38,7 @@ import okhttp3.RequestBody;
 import volunteer.upay.com.upay.adapters.AttendanceAdapter;
 import volunteer.upay.com.upay.models.Student;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.rest.RetrofitAdapter;
 
 public class StudentAttendanceActivity extends AppCompatActivity {
     OkHttpClient client = new OkHttpClient();
@@ -70,7 +77,7 @@ public class StudentAttendanceActivity extends AppCompatActivity {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("center_id", center_id)
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url) + "/get_students_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(RetrofitAdapter.BASE_URL + "/get_students_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override
@@ -170,7 +177,7 @@ public class StudentAttendanceActivity extends AppCompatActivity {
     private void postAttendanceData(final JSONObject jsonObject) {
         showToast("Please Wait..");
         OkHttpClient client = new OkHttpClient();
-        String POST_URL = getResources().getString(R.string.base_url) + "/submit_student_attendance.php";
+        String POST_URL = RetrofitAdapter.BASE_URL + "/submit_student_attendance.php";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
         okhttp3.RequestBody requestBody = RequestBody.create(JSON, jsonObject.toString());

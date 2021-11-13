@@ -48,6 +48,7 @@ import volunteer.upay.com.upay.models.CategoryModel;
 import volunteer.upay.com.upay.models.Zones;
 import volunteer.upay.com.upay.R;
 import volunteer.upay.com.upay.manager.NavigationManager;
+import volunteer.upay.com.upay.rest.RetrofitAdapter;
 import volunteer.upay.com.upay.util.AppConstants;
 
 public class HomeActivity extends AppCompatActivity
@@ -121,7 +122,7 @@ public class HomeActivity extends AppCompatActivity
 
     private void initviews() {
         imgBanner = findViewById(R.id.img_banner);
-        Glide.with(getApplicationContext()).load("https://www.upay.org.in/wp-content/uploads/slider5/1011639_602810313103800_2114245395_n.jpeg")
+        Glide.with(getApplicationContext()).load("https://www.upay.org.in/wp-content/uploads/2020/03/volunteers-1200x800.jpg")
                 .placeholder(R.drawable.upay)
                 .into(imgBanner);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_zones);
@@ -246,7 +247,7 @@ public class HomeActivity extends AppCompatActivity
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("zone_id", zone_id)
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url) + "/get_zone_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(RetrofitAdapter.BASE_URL + "/get_zone_details.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override

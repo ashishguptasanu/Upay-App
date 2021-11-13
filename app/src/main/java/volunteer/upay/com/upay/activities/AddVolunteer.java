@@ -28,6 +28,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import volunteer.upay.com.upay.R;
+import volunteer.upay.com.upay.rest.RetrofitAdapter;
 
 public class AddVolunteer extends AppCompatActivity implements View.OnClickListener{
     EditText edtEmail, edtUpayId;
@@ -119,7 +120,7 @@ public class AddVolunteer extends AppCompatActivity implements View.OnClickListe
                 .addFormDataPart("zone_name", sharedPreferences.getString("zone_name",""))
                 .addFormDataPart("zone_id", String.valueOf(sharedPreferences.getInt("zone_id",0)))
                 .build();
-        Request request = new Request.Builder().url(getResources().getString(R.string.base_url)+ "/add_volunteer_admin.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
+        Request request = new Request.Builder().url(RetrofitAdapter.BASE_URL+ "/add_volunteer_admin.php").addHeader("Token", getResources().getString(R.string.token)).post(requestBody).build();
         okhttp3.Call call = client.newCall(request);
         call.enqueue(new okhttp3.Callback() {
                          @Override

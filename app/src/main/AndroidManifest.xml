@@ -24,14 +24,12 @@
         android:roundIcon="@mipmap/upay_app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.AddStudentsActivity">
+        <activity android:name=".activities.AddStudentsActivity" />
+        <activity android:name=".activities.WelcomeActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".activities.WelcomeActivity">
-
         </activity>
 
         <service android:name=".network.MyFirebaseInstanceIDService">
@@ -47,7 +45,9 @@
 
         <activity
             android:name=".activities.SignInActivity"
-            android:label="Welcome to Upay" />
+            android:label="Welcome to Upay">
+
+        </activity>
         <activity
             android:name=".activities.HomeActivity"
             android:label="@string/title_activity_home"
